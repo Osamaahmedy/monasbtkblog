@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import '../css/app.css';
 import Header from './Components/Header';
 import Hero from './Components/Hero';
+import AboutUs from './Components/AboutUs';
 
 const App = () => {
     const [lang, setLang] = useState('en');
@@ -24,6 +25,7 @@ const App = () => {
                     <Hero lang={lang} />
                 </div>
             </div>
+            <AboutUs lang={lang} />
         </div>
     );
 };
