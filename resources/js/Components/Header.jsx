@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { LanguageIcon, MenuIcon } from './Icons';
 import { translations } from '../translations';
+import monasbtkIcon from '../../icons/monasbtk_white_icon.png';
 
 const Header = ({ lang, toggleLanguage }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,7 +18,10 @@ const Header = ({ lang, toggleLanguage }) => {
     return (
         <>
             <nav className="flex items-center justify-between">
-                <div className="text-2xl font-bold">Monasbtk</div>
+                <div className="flex items-center gap-2">
+                    <img src={monasbtkIcon} alt="Monasbtk Logo" className="h-8 w-8" />
+                    <div className="text-2xl font-bold">Monasbtk</div>
+                </div>
                 <div className="hidden md:flex items-center space-x-8 rtl:space-x-reverse font-mikhak-medium">
                     {navLinks.map((link) => (
                         <a key={link.name} href={link.href} className="hover:text-gray-300 transition-colors">{link.name}</a>
