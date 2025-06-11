@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { translations } from '../translations';
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 
 // --- Offer Icon Imports ---
 import cameraIcon from '../../icons/occasion_offers_icon/camera.png';
@@ -50,26 +51,41 @@ const occasionOffersData = {
 const OccasionOffersSection = ({ lang }) => {
     const t = translations[lang].offers;
     const [activeTab, setActiveTab] = useState('birthday');
+    const [sectionRef, isVisible] = useIntersectionObserver({
+        threshold: 0.2,
+        rootMargin: '-100px'
+    });
 
     const tabs = Object.keys(occasionOffersData);
 
     return (
         <motion.section
+            ref={sectionRef}
             className="py-12 sm:py-16 lg:py-20 bg-gray-50"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             transition={{ duration: 0.8 }}
         >
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div className="text-center">
+                <motion.div 
+                    className="text-center"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                    transition={{ duration: 0.6 }}
+                >
                     <h2 className="text-3xl font-mikhak-bold tracking-tight text-gray-900 sm:text-4xl">
                         {t.title}
                     </h2>
-                </div>
+                </motion.div>
 
                 {/* Tabs */}
-                <div className="mt-10 flex flex-wrap justify-center gap-2 sm:gap-4">
+                <motion.div 
+                    className="mt-10 flex flex-wrap justify-center gap-2 sm:gap-4"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                >
                     {tabs.map((tabKey) => (
                         <button
                             key={tabKey}
@@ -88,10 +104,15 @@ const OccasionOffersSection = ({ lang }) => {
                             <span className="relative z-10">{t.tabs[tabKey]}</span>
                         </button>
                     ))}
-                </div>
+                </motion.div>
 
                 {/* Offers Grid */}
-                <div className="mt-10">
+                <motion.div 
+                    className="mt-10"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                >
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={activeTab}
@@ -114,7 +135,7 @@ const OccasionOffersSection = ({ lang }) => {
                             ))}
                         </motion.div>
                     </AnimatePresence>
-                </div>
+                </motion.div>
             </div>
         </motion.section>
     );
