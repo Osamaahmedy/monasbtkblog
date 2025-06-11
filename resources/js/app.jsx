@@ -4,6 +4,7 @@ import '../css/app.css';
 import Header from './Components/Header';
 import Hero from './Components/Hero';
 import AboutUs from './Components/AboutUs';
+import OccasionsSection from './Components/OccasionsSection';
 
 const App = () => {
     const [lang, setLang] = useState('en');
@@ -28,6 +29,7 @@ const App = () => {
                     <AboutUs lang={lang} />
                 </div>
             </div>
+            <OccasionsSection lang={lang} />
         </div>
     );
 };

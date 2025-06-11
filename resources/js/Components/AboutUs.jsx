@@ -10,9 +10,10 @@ const AboutUs = ({ lang }) => {
         <section className="py-20 text-white">
             <div className="container mx-auto px-4">
                 <motion.div
+                    key={lang} // Re-trigger animation on language change
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: false }} // Allow animation to re-run
                     transition={{ duration: 0.8 }}
                     className="max-w-3xl mx-auto text-center"
                 >

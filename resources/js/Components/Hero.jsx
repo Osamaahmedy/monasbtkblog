@@ -10,8 +10,10 @@ const Hero = ({ lang }) => {
         <main className="mt-16 md:mt-24 flex flex-col md:flex-row items-center justify-between">
             {/* Left Side: Headline and Download Buttons */}
             <motion.div
+                key={lang} // Re-trigger animation on language change
                 initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: false }} // Allow animation to re-run
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="text-center md:text-start md:w-1/2"
             >
