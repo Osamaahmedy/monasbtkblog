@@ -5,6 +5,7 @@ import Header from './Components/Header';
 import Hero from './Components/Hero';
 import AboutUs from './Components/AboutUs';
 import OccasionsSection from './Components/OccasionsSection';
+import OccasionOffersSection from './Components/OccasionOffersSection';
 
 const App = () => {
     const [lang, setLang] = useState('en');
@@ -30,6 +31,7 @@ const App = () => {
                 </div>
             </div>
             <OccasionsSection lang={lang} />
+            <OccasionOffersSection lang={lang} />
         </div>
     );
 };

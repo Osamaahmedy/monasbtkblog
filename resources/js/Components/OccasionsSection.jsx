@@ -12,6 +12,7 @@ import motherIcon from '../../icons/occasions-mother.svg';
 import fatherIcon from '../../icons/occasions-father.svg';
 import marriageIcon from '../../icons/occasions-marriage.svg';
 import babyIcon from '../../icons/occasions-sex.svg';
+import anniversaryIcon from '../../icons/marriage_anniversary.png';
 
 // --- Main Component ---
 
@@ -27,6 +28,7 @@ const OccasionsSection = ({ lang }) => {
         { key: 'father', icon: fatherIcon },
         { key: 'marriage', icon: marriageIcon },
         { key: 'baby', icon: babyIcon },
+        { key: 'anniversary', icon: anniversaryIcon },
     ];
 
     const sectionVariants = {
