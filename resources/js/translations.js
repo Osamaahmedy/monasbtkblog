@@ -85,7 +85,34 @@ export const translations = {
             line1: 'Arranging events is easier with Monasaba',
             line2: 'Tech',
             wordmark: 'Monasaba Tech'
-        }
+        },
+        howToOrder: {
+            title: 'How to Order?',
+            subtitle: 'Follow these simple steps to plan your perfect event with our app',
+            steps: {
+                step1: {
+                    title: 'Pick an Occasion',
+                    description: 'Choose the event you want to celebrate.'
+                },
+                step2: {
+                    title: 'Browse & Select',
+                    description: 'Explore services and products.'
+                },
+                step3: {
+                    title: 'Book Instantly',
+                    description: 'Confirm your order in one tap.'
+                },
+                step4: {
+                    title: 'Track & Manage',
+                    description: 'Stay updated and enjoy your event.'
+                }
+            }
+        },
+        downloadApp: {
+            title: "Start Organizing Your Event Now",
+            subtitle: "Download the app and enjoy organizing your event with ease",
+            getApp: "Get the App"
+        },
     },
     ar: {
         nav: {
@@ -173,6 +200,38 @@ export const translations = {
             line1: 'تنظيم المناسبات أسهل مع مناسبة',
             line2: 'تك',
             wordmark: 'مناسبة تك'
-        }
+        },
+        howToOrder: {
+            title: 'كيفية الطلب؟',
+            subtitle: 'اتبع هذه الخطوات البسيطة لتخطيط مناسبتك المثالية باستخدام تطبيقنا',
+            steps: {
+                step1: {
+                    title: 'اختر مناسبة',
+                    description: 'اختر الحدث الذي تريد الاحتفال به.'
+                },
+                step2: {
+                    title: 'تصفح واختر',
+                    description: 'استكشف الخدمات والمنتجات.'
+                },
+                step3: {
+                    title: 'احجز فورا',
+                    description: 'أكد طلبك بنقرة واحدة.'
+                },
+                step4: {
+                    title: 'تتبع وأدر',
+                    description: 'ابق على اطلاع واستمتع بمناسبتك.'
+                }
+            }
+        },
+        downloadApp: {
+            title: "ابدأ بتنظيم حدثك الآن",
+            subtitle: "قم بتحميل التطبيق واستمتع بتنظيم حدثك بكل سهولة",
+            getApp: "احصل على التطبيق"
+        },
     },
 };
+
+
+
+
+

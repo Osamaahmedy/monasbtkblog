@@ -8,6 +8,8 @@ import OccasionsSection from './Components/OccasionsSection';
 import OccasionOffersSection from './Components/OccasionOffersSection';
 import MiddleBannerSection from './Components/MiddleBannerSection';
 import FeaturesSection from './Components/FeaturesSection';
+import HowToOrderSection from './Components/HowToOrderSection';
+import DownloadAppSection from './Components/DownloadAppSection';
 
 const App = () => {
     const [lang, setLang] = useState('en');
@@ -35,6 +37,8 @@ const App = () => {
             <OccasionsSection lang={lang} />
             <OccasionOffersSection lang={lang} />
             <FeaturesSection lang={lang} />
+            <HowToOrderSection lang={lang} />
+            <DownloadAppSection lang={lang} />
             <MiddleBannerSection lang={lang} />
         </div>
     );
@@ -42,3 +46,5 @@ const App = () => {
 
 const root = ReactDOM.createRoot(document.getElementById('app'));
 root.render(<App />);
+
+
