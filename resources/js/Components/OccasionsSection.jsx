@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { translations } from '../translations';
+import OccasionsPhoneMockup from './OccasionsPhoneMockup';
 
 // --- Icon Imports ---
 import birthdayIcon from '../../icons/occasions-birthday.svg';
@@ -52,39 +53,49 @@ const OccasionsSection = ({ lang }) => {
             viewport={{ once: false }} // Allow animation to re-run
         >
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div className="text-center">
-                    <h2 className="text-3xl font-mikhak-bold tracking-tight text-gray-900 sm:text-4xl">
-                        {t.title}
-                    </h2>
-                    <p className="mt-4 font-mikhak-regular text-lg leading-8 text-gray-600">
-                        {t.subtitle}
-                    </p>
-                </div>
-
-                {/* --- Single Responsive Grid --- */}
-                <motion.div
-                    className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 sm:gap-6"
-                    variants={sectionVariants} // Use same container variants for staggering
-                >
-                    {occasions.map((occasion) => (
+                <div className="flex flex-wrap justify-center items-center gap-x-12 gap-y-10">
+                    {/* Left Side: Title, Subtitle, and Grid */}
+                    <div className="flex-1 min-w-[320px] max-w-2xl">
+                        <div className="text-center lg:text-start">
+                            <h2 className="text-3xl font-mikhak-bold tracking-tight text-gray-900 sm:text-4xl">
+                                {t.title}
+                            </h2>
+                            <p className="mt-4 font-mikhak-regular text-lg leading-8 text-gray-600">
+                                {t.subtitle}
+                            </p>
+                        </div>
                         <motion.div
-                            key={occasion.key}
-                            variants={cardVariants}
-                            whileHover={{ y: -5, scale: 1.05, borderColor: '#8B5CF6' }}
-                            transition={{ duration: 0.3 }}
-                            className="flex flex-col items-center justify-center text-center p-6 bg-gray-50 border border-gray-200 rounded-2xl cursor-pointer"
+                            className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3"
+                            variants={sectionVariants}
                         >
-                            <img
-                                className="h-16 w-16"
-                                src={occasion.icon}
-                                alt={t[occasion.key]}
-                            />
-                            <h3 className="mt-4 font-mikhak-medium text-gray-800">
-                                {t[occasion.key]}
-                            </h3>
+                            {occasions.map((occasion) => (
+                                <motion.div
+                                    key={occasion.key}
+                                    variants={cardVariants}
+                                    whileHover={{ y: -5, scale: 1.05, borderColor: '#8B5CF6' }}
+                                    transition={{ duration: 0.3 }}
+                                    className="flex flex-col items-center justify-center text-center p-8 bg-gray-50 border border-gray-200 rounded-2xl cursor-pointer"
+                                >
+                                    <img
+                                        className="h-20 w-20"
+                                        src={occasion.icon}
+                                        alt={t[occasion.key]}
+                                    />
+                                    <h3 className="mt-5 text-lg font-mikhak-medium text-gray-800">
+                                        {t[occasion.key]}
+                                    </h3>
+                                </motion.div>
+                            ))}
                         </motion.div>
-                    ))}
-                </motion.div>
+                    </div>
+
+                    {/* Right Side: Phone Mockup */}
+                    <div className="hidden lg:flex justify-center">
+                        <div className="w-72">
+                             <OccasionsPhoneMockup />
+                        </div>
+                    </div>
+                </div>
             </div>
         </motion.section>
     );
