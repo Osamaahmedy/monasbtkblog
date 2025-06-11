@@ -80,6 +80,11 @@ export const translations = {
                 title: 'Secure Payments',
                 description: 'Pay with Mada, Visa, MasterCard, Apple Pay.'
             }
+            },
+        middleBanner: {
+            line1: 'Arranging events is easier with Monasaba',
+            line2: 'Tech',
+            wordmark: 'Monasaba Tech'
         }
     },
     ar: {
@@ -163,6 +168,11 @@ export const translations = {
                 title: 'مدفوعات آمنة',
                 description: 'ادفع بواسطة مدى، فيزا، ماستركارد، آبل باي.'
             }
+             },
+        middleBanner: {
+            line1: 'تنظيم المناسبات أسهل مع مناسبة',
+            line2: 'تك',
+            wordmark: 'مناسبة تك'
         }
     },
 };

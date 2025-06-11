@@ -3,9 +3,6 @@ import { motion } from 'framer-motion';
 import { translations } from '../translations';
 
 const FeatureCard = ({ icon, title, description, index }) => {
-    // Split title into individual characters for the typing animation
-    const titleChars = title.split('');
-    
     return (
         <motion.div
             variants={{
@@ -29,65 +26,24 @@ const FeatureCard = ({ icon, title, description, index }) => {
                 boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
                 transition: { duration: 0.3 }
             }}
-            className="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center transform transition-all duration-300 relative overflow-hidden"
+            className="bg-white rounded-xl p-6 shadow-lg flex flex-col items-center text-center"
         >
-            {/* Background animation */}
-            <motion.div 
-                className="absolute inset-0 bg-gradient-to-br from-[#F6F2F9] to-white opacity-50"
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-            />
+            {/* Icon */}
+            <div className="text-4xl mb-4">{icon}</div>
             
-            {/* Icon with pulse and float animation */}
-            <motion.div 
-                className="text-4xl mb-4 relative z-10"
-                animate={{ 
-                    rotate: [0, 10, 0],
-                    y: [0, -5, 0],
-                    scale: [1, 1.1, 1]
-                }}
+            {/* Title - simplified for Arabic compatibility */}
+            <motion.h3 
+                className="text-xl font-bold text-[#6B1D8E] mb-2 font-mikhak-bold"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ 
-                    repeat: Infinity, 
-                    duration: 3, 
-                    repeatType: "reverse",
-                    times: [0, 0.5, 1]
+                    delay: (index * 0.1) + 0.3,
+                    duration: 0.3
                 }}
+                viewport={{ once: false }}
             >
-                {icon}
-                
-                {/* Pulse effect */}
-                <motion.div
-                    className="absolute inset-0 rounded-full bg-[#F6F2F9] -z-10"
-                    animate={{
-                        scale: [1, 1.5, 1],
-                        opacity: [0.7, 0, 0.7]
-                    }}
-                    transition={{
-                        repeat: Infinity,
-                        duration: 2,
-                        ease: "easeInOut"
-                    }}
-                />
-            </motion.div>
-            
-            {/* Title with typing effect */}
-            <h3 className="text-xl font-bold text-[#6B1D8E] mb-2 font-mikhak-bold flex justify-center flex-wrap">
-                {titleChars.map((char, i) => (
-                    <motion.span
-                        key={i}
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ 
-                            delay: (index * 0.1) + 0.3 + (i * 0.03),
-                            duration: 0.2
-                        }}
-                        viewport={{ once: false }}
-                    >
-                        {char === ' ' ? '\u00A0' : char}
-                    </motion.span>
-                ))}
-            </h3>
+                {title}
+            </motion.h3>
             
             {/* Description */}
             <motion.p 
@@ -185,6 +141,14 @@ const AppMockup = ({ lang }) => (
 const FeaturesSection = ({ lang }) => {
     const t = translations[lang].features;
     
+    // Add this to force re-render when language changes
+    const [key, setKey] = React.useState(0);
+    
+    React.useEffect(() => {
+        // Force component to re-render completely when language changes
+        setKey(prevKey => prevKey + 1);
+    }, [lang]);
+    
     const features = [
         {
             icon: '🎪',
@@ -233,12 +197,12 @@ const FeaturesSection = ({ lang }) => {
 
     return (
         <motion.section 
+            key={`features-${lang}-${key}`} // Add dynamic key based on language
             className="py-16 overflow-hidden relative"
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, margin: "-100px" }}
-            key={lang} // Re-trigger animation on language change
         >
             {/* Animated background */}
             <motion.div 
@@ -389,3 +353,5 @@ const FeaturesSection = ({ lang }) => {
 };
 
 export default FeaturesSection;
+
+

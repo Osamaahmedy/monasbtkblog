@@ -6,6 +6,7 @@ import Hero from './Components/Hero';
 import AboutUs from './Components/AboutUs';
 import OccasionsSection from './Components/OccasionsSection';
 import OccasionOffersSection from './Components/OccasionOffersSection';
+import MiddleBannerSection from './Components/MiddleBannerSection';
 import FeaturesSection from './Components/FeaturesSection';
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
             <OccasionsSection lang={lang} />
             <OccasionOffersSection lang={lang} />
             <FeaturesSection lang={lang} />
+            <MiddleBannerSection lang={lang} />
         </div>
     );
 };
