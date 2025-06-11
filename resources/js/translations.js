@@ -60,6 +60,26 @@ export const translations = {
                 gradUniform: 'Graduation Uniform',
                 gradCake: 'Graduation Cake',
             }
+        },
+        features: {
+            title: 'Our Features',
+            subtitle: 'Discover how Monasbtk app can make event planning easier and more enjoyable.',
+            specialOrganizer: {
+                title: 'Special Organizer',
+                description: 'A dedicated team helps arrange your event.'
+            },
+            allServices: {
+                title: 'All Services at Fingertip',
+                description: 'Access all party needs easily.'
+            },
+            saveTime: {
+                title: 'Save Time',
+                description: 'Book everything in one place.'
+            },
+            securePayments: {
+                title: 'Secure Payments',
+                description: 'Pay with Mada, Visa, MasterCard, Apple Pay.'
+            }
         }
     },
     ar: {
@@ -122,6 +142,26 @@ export const translations = {
                 gradInvites: 'دعوات تخرج',
                 gradUniform: 'زي تخرج',
                 gradCake: 'كيكة تخرج',
+            }
+        },
+        features: {
+            title: 'مميزاتنا',
+            subtitle: 'اكتشف كيف يمكن لتطبيق مناسبتك أن يجعل تنظيم الحفلات أسهل وأكثر متعة.',
+            specialOrganizer: {
+                title: 'منظم خاص',
+                description: 'فريق متخصص يساعدك في تنظيم حدثك.'
+            },
+            allServices: {
+                title: 'جميع الخدمات بين يديك',
+                description: 'الوصول إلى جميع احتياجات الحفلات بسهولة.'
+            },
+            saveTime: {
+                title: 'توفير الوقت',
+                description: 'احجز كل شيء في مكان واحد.'
+            },
+            securePayments: {
+                title: 'مدفوعات آمنة',
+                description: 'ادفع بواسطة مدى، فيزا، ماستركارد، آبل باي.'
             }
         }
     },
