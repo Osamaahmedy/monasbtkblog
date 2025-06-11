@@ -6,6 +6,11 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        primary: '#794BC7',
+        secondary: '#FF157D',
+        shining: '#6B00C9',
+      },
       animation: {
         blob: "blob 7s infinite",
       },
@@ -25,6 +30,12 @@ export default {
           },
         },
       },
+    },
+    fontFamily: {
+      'mikhak-bold': ['Mikhak-Bold', 'sans-serif'],
+      'mikhak-medium': ['Mikhak-Medium', 'sans-serif'],
+      'mikhak-regular': ['Mikhak-Regular', 'sans-serif'],
+      'mikhak-light': ['Mikhak-Light', 'sans-serif'],
     },
   },
   plugins: [],

@@ -1,27 +1,24 @@
 import React, { useState } from 'react';
 import { LanguageIcon, MenuIcon } from './Icons';
+import { translations } from '../translations';
 
-const Header = () => {
-    const [lang, setLang] = useState('en');
+const Header = ({ lang, toggleLanguage }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    const toggleLanguage = () => {
-        setLang(lang === 'en' ? 'ar' : 'en');
-    };
+    const t = translations[lang];
 
     const navLinks = [
-        { name: 'Categories', href: '#' },
-        { name: 'Shops', href: '#' },
-        { name: 'Features', href: '#' },
-        { name: 'How To Order', href: '#' },
-        { name: 'FAQ', href: '#' },
+        { name: t.nav.categories, href: '#' },
+        { name: t.nav.shops, href: '#' },
+        { name: t.nav.features, href: '#' },
+        { name: t.nav.howToOrder, href: '#' },
+        { name: t.nav.faq, href: '#' },
     ];
 
     return (
         <>
             <nav className="flex items-center justify-between">
                 <div className="text-2xl font-bold">Monasbtk</div>
-                <div className="hidden md:flex items-center space-x-8">
+                <div className="hidden md:flex items-center space-x-8 rtl:space-x-reverse font-mikhak-medium">
                     {navLinks.map((link) => (
                         <a key={link.name} href={link.href} className="hover:text-gray-300 transition-colors">{link.name}</a>
                     ))}
