@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>React + Tailwind in Laravel</title>
+    <title>monasbtk</title>
+    <link rel="icon" href="{{ Vite::asset('resources/images/monasbtk_colored_logo.png') }}" type="image/png">
     @viteReactRefresh
     @vite(['resources/js/app.jsx'])
 </head>
@@ -10,3 +11,5 @@
     <div id="app"></div>
 </body>
 </html>
+
+

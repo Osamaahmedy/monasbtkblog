@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import PhoneMockup from './PhoneMockup';
 import { translations } from '../translations';
 
 const Hero = ({ lang }) => {
@@ -46,10 +45,110 @@ const Hero = ({ lang }) => {
                 </div>
             </motion.div>
 
-            {/* Right Side: Phone Mockup */}
-            <PhoneMockup />
+            {/* Right Side: Enhanced Phone Mockup with Advanced Animations */}
+            <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="mt-12 md:mt-0 md:w-1/2 flex justify-center"
+            >
+                {/* Floating animation container */}
+                <motion.div
+                    animate={{
+                        y: [0, -15, 0],
+                        rotate: [0, 2, 0]
+                    }}
+                    transition={{
+                        repeat: Infinity,
+                        duration: 6,
+                        ease: "easeInOut"
+                    }}
+                    className="relative"
+                >
+                    {/* Glow effect */}
+                    <motion.div 
+                        className="absolute -inset-4 bg-[#9B59B6] rounded-full blur-xl opacity-20 -z-10"
+                        animate={{
+                            scale: [1, 1.2, 1],
+                            opacity: [0.2, 0.3, 0.2]
+                        }}
+                        transition={{
+                            repeat: Infinity,
+                            duration: 4,
+                            ease: "easeInOut"
+                        }}
+                    />
+                    
+                    {/* Phone Frame */}
+                    <div className="relative mx-auto border-gray-800 bg-gray-800 border-[8px] rounded-[2.5rem] h-[550px] w-[270px] shadow-xl">
+                        {/* Top Bezel with Speaker */}
+                        <div className="w-[140px] h-[18px] bg-gray-800 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
+                        {/* Right Side Button */}
+                        <div className="h-[46px] w-[3px] bg-gray-800 absolute -right-[11px] top-[124px] rounded-l-lg"></div>
+                        {/* Left Side Buttons */}
+                        <div className="h-[32px] w-[3px] bg-gray-800 absolute -left-[11px] top-[70px] rounded-r-lg"></div>
+                        <div className="h-[32px] w-[3px] bg-gray-800 absolute -left-[11px] top-[120px] rounded-r-lg"></div>
+                        
+                        {/* Inner Screen with animated gradient */}
+                        <motion.div 
+                            className="rounded-[2rem] overflow-hidden w-full h-full bg-gradient-to-br from-[#6B1D8E] to-[#9B59B6] p-3"
+                            animate={{
+                                background: [
+                                    "linear-gradient(135deg, #6B1D8E 0%, #9B59B6 100%)",
+                                    "linear-gradient(225deg, #6B1D8E 0%, #9B59B6 100%)",
+                                    "linear-gradient(315deg, #6B1D8E 0%, #9B59B6 100%)",
+                                    "linear-gradient(45deg, #6B1D8E 0%, #9B59B6 100%)"
+                                ]
+                            }}
+                            transition={{
+                                repeat: Infinity,
+                                duration: 8,
+                                ease: "easeInOut"
+                            }}
+                        >
+                            <div dir={lang === 'ar' ? 'rtl' : 'ltr'} className="flex flex-col h-full">
+                                {/* Status bar */}
+                                <div className="flex justify-between items-center mb-3">
+                                    <div className="w-6 h-1.5 rounded-full bg-white/20"></div>
+                                    <div className="w-12 h-1.5 rounded-full bg-white/20"></div>
+                                    <div className="w-6 h-1.5 rounded-full bg-white/20"></div>
+                                </div>
+                                
+                                {/* App content placeholder */}
+                                <div className="flex-1 flex flex-col items-center justify-center">
+                                    <motion.div 
+                                        className="w-16 h-16 rounded-full bg-white/10 mb-4 flex items-center justify-center"
+                                        animate={{ scale: [1, 1.1, 1] }}
+                                        transition={{ repeat: Infinity, duration: 2 }}
+                                    >
+                                        <span className="text-white text-2xl font-bold">M</span>
+                                    </motion.div>
+                                    <span className="text-white text-lg font-bold">Monasbtk App</span>
+                                    <motion.div 
+                                        className="mt-4 w-20 h-1 bg-white/30 rounded-full"
+                                        animate={{ width: ["5rem", "7rem", "5rem"] }}
+                                        transition={{ repeat: Infinity, duration: 2 }}
+                                    />
+                                </div>
+                                
+                                {/* Navigation bar */}
+                                <div className="bg-white/10 rounded-lg p-2 mt-auto">
+                                    <div className="flex justify-between">
+                                        <div className="w-6 h-6 rounded-full bg-white/20"></div>
+                                        <div className="w-6 h-6 rounded-full bg-white/20"></div>
+                                        <div className="w-6 h-6 rounded-full bg-white/20"></div>
+                                        <div className="w-6 h-6 rounded-full bg-white/20"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                </motion.div>
+            </motion.div>
         </main>
     );
 };
 
 export default Hero;
+
