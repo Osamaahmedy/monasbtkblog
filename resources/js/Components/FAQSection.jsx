@@ -20,8 +20,8 @@ const FAQSection = ({ lang }) => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-gray-100">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 bg-gradient-to-b from-[#F8F4FC] to-white">
+      <div className="container mx-auto px-4">
         {/* Header with decorative elements */}
         <div className="text-center mb-16 relative">
           {/* Decorative elements */}
@@ -110,4 +110,5 @@ const FAQSection = ({ lang }) => {
 };
 
 export default FAQSection;
+
 

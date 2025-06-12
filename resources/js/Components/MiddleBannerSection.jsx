@@ -139,7 +139,7 @@ const MiddleBannerSection = ({ lang }) => {
         >
             {/* Background */}
             <motion.div 
-                className="absolute inset-0 bg-[#E8F0FE] -z-10"
+                className="absolute inset-0 bg-gradient-to-r from-[#F0E6FF] to-[#F8F4FC] -z-10"
                 initial={{ opacity: 0 }}
                 animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 1 }}
@@ -236,4 +236,5 @@ const MiddleBannerSection = ({ lang }) => {
 };
 
 export default MiddleBannerSection;
+
 

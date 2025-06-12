@@ -198,7 +198,7 @@ const FeaturesSection = ({ lang }) => {
     return (
         <motion.section 
             key={`features-${lang}-${key}`} // Add dynamic key based on language
-            className="py-16 overflow-hidden relative"
+            className="py-16 overflow-hidden relative bg-gradient-to-b from-[#F6F2F9] to-white"
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
@@ -206,7 +206,7 @@ const FeaturesSection = ({ lang }) => {
         >
             {/* Animated background */}
             <motion.div 
-                className="absolute inset-0 bg-[#F6F2F9] -z-10"
+                className="absolute inset-0 -z-10"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 1 }}
@@ -353,5 +353,6 @@ const FeaturesSection = ({ lang }) => {
 };
 
 export default FeaturesSection;
+
 
 

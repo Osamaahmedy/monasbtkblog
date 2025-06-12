@@ -75,7 +75,7 @@ const HowToOrderSection = ({ lang }) => {
     return (
         <motion.section
             ref={sectionRef}
-            className="relative py-20 overflow-hidden"
+            className="relative py-20 overflow-hidden bg-white"
             initial={{ opacity: 0 }}
             animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.8 }}
@@ -231,5 +231,6 @@ const HowToOrderSection = ({ lang }) => {
 };
 
 export default HowToOrderSection;
+
 
 

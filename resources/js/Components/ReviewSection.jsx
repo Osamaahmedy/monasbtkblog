@@ -77,8 +77,8 @@ const ReviewSection = ({ lang }) => {
   };
   
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 bg-[#F0E6FF]">
+      <div className="container mx-auto px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left side - Text content */}
@@ -273,3 +273,4 @@ const ReviewSection = ({ lang }) => {
 };
 
 export default ReviewSection;
+

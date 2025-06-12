@@ -61,7 +61,7 @@ const OccasionOffersSection = ({ lang }) => {
     return (
         <motion.section
             ref={sectionRef}
-            className="py-12 sm:py-16 lg:py-20 bg-gray-50"
+            className="py-12 sm:py-16 lg:py-20 bg-[#F6F2F9]"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: false }}
@@ -142,3 +142,4 @@ const OccasionOffersSection = ({ lang }) => {
 };
 
 export default OccasionOffersSection;
+
