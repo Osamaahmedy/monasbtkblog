@@ -1,14 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { translations } from '../translations';
 
 const HowToOrderSection = ({ lang }) => {
-    const [sectionRef, isVisible] = useIntersectionObserver({
-        threshold: 0.1,
-        rootMargin: '-100px'
-    });
-    
     const t = translations[lang].howToOrder;
     
     const steps = [
@@ -16,221 +10,256 @@ const HowToOrderSection = ({ lang }) => {
             number: '01',
             title: t.steps.step1.title,
             description: t.steps.step1.description,
-            icon: (
-                <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 13.5C13.6569 13.5 15 12.1569 15 10.5C15 8.84315 13.6569 7.5 12 7.5C10.3431 7.5 9 8.84315 9 10.5C9 12.1569 10.3431 13.5 12 13.5Z" stroke="currentColor" strokeWidth="2"/>
-                    <path d="M12 21C16.5 16.5 21 12.8137 21 9C21 4.02944 16.9706 1 12 1C7.02944 1 3 4.02944 3 9C3 12.8137 7.5 16.5 12 21Z" stroke="currentColor" strokeWidth="2"/>
-                </svg>
-            ),
         },
         {
             number: '02',
             title: t.steps.step2.title,
             description: t.steps.step2.description,
-            icon: (
-                <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M9 6L20 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M9 12L20 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M9 18L20 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M4 6H4.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M4 12H4.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M4 18H4.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
-            ),
         },
         {
             number: '03',
             title: t.steps.step3.title,
             description: t.steps.step3.description,
-            icon: (
-                <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="5" y="2" width="14" height="20" rx="2" stroke="currentColor" strokeWidth="2"/>
-                    <path d="M12 18H12.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M9 22H15" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M15 7L11 11L9 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-            ),
         },
         {
             number: '04',
             title: t.steps.step4.title,
             description: t.steps.step4.description,
-            icon: (
-                <svg className="w-10 h-10" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="2"/>
-                    <path d="M16 2V6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M8 2V6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M3 10H21" stroke="currentColor" strokeWidth="2"/>
-                    <path d="M8 14H8.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M12 14H12.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M16 14H16.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M8 18H8.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M12 18H12.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M16 18H16.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
-            ),
         },
     ];
 
     return (
-        <motion.section
-            ref={sectionRef}
-            className="relative py-20 overflow-hidden bg-white"
-            initial={{ opacity: 0 }}
-            animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.8 }}
-            key={`how-to-order-${lang}`} // Re-render when language changes
-        >
-            {/* Background decorative elements */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
-                <motion.div 
-                    className="absolute top-20 left-10 w-64 h-64 bg-primary/30 rounded-full filter blur-3xl opacity-60"
-                    animate={{
-                        x: [0, 50, 0],
-                        y: [0, 30, 0],
-                        scale: [1, 1.2, 1]
-                    }}
-                    transition={{
-                        repeat: Infinity,
-                        duration: 15,
-                        ease: "easeInOut"
-                    }}
-                />
-                <motion.div 
-                    className="absolute bottom-20 right-10 w-64 h-64 bg-secondary/30 rounded-full filter blur-3xl opacity-60"
-                    animate={{
-                        x: [0, -30, 0],
-                        y: [0, 40, 0],
-                        scale: [1, 1.3, 1]
-                    }}
-                    transition={{
-                        repeat: Infinity,
-                        duration: 18,
-                        ease: "easeInOut",
-                        delay: 1
-                    }}
-                />
-                <motion.div 
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-shining/30 rounded-full filter blur-3xl opacity-40"
-                    animate={{
-                        scale: [1, 1.2, 1],
-                        opacity: [0.3, 0.5, 0.3]
-                    }}
-                    transition={{
-                        repeat: Infinity,
-                        duration: 10,
-                        ease: "easeInOut"
-                    }}
-                />
-            </div>
+        <section className="py-20 bg-gradient-to-b from-white to-[#F8F4FC] overflow-hidden">
+            <div className="container mx-auto px-4 relative">
+                {/* Background decorative elements */}
+                <div className="absolute inset-0 -z-10 overflow-hidden">
+                    <motion.div 
+                        className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full filter blur-3xl"
+                        animate={{
+                            x: [0, 50, 0],
+                            y: [0, 30, 0],
+                        }}
+                        transition={{
+                            repeat: Infinity,
+                            duration: 15,
+                            ease: "easeInOut"
+                        }}
+                    />
+                    <motion.div 
+                        className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary/10 rounded-full filter blur-3xl"
+                        animate={{
+                            x: [0, -50, 0],
+                            y: [0, -30, 0],
+                        }}
+                        transition={{
+                            repeat: Infinity,
+                            duration: 18,
+                            ease: "easeInOut"
+                        }}
+                    />
+                </div>
 
-            <div className="container mx-auto px-4">
-                {/* Section header */}
-                <div className="text-center mb-16">
+                {/* Section Header */}
+                <motion.div 
+                    className="text-center mb-16"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: false }}
+                    transition={{ duration: 0.6 }}
+                >
                     <motion.h2 
-                        className="text-4xl font-mikhak-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-                        transition={{ duration: 0.5 }}
+                        className="text-4xl font-mikhak-bold mb-4 inline-block relative"
                     >
                         {t.title}
+                        <div className="absolute -bottom-3 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></div>
                     </motion.h2>
                     <motion.p 
-                        className="text-lg font-mikhak-regular text-gray-600 max-w-2xl mx-auto"
-                        initial={{ opacity: 0 }}
-                        animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
+                        className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto font-mikhak-regular"
                     >
                         {t.subtitle}
                     </motion.p>
-                </div>
+                </motion.div>
 
-                {/* Steps container */}
-                <div className="flex flex-col md:flex-row justify-between gap-6 md:gap-4">
-                    {steps.map((step, index) => (
-                        <motion.div
-                            key={index}
-                            className="relative flex-1 bg-white/80 backdrop-blur-md rounded-2xl p-8 shadow-xl border border-white/20"
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                            transition={{ duration: 0.5, delay: 0.1 + (index * 0.1) }}
-                            whileHover={{ 
-                                y: -10, 
-                                boxShadow: "0 25px 50px -12px rgba(121, 75, 199, 0.25)",
-                                borderColor: "rgba(121, 75, 199, 0.5)"
-                            }}
-                        >
-                            {/* Step number */}
-                            <div className="absolute -top-6 -left-2 font-bold text-7xl text-primary/10">
-                                {step.number}
-                            </div>
+                <div className="flex flex-col lg:flex-row items-center gap-12">
+                    {/* Left Side: Phone Mockup */}
+                    <motion.div 
+                        className="lg:w-1/3 hidden lg:block"
+                        initial={{ opacity: 0, x: -50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: false }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <div className="relative">
+                            {/* Glow effect behind phone */}
+                            <motion.div 
+                                className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-xl -z-10"
+                                animate={{
+                                    scale: [1, 1.1, 1],
+                                    opacity: [0.5, 0.7, 0.5]
+                                }}
+                                transition={{
+                                    repeat: Infinity,
+                                    duration: 4,
+                                    ease: "easeInOut"
+                                }}
+                            />
                             
-                            {/* Icon container */}
-                            <div className="relative mb-6 mt-2">
-                                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-md"></div>
+                            {/* Phone Mockup */}
+                            <motion.div
+                                initial={{ opacity: 1, scale: 1, rotate: 6 }}
+                                className="relative mx-auto"
+                                // Floating animation
+                                animate={{
+                                    y: [0, -15, 0],
+                                    x: [0, 5, 0],
+                                    rotate: [6, 8, 6]
+                                }}
+                                transition={{
+                                    repeat: Infinity,
+                                    duration: 3,
+                                    ease: "easeInOut"
+                                }}
+                            >
+                                {/* Glow effect */}
                                 <motion.div 
-                                    className="relative flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary/80 to-secondary/80 text-white rounded-full shadow-lg"
-                                    whileHover={{ 
-                                        scale: 1.05,
-                                        boxShadow: "0 0 20px rgba(121, 75, 199, 0.5)"
-                                    }}
+                                    className="absolute -inset-4 bg-[#9B59B6] rounded-full blur-xl opacity-20 -z-10"
                                     animate={{
-                                        boxShadow: ["0 0 0px rgba(121, 75, 199, 0.3)", "0 0 15px rgba(121, 75, 199, 0.7)", "0 0 0px rgba(121, 75, 199, 0.3)"]
+                                        scale: [1, 1.2, 1],
+                                        opacity: [0.2, 0.3, 0.2]
                                     }}
                                     transition={{
                                         repeat: Infinity,
-                                        duration: 2,
+                                        duration: 4,
                                         ease: "easeInOut"
                                     }}
-                                >
-                                    {step.icon}
-                                </motion.div>
-                            </div>
-                            
-                            {/* Content */}
-                            <motion.h3 
-                                className="text-xl font-mikhak-bold mb-2 text-gray-800"
-                                initial={{ opacity: 0 }}
-                                animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
-                                transition={{ duration: 0.3, delay: 0.3 + (index * 0.1) }}
-                            >
-                                {step.title}
-                            </motion.h3>
-                            <motion.p 
-                                className="text-gray-600 font-mikhak-regular"
-                                initial={{ opacity: 0 }}
-                                animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
-                                transition={{ duration: 0.3, delay: 0.4 + (index * 0.1) }}
-                            >
-                                {step.description}
-                            </motion.p>
-                            
-                            {/* Connector line (except for last item) */}
-                            {index < steps.length - 1 && (
-                                <div className="hidden md:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-primary/50 to-transparent">
-                                    <motion.div 
-                                        className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-primary"
-                                        animate={{
-                                            scale: [1, 1.5, 1],
-                                            opacity: [0.7, 1, 0.7]
-                                        }}
-                                        transition={{
-                                            repeat: Infinity,
-                                            duration: 2,
-                                            ease: "easeInOut"
-                                        }}
-                                    />
+                                />
+                                {/* Outer Frame */}
+                                <div className="relative mx-auto border-gray-800 bg-gray-800 border-[8px] rounded-[2.5rem] h-[550px] w-[270px] shadow-xl transform rotate-6 hover:rotate-0 transition-transform duration-500">
+                                    {/* Top Bezel with Speaker */}
+                                    <div className="w-[140px] h-[18px] bg-gray-800 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
+                                    {/* Right Side Button */}
+                                    <div className="h-[46px] w-[3px] bg-gray-800 absolute -right-[11px] top-[124px] rounded-l-lg"></div>
+                                    {/* Left Side Buttons */}
+                                    <div className="h-[32px] w-[3px] bg-gray-800 absolute -left-[11px] top-[70px] rounded-r-lg"></div>
+                                    <div className="h-[32px] w-[3px] bg-gray-800 absolute -left-[11px] top-[120px] rounded-r-lg"></div>
+                                    {/* Inner Screen */}
+                                    <div className="rounded-[2rem] overflow-hidden w-full h-full bg-gradient-to-b from-primary to-secondary p-4">
+                                        {/* App Content */}
+                                        <div className="h-full flex flex-col">
+                                            {/* App Header */}
+                                            <div className="text-white text-center mb-6">
+                                                <h3 className="text-xl font-mikhak-bold">{t.title}</h3>
+                                                <p className="text-xs opacity-80">Easy steps to order</p>
+                                            </div>
+                                            
+                                            {/* Steps in phone */}
+                                            <div className="space-y-4">
+                                                {steps.map((step, index) => (
+                                                    <div key={index} className="bg-white/10 rounded-xl p-3 flex items-center">
+                                                        <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                                                            <span className="text-white font-mikhak-bold">{step.number}</span>
+                                                        </div>
+                                                        <div>
+                                                            <h4 className="text-white text-sm font-mikhak-medium">{step.title}</h4>
+                                                            <div className="w-32 h-2 bg-white/20 rounded-full mt-1"></div>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                            
+                                            {/* Order button */}
+                                            <div className="mt-auto mb-4">
+                                                <div className="bg-white/20 rounded-xl p-4 text-center">
+                                                    <div className="w-full h-10 bg-white/30 rounded-lg flex items-center justify-center">
+                                                        <span className="text-white font-mikhak-bold">Order Now</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            {/* Navigation Bar */}
+                                            <div className="grid grid-cols-4 gap-3">
+                                                {[1, 2, 3, 4].map((item) => (
+                                                    <div key={item} className="flex flex-col items-center">
+                                                        <div className="w-8 h-8 rounded-full bg-white/20 mb-1"></div>
+                                                        <div className="w-10 h-2 bg-white/20 rounded-full"></div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            )}
-                        </motion.div>
-                    ))}
+                            </motion.div>
+                        </div>
+                    </motion.div>
+
+                    {/* Right Side: Steps */}
+                    <motion.div 
+                        className="lg:w-2/3"
+                        initial={{ opacity: 0, x: 50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: false }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <div className="space-y-8">
+                            {steps.map((step, index) => (
+                                <motion.div
+                                    key={index}
+                                    className="relative"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: false }}
+                                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                                >
+                                    <div className="flex items-start">
+                                        {/* Step number */}
+                                        <motion.div 
+                                            className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center text-white font-mikhak-bold text-2xl mr-6 shadow-lg"
+                                            whileHover={{ 
+                                                scale: 1.1,
+                                                boxShadow: "0 10px 25px -5px rgba(121, 75, 199, 0.5)"
+                                            }}
+                                            animate={{
+                                                boxShadow: ["0 5px 15px rgba(121, 75, 199, 0.3)", "0 15px 25px rgba(121, 75, 199, 0.5)", "0 5px 15px rgba(121, 75, 199, 0.3)"]
+                                            }}
+                                            transition={{
+                                                repeat: Infinity,
+                                                duration: 2,
+                                                ease: "easeInOut"
+                                            }}
+                                        >
+                                            {step.number}
+                                        </motion.div>
+                                        
+                                        {/* Step content */}
+                                        <div className="flex-1">
+                                            <h3 className="text-xl font-mikhak-bold text-gray-800 mb-2">{step.title}</h3>
+                                            <p className="text-gray-600 font-mikhak-regular">{step.description}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    {/* Connector line (except for last item) */}
+                                    {index < steps.length - 1 && (
+                                        <motion.div 
+                                            className="absolute left-8 top-16 w-0.5 h-12 bg-gradient-to-b from-primary to-secondary"
+                                            initial={{ height: 0 }}
+                                            whileInView={{ height: "3rem" }}
+                                            viewport={{ once: false }}
+                                            transition={{ duration: 0.5, delay: 0.3 }}
+                                        />
+                                    )}
+                                </motion.div>
+                            ))}
+                        </div>
+                    </motion.div>
                 </div>
             </div>
-        </motion.section>
+        </section>
     );
 };
 
 export default HowToOrderSection;
+
+
 
 
 
