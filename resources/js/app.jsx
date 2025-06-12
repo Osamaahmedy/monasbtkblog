@@ -12,6 +12,7 @@ import FeaturesSection from './Components/FeaturesSection';
 import HowToOrderSection from './Components/HowToOrderSection';
 import DownloadAppSection from './Components/DownloadAppSection';
 import ReviewSection from './Components/ReviewSection';
+import Footer from './Components/Footer';
 
 const App = () => {
     const [lang, setLang] = useState('en');
@@ -44,12 +45,14 @@ const App = () => {
             <MiddleBannerSection lang={lang} />
             <FAQSection lang={lang} />
             <ReviewSection lang={lang} />
+            <Footer lang={lang} />
         </div>
     );
 };
 
 const root = ReactDOM.createRoot(document.getElementById('app'));
 root.render(<App />);
+
 
 
 

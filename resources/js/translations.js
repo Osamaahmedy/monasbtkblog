@@ -150,6 +150,38 @@ export const translations = {
             phonePlaceholder: "Enter your phone number",
             messagePlaceholder: "Write your feedback or suggestions here...",
             required: "Required field"
+        },
+        footer: {
+            downloadTitle: "Plan Your Perfect Occasion with Monasabatk",
+            downloadText: "Download Monasaba Tech Now and Make Your Celebrations Unforgettable!",
+            aboutTitle: "About Monasabatk",
+            aboutText: "Monasabatk is your all-in-one platform for planning and organizing perfect celebrations and events with ease.",
+            quickLinksTitle: "Quick Links",
+            quickLinks: [
+                { text: "Home", url: "#" },
+                { text: "Categories", url: "#" },
+                { text: "Shops", url: "#" },
+                { text: "Features", url: "#" },
+                { text: "FAQ", url: "#" }
+            ],
+            featuresTitle: "Features",
+            features: [
+                { text: "Event Planning", url: "#" },
+                { text: "Vendor Booking", url: "#" },
+                { text: "Gift Registry", url: "#" },
+                { text: "Guest Management", url: "#" },
+                { text: "Budget Tracking", url: "#" }
+            ],
+            contactTitle: "Contact Us",
+            email: "info@monasabatk.com",
+            phone: "+123 456 7890",
+            address: "123 Main Street, City, Country",
+            copyright: "All rights reserved Monasabatk Tech",
+            bottomLinks: [
+                { text: "Privacy Policy", url: "#" },
+                { text: "Terms of Service", url: "#" },
+                { text: "Cookie Policy", url: "#" }
+            ]
         }
     },
     ar: {
@@ -303,6 +335,38 @@ export const translations = {
             phonePlaceholder: "أدخل رقم هاتفك",
             messagePlaceholder: "اكتب ملاحظاتك أو اقتراحاتك هنا...",
             required: "حقل مطلوب"
+        },
+        footer: {
+            downloadTitle: "خطط لمناسبتك المثالية مع مناسبتك",
+            downloadText: "قم بتنزيل تطبيق مناسبتك الآن واجعل احتفالاتك لا تُنسى!",
+            aboutTitle: "عن مناسبتك",
+            aboutText: "مناسبتك هي منصتك الشاملة لتخطيط وتنظيم الاحتفالات والمناسبات المثالية بسهولة.",
+            quickLinksTitle: "روابط سريعة",
+            quickLinks: [
+                { text: "الرئيسية", url: "#" },
+                { text: "الفئات", url: "#" },
+                { text: "المتاجر", url: "#" },
+                { text: "المميزات", url: "#" },
+                { text: "الأسئلة الشائعة", url: "#" }
+            ],
+            featuresTitle: "المميزات",
+            features: [
+                { text: "تخطيط المناسبات", url: "#" },
+                { text: "حجز المزودين", url: "#" },
+                { text: "سجل الهدايا", url: "#" },
+                { text: "إدارة الضيوف", url: "#" },
+                { text: "تتبع الميزانية", url: "#" }
+            ],
+            contactTitle: "اتصل بنا",
+            email: "info@monasabatk.com",
+            phone: "+123 456 7890",
+            address: "123 الشارع الرئيسي، المدينة، البلد",
+            copyright: "جميع الحقوق محفوظة لمناسبتك تك",
+            bottomLinks: [
+                { text: "سياسة الخصوصية", url: "#" },
+                { text: "شروط الخدمة", url: "#" },
+                { text: "سياسة ملفات الكوكيز", url: "#" }
+            ]
         }
     },
     faq: {
@@ -329,6 +393,8 @@ export const translations = {
         }
     },
 };
+
+
 
 
 
