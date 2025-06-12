@@ -113,6 +113,44 @@ export const translations = {
             subtitle: "Download the app and enjoy organizing your event with ease",
             getApp: "Get the App"
         },
+        faq: {
+            title: 'FAQ',
+            customize: {
+                question: 'Can I customize the services for my event?',
+                answer: 'Absolutely! The app offers a range of customizable options for each category. You can choose different designs, themes, and setups to personalize your event according to your preferences.'
+            },
+            booking: {
+                question: 'How do I book services for my event through the app?',
+                answer: 'Yes, all service providers listed on the app are verified and reviewed to ensure they offer high-quality and reliable services. You can read reviews and view ratings for each provider before making your selection.'
+            },
+            verified: {
+                question: 'Are the service providers listed on the app verified?',
+                answer: 'Absolutely! The app offers a range of customizable options for each category. You can choose different designs, themes, and setups to personalize your event according to your preferences.'
+            },
+            tracking: {
+                question: 'How can I track my bookings and manage my event?',
+                answer: 'Once you have booked services through the app, you can use the event management tools to keep track of your bookings, make payments, and communicate with service providers. You will also receive notifications and reminders to help you stay organized.'
+            },
+            eventTypes: {
+                question: 'What types of events can I plan using the app?',
+                answer: 'The app supports planning for a variety of events, including graduation parties, birthdays, Father\'s Day, Mother\'s Day, anniversaries, and gender reveal parties. You can find all the necessary services for each of these occasions within the app.'
+            }
+        },
+        review: {
+            title: "Share Your Feedback",
+            subtitle: "We value your opinion and suggestions to improve our services",
+            name: "Full Name",
+            email: "Email Address",
+            phone: "Phone Number",
+            message: "Your Message",
+            submit: "Submit Feedback",
+            success: "Thank you for your feedback!",
+            namePlaceholder: "Enter your name",
+            emailPlaceholder: "Enter your email",
+            phonePlaceholder: "Enter your phone number",
+            messagePlaceholder: "Write your feedback or suggestions here...",
+            required: "Required field"
+        }
     },
     ar: {
         nav: {
@@ -228,8 +266,73 @@ export const translations = {
             subtitle: "قم بتحميل التطبيق واستمتع بتنظيم حدثك بكل سهولة",
             getApp: "احصل على التطبيق"
         },
+        faq: {
+            title: 'الأسئلة الشائعة',
+            customize: {
+                question: 'هل يمكنني تخصيص الخدمات لمناسبتي؟',
+                answer: 'بالتأكيد! يقدم التطبيق مجموعة من الخيارات القابلة للتخصيص لكل فئة. يمكنك اختيار تصاميم وثيمات وإعدادات مختلفة لتخصيص مناسبتك وفقًا لتفضيلاتك.'
+            },
+            booking: {
+                question: 'كيف أحجز الخدمات لمناسبتي من خلال التطبيق؟',
+                answer: 'نعم، جميع مقدمي الخدمات المدرجين في التطبيق تم التحقق منهم ومراجعتهم لضمان تقديمهم خدمات عالية الجودة وموثوقة. يمكنك قراءة التقييمات ومشاهدة التصنيفات لكل مزود قبل إجراء اختيارك.'
+            },
+            verified: {
+                question: 'هل تم التحقق من مزودي الخدمة المدرجين في التطبيق؟',
+                answer: 'بالتأكيد! يقدم التطبيق مجموعة من الخيارات القابلة للتخصيص لكل فئة. يمكنك اختيار تصاميم وثيمات وإعدادات مختلفة لتخصيص مناسبتك وفقًا لتفضيلاتك.'
+            },
+            tracking: {
+                question: 'كيف يمكنني تتبع حجوزاتي وإدارة مناسبتي؟',
+                answer: 'بمجرد حجز الخدمات من خلال التطبيق، يمكنك استخدام أدوات إدارة المناسبات لتتبع حجوزاتك وإجراء المدفوعات والتواصل مع مزودي الخدمة. ستتلقى<lemma إشعارات وتذكيرات لمساعدتك على البقاء منظمًا.'
+            },
+            eventTypes: {
+                question: 'ما هي أنواع المناسبات التي يمكنني التخطيط لها باستخدام التطبيق؟',
+                answer: 'يدعم التطبيق التخطيط لمجموعة متنوعة من المناسبات، بما في ذلك حفلات التخرج وأعياد الميلاد وعيد الأب وعيد الأم وذكرى الزواج وحفلات الكشف عن جنس المولود. يمكنك العثور على جميع الخدمات الضرورية لكل من هذه المناسبات داخل التطبيق.'
+            }
+        },
+        review: {
+            title: "شاركنا رأيك",
+            subtitle: "نحن نقدر آرائك واقتراحاتك لتحسين خدماتنا",
+            name: "الاسم الكامل",
+            email: "البريد الإلكتروني",
+            phone: "رقم الهاتف",
+            message: "رسالتك",
+            submit: "إرسال",
+            success: "شكراً لملاحظاتك!",
+            namePlaceholder: "أدخل اسمك",
+            emailPlaceholder: "أدخل بريدك الإلكتروني",
+            phonePlaceholder: "أدخل رقم هاتفك",
+            messagePlaceholder: "اكتب ملاحظاتك أو اقتراحاتك هنا...",
+            required: "حقل مطلوب"
+        }
+    },
+    faq: {
+        title: 'FAQ',
+        customize: {
+            question: 'Can I customize the services for my event?',
+            answer: 'Absolutely! The app offers a range of customizable options for each category. You can choose different designs, themes, and setups to personalize your event according to your preferences.'
+        },
+        booking: {
+            question: 'How do I book services for my event through the app?',
+            answer: 'Yes, all service providers listed on the app are verified and reviewed to ensure they offer high-quality and reliable services. You can read reviews and view ratings for each provider before making your selection.'
+        },
+        verified: {
+            question: 'Are the service providers listed on the app verified?',
+            answer: 'Absolutely! The app offers a range of customizable options for each category. You can choose different designs, themes, and setups to personalize your event according to your preferences.'
+        },
+        tracking: {
+            question: 'How can I track my bookings and manage my event?',
+            answer: 'Once you have booked services through the app, you can use the event management tools to keep track of your bookings, make payments, and communicate with service providers. You will also receive notifications and reminders to help you stay organized.'
+        },
+        eventTypes: {
+            question: 'What types of events can I plan using the app?',
+            answer: 'The app supports planning for a variety of events, including graduation parties, birthdays, Father\'s Day, Mother\'s Day, anniversaries, and gender reveal parties. You can find all the necessary services for each of these occasions within the app.'
+        }
     },
 };
+
+
+
+
 
 
 

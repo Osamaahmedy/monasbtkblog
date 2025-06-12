@@ -7,9 +7,11 @@ import AboutUs from './Components/AboutUs';
 import OccasionsSection from './Components/OccasionsSection';
 import OccasionOffersSection from './Components/OccasionOffersSection';
 import MiddleBannerSection from './Components/MiddleBannerSection';
+import FAQSection from './Components/FAQSection';
 import FeaturesSection from './Components/FeaturesSection';
 import HowToOrderSection from './Components/HowToOrderSection';
 import DownloadAppSection from './Components/DownloadAppSection';
+import ReviewSection from './Components/ReviewSection';
 
 const App = () => {
     const [lang, setLang] = useState('en');
@@ -40,11 +42,17 @@ const App = () => {
             <HowToOrderSection lang={lang} />
             <DownloadAppSection lang={lang} />
             <MiddleBannerSection lang={lang} />
+            <FAQSection lang={lang} />
+            <ReviewSection lang={lang} />
         </div>
     );
 };
 
 const root = ReactDOM.createRoot(document.getElementById('app'));
 root.render(<App />);
+
+
+
+
 
 
