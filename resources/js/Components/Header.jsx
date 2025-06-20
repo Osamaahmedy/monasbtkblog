@@ -9,11 +9,11 @@ const Header = ({ lang, toggleLanguage }) => {
     const t = translations[lang];
 
     const navLinks = [
-        { name: t.nav.categories, href: '#' },
-        { name: t.nav.shops, href: '#' },
-        { name: t.nav.features, href: '#' },
-        { name: t.nav.howToOrder, href: '#' },
-        { name: t.nav.faq, href: '#' },
+        { name: t.nav.categories, href: '#occasions-section' },
+        { name: t.nav.shops, href: '#occasion-offers-section' },
+        { name: t.nav.features, href: '#features-section' },
+        { name: t.nav.howToOrder, href: '#how-to-order-section' },
+        { name: t.nav.faq, href: '#faq-section' },
     ];
 
     return (
@@ -72,3 +72,4 @@ const Header = ({ lang, toggleLanguage }) => {
 };
 
 export default Header;
+

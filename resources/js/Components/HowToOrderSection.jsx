@@ -30,7 +30,7 @@ const HowToOrderSection = ({ lang }) => {
     ];
 
     return (
-        <section className="py-16 bg-white">
+        <section id="how-to-order-section" className="py-16 bg-gray-50">
             <div className="container mx-auto px-4">
                 {/* Section Header */}
                 <div className="text-center mb-12">
@@ -71,6 +71,8 @@ const HowToOrderSection = ({ lang }) => {
 };
 
 export default HowToOrderSection;
+
+
 
 
 

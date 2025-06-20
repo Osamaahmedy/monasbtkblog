@@ -196,163 +196,170 @@ const FeaturesSection = ({ lang }) => {
     };
 
     return (
-        <motion.section 
-            key={`features-${lang}-${key}`} // Add dynamic key based on language
-            className="py-16 overflow-hidden relative bg-gradient-to-b from-[#F6F2F9] to-white"
-            variants={sectionVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false, margin: "-100px" }}
+        <section 
+            id="features-section" 
+            className="py-16 bg-white"
+            key={key}
         >
-            {/* Animated background */}
-            <motion.div 
-                className="absolute inset-0 -z-10"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 1 }}
-            />
-            
-            {/* Animated background patterns */}
-            <motion.div 
-                className="absolute top-20 left-10 w-64 h-64 bg-[#9B59B6] rounded-full mix-blend-multiply filter blur-3xl opacity-10 -z-10"
-                animate={{
-                    x: [0, 50, 0],
-                    y: [0, 30, 0],
-                    scale: [1, 1.2, 1]
-                }}
-                transition={{
-                    repeat: Infinity,
-                    duration: 15,
-                    ease: "easeInOut"
-                }}
-            />
-            
-            <motion.div 
-                className="absolute bottom-20 right-10 w-72 h-72 bg-[#6B1D8E] rounded-full mix-blend-multiply filter blur-3xl opacity-10 -z-10"
-                animate={{
-                    x: [0, -30, 0],
-                    y: [0, 40, 0],
-                    scale: [1, 1.3, 1]
-                }}
-                transition={{
-                    repeat: Infinity,
-                    duration: 18,
-                    ease: "easeInOut",
-                    delay: 1
-                }}
-            />
-            <div className="container mx-auto px-4">
-                <motion.div
-                    variants={titleVariants}
-                    className="text-center mb-12"
-                >
-                    <motion.div
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        whileInView={{ scale: 1, opacity: 1 }}
-                        transition={{ duration: 0.5 }}
-                        className="inline-block mb-2"
-                    >
-                        <motion.div 
-                            className="w-16 h-1 bg-[#9B59B6] mx-auto rounded-full"
-                            animate={{
-                                width: ["4rem", "6rem", "4rem"]
-                            }}
-                            transition={{
-                                repeat: Infinity,
-                                duration: 3,
-                                ease: "easeInOut"
-                            }}
-                        ></motion.div>
-                    </motion.div>
-                    
-                    <motion.h2 
-                        className="text-3xl md:text-4xl font-bold text-[#6B1D8E] mb-4 font-mikhak-bold relative"
-                        initial={{ clipPath: "inset(0 100% 0 0)" }}
-                        whileInView={{ clipPath: "inset(0 0% 0 0)" }}
-                        transition={{ duration: 1, delay: 0.3 }}
-                    >
-                        {t.title}
-                        
-                        {/* Animated underline */}
-                        <motion.span 
-                            className="absolute bottom-0 left-1/2 h-1 bg-[#9B59B6] rounded-full"
-                            initial={{ width: 0, x: "-50%" }}
-                            whileInView={{ width: "30%" }}
-                            transition={{ duration: 0.8, delay: 1.3 }}
-                        />
-                    </motion.h2>
-                    
-                    <motion.p 
-                        className="text-gray-600 max-w-2xl mx-auto font-mikhak-regular"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.8 }}
-                    >
-                        {t.subtitle}
-                    </motion.p>
-                </motion.div>
-
+            <motion.section 
+                className="py-16 overflow-hidden relative bg-gradient-to-b from-[#F6F2F9] to-white"
+                variants={sectionVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, margin: "-100px" }}
+            >
+                {/* Animated background */}
                 <motion.div 
-                    className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
-                    variants={{
-                        hidden: { opacity: 0 },
-                        visible: { 
-                            opacity: 1,
-                            transition: {
-                                staggerChildren: 0.1,
-                                delayChildren: 0.2
-                            }
-                        }
+                    className="absolute inset-0 -z-10"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 1 }}
+                />
+                
+                {/* Animated background patterns */}
+                <motion.div 
+                    className="absolute top-20 left-10 w-64 h-64 bg-[#9B59B6] rounded-full mix-blend-multiply filter blur-3xl opacity-10 -z-10"
+                    animate={{
+                        x: [0, 50, 0],
+                        y: [0, 30, 0],
+                        scale: [1, 1.2, 1]
                     }}
-                >
+                    transition={{
+                        repeat: Infinity,
+                        duration: 15,
+                        ease: "easeInOut"
+                    }}
+                />
+                
+                <motion.div 
+                    className="absolute bottom-20 right-10 w-72 h-72 bg-[#6B1D8E] rounded-full mix-blend-multiply filter blur-3xl opacity-10 -z-10"
+                    animate={{
+                        x: [0, -30, 0],
+                        y: [0, 40, 0],
+                        scale: [1, 1.3, 1]
+                    }}
+                    transition={{
+                        repeat: Infinity,
+                        duration: 18,
+                        ease: "easeInOut",
+                        delay: 1
+                    }}
+                />
+                <div className="container mx-auto px-4">
+                    <motion.div
+                        variants={titleVariants}
+                        className="text-center mb-12"
+                    >
+                        <motion.div
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            whileInView={{ scale: 1, opacity: 1 }}
+                            transition={{ duration: 0.5 }}
+                            className="inline-block mb-2"
+                        >
+                            <motion.div 
+                                className="w-16 h-1 bg-[#9B59B6] mx-auto rounded-full"
+                                animate={{
+                                    width: ["4rem", "6rem", "4rem"]
+                                }}
+                                transition={{
+                                    repeat: Infinity,
+                                    duration: 3,
+                                    ease: "easeInOut"
+                                }}
+                            ></motion.div>
+                        </motion.div>
+                        
+                        <motion.h2 
+                            className="text-3xl md:text-4xl font-bold text-[#6B1D8E] mb-4 font-mikhak-bold relative"
+                            initial={{ clipPath: "inset(0 100% 0 0)" }}
+                            whileInView={{ clipPath: "inset(0 0% 0 0)" }}
+                            transition={{ duration: 1, delay: 0.3 }}
+                        >
+                            {t.title}
+                            
+                            {/* Animated underline */}
+                            <motion.span 
+                                className="absolute bottom-0 left-1/2 h-1 bg-[#9B59B6] rounded-full"
+                                initial={{ width: 0, x: "-50%" }}
+                                whileInView={{ width: "30%" }}
+                                transition={{ duration: 0.8, delay: 1.3 }}
+                            />
+                        </motion.h2>
+                        
+                        <motion.p 
+                            className="text-gray-600 max-w-2xl mx-auto font-mikhak-regular"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.8 }}
+                        >
+                            {t.subtitle}
+                        </motion.p>
+                    </motion.div>
+
                     <motion.div 
-                        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                        className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center"
                         variants={{
                             hidden: { opacity: 0 },
                             visible: { 
                                 opacity: 1,
                                 transition: {
-                                    staggerChildren: 0.1
+                                    staggerChildren: 0.1,
+                                    delayChildren: 0.2
                                 }
                             }
                         }}
                     >
-                        {features.map((feature, index) => (
-                            <FeatureCard
-                                key={index}
-                                icon={feature.icon}
-                                title={feature.title}
-                                description={feature.description}
-                                index={index}
-                            />
-                        ))}
-                    </motion.div>
-                    
-                    <motion.div 
-                        className="flex justify-center"
-                        variants={{
-                            hidden: { opacity: 0, x: 100 },
-                            visible: { 
-                                opacity: 1, 
-                                x: 0,
-                                transition: {
-                                    type: "spring",
-                                    stiffness: 50,
-                                    damping: 20,
-                                    delay: 0.4
+                        <motion.div 
+                            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                            variants={{
+                                hidden: { opacity: 0 },
+                                visible: { 
+                                    opacity: 1,
+                                    transition: {
+                                        staggerChildren: 0.1
+                                    }
                                 }
-                            }
-                        }}
-                    >
-                        <AppMockup lang={lang} />
+                            }}
+                        >
+                            {features.map((feature, index) => (
+                                <FeatureCard
+                                    key={index}
+                                    icon={feature.icon}
+                                    title={feature.title}
+                                    description={feature.description}
+                                    index={index}
+                                />
+                            ))}
+                        </motion.div>
+                        
+                        <motion.div 
+                            className="flex justify-center"
+                            variants={{
+                                hidden: { opacity: 0, x: 100 },
+                                visible: { 
+                                    opacity: 1, 
+                                    x: 0,
+                                    transition: {
+                                        type: "spring",
+                                        stiffness: 50,
+                                        damping: 20,
+                                        delay: 0.4
+                                    }
+                                }
+                            }}
+                        >
+                            <AppMockup lang={lang} />
+                        </motion.div>
                     </motion.div>
-                </motion.div>
-            </div>
-        </motion.section>
+                </div>
+            </motion.section>
+        </section>
     );
 };
 
 export default FeaturesSection;
+
+
 
 
 

@@ -162,10 +162,10 @@ export const translations = {
             quickLinksTitle: "Quick Links",
             quickLinks: [
                 { text: "Home", url: "#" },
-                { text: "Categories", url: "#" },
-                { text: "Shops", url: "#" },
-                { text: "Features", url: "#" },
-                { text: "FAQ", url: "#" }
+                { text: "Categories", url: "#occasions-section" },
+                { text: "Shops", url: "#occasion-offers-section" },
+                { text: "Features", url: "#features-section" },
+                { text: "FAQ", url: "#faq-section" }
             ],
             featuresTitle: "Features",
             features: [
@@ -350,10 +350,10 @@ export const translations = {
             quickLinksTitle: "روابط سريعة",
             quickLinks: [
                 { text: "الرئيسية", url: "#" },
-                { text: "الفئات", url: "#" },
-                { text: "المتاجر", url: "#" },
-                { text: "المميزات", url: "#" },
-                { text: "الأسئلة الشائعة", url: "#" }
+                { text: "الفئات", url: "#occasions-section" },
+                { text: "المتاجر", url: "#occasion-offers-section" },
+                { text: "المميزات", url: "#features-section" },
+                { text: "الأسئلة الشائعة", url: "#faq-section" }
             ],
             featuresTitle: "المميزات",
             features: [
@@ -399,6 +399,7 @@ export const translations = {
         }
     },
 };
+
 
 
 

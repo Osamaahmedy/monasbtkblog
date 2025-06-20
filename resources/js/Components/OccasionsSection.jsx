@@ -52,6 +52,7 @@ const OccasionsSection = ({ lang }) => {
 
     return (
         <motion.section
+            id="occasions-section"
             key={lang}
             className="bg-gradient-to-b from-white to-[#F8F4FC] py-16 lg:py-24 overflow-hidden"
             variants={sectionVariants}
@@ -300,6 +301,9 @@ const OccasionsSection = ({ lang }) => {
 };
 
 export default OccasionsSection;
+
+
+
 
 
 

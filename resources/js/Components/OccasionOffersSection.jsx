@@ -59,13 +59,10 @@ const OccasionOffersSection = ({ lang }) => {
     const tabs = Object.keys(occasionOffersData);
 
     return (
-        <motion.section
+        <section 
+            id="occasion-offers-section" 
+            className="py-16 bg-gray-50"
             ref={sectionRef}
-            className="py-12 sm:py-16 lg:py-20 bg-[#F6F2F9]"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: false }}
-            transition={{ duration: 0.8 }}
         >
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <motion.div 
@@ -137,9 +134,12 @@ const OccasionOffersSection = ({ lang }) => {
                     </AnimatePresence>
                 </motion.div>
             </div>
-        </motion.section>
+        </section>
     );
 };
 
 export default OccasionOffersSection;
+
+
+
 
