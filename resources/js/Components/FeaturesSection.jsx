@@ -1,37 +1,49 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { translations } from '../translations';
+import personalPlannerIcon from '../../images/personal_planner.png';
 
 const FeatureCard = ({ icon, title, description, index }) => {
     return (
         <motion.div
             variants={{
-                hidden: { opacity: 0, y: 50 },
+                hidden: { opacity: 0, y: 50, rotateY: 45 },
                 visible: (i) => ({
                     opacity: 1,
                     y: 0,
+                    rotateY: 0,
                     transition: {
                         delay: i * 0.1,
-                        duration: 0.5,
+                        duration: 0.6,
                         ease: "easeOut"
                     }
                 })
             }}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, margin: "-50px" }}
+            viewport={{ once: true, margin: "-50px", amount: 0.3 }}
             custom={index}
             whileHover={{ 
                 scale: 1.05, 
                 boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+                rotateZ: 2,
                 transition: { duration: 0.3 }
             }}
             className="bg-white rounded-xl p-6 shadow-lg flex flex-col items-center text-center"
         >
             {/* Icon */}
-            <div className="text-4xl mb-4">{icon}</div>
+            <motion.div 
+                className="text-4xl mb-4"
+                whileHover={{ 
+                    scale: 1.2, 
+                    rotate: [0, 10, -10, 0],
+                    transition: { duration: 0.5 }
+                }}
+            >
+                {icon}
+            </motion.div>
             
-            {/* Title - simplified for Arabic compatibility */}
+            {/* Title */}
             <motion.h3 
                 className="text-xl font-bold text-[#6B1D8E] mb-2 font-mikhak-bold"
                 initial={{ opacity: 0, y: 10 }}
@@ -40,7 +52,7 @@ const FeatureCard = ({ icon, title, description, index }) => {
                     delay: (index * 0.1) + 0.3,
                     duration: 0.3
                 }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
             >
                 {title}
             </motion.h3>
@@ -51,6 +63,7 @@ const FeatureCard = ({ icon, title, description, index }) => {
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ delay: (index * 0.1) + 0.5, duration: 0.5 }}
+                viewport={{ once: true }}
             >
                 {description}
             </motion.p>
@@ -76,12 +89,13 @@ const AppMockup = ({ lang }) => (
         }}
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, margin: "-100px" }}
+        viewport={{ once: true, margin: "-100px", amount: 0.4 }}
         className="relative mx-auto"
-        // Floating animation
+        // Floating animation - separate from the entrance animation
         animate={{
             y: [0, -15, 0],
-            x: [0, 5, 0]
+            x: [0, 5, 0],
+            rotate: [6, 8, 6]
         }}
         transition={{
             repeat: Infinity,
@@ -140,18 +154,12 @@ const AppMockup = ({ lang }) => (
 
 const FeaturesSection = ({ lang }) => {
     const t = translations[lang].features;
+    const key = `features-${lang}`;
     
-    // Add this to force re-render when language changes
-    const [key, setKey] = React.useState(0);
-    
-    React.useEffect(() => {
-        // Force component to re-render completely when language changes
-        setKey(prevKey => prevKey + 1);
-    }, [lang]);
-    
+    // Define features with the new personal planner icon
     const features = [
         {
-            icon: '🎪',
+            icon: <img src={personalPlannerIcon} alt="Personal Planner" className="w-12 h-12" />,
             title: t.specialOrganizer.title,
             description: t.specialOrganizer.description
         },
@@ -206,7 +214,7 @@ const FeaturesSection = ({ lang }) => {
                 variants={sectionVariants}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: false, margin: "-100px" }}
+                viewport={{ once: true, margin: "-100px" }}
             >
                 {/* Animated background */}
                 <motion.div 
@@ -254,6 +262,7 @@ const FeaturesSection = ({ lang }) => {
                             initial={{ scale: 0.8, opacity: 0 }}
                             whileInView={{ scale: 1, opacity: 1 }}
                             transition={{ duration: 0.5 }}
+                            viewport={{ once: true }}
                             className="inline-block mb-2"
                         >
                             <motion.div 
@@ -274,15 +283,24 @@ const FeaturesSection = ({ lang }) => {
                             initial={{ clipPath: "inset(0 100% 0 0)" }}
                             whileInView={{ clipPath: "inset(0 0% 0 0)" }}
                             transition={{ duration: 1, delay: 0.3 }}
+                            viewport={{ once: true }}
                         >
                             {t.title}
                             
                             {/* Animated underline */}
                             <motion.span 
-                                className="absolute bottom-0 left-1/2 h-1 bg-[#9B59B6] rounded-full"
+                                className="absolute bottom-0 left-1/2 h-1 bg-gradient-to-r from-[#6B1D8E] to-[#9B59B6] rounded-full"
                                 initial={{ width: 0, x: "-50%" }}
                                 whileInView={{ width: "30%" }}
                                 transition={{ duration: 0.8, delay: 1.3 }}
+                                viewport={{ once: true }}
+                                animate={{
+                                    boxShadow: [
+                                        "0 0 5px rgba(155, 89, 182, 0.3)",
+                                        "0 0 10px rgba(155, 89, 182, 0.5)",
+                                        "0 0 5px rgba(155, 89, 182, 0.3)"
+                                    ]
+                                }}
                             />
                         </motion.h2>
                         
@@ -358,6 +376,13 @@ const FeaturesSection = ({ lang }) => {
 };
 
 export default FeaturesSection;
+
+
+
+
+
+
+
 
 
 
