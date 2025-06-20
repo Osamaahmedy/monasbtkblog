@@ -7,6 +7,7 @@ const ReviewSection = ({ lang }) => {
   const t = translations[lang].review;
   
   const [formData, setFormData] = useState({
+    type: 'customer', // Default to customer
     name: '',
     email: '',
     phone: '',
@@ -177,6 +178,36 @@ const ReviewSection = ({ lang }) => {
                 
                 <form onSubmit={handleSubmit} className={`space-y-6 ${isRTL ? 'text-right' : 'text-left'}`}>
                   <div>
+                    <label htmlFor="type" className="block text-sm font-mikhak-medium text-gray-700 mb-1">
+                      {t.type} *
+                    </label>
+                    <div className="flex gap-4 mt-1">
+                      <label className="inline-flex items-center">
+                        <input
+                          type="radio"
+                          name="type"
+                          value="customer"
+                          checked={formData.type === 'customer'}
+                          onChange={handleChange}
+                          className="form-radio h-4 w-4 text-primary focus:ring-primary/50"
+                        />
+                        <span className="ml-2 font-mikhak-regular">{t.typeCustomer}</span>
+                      </label>
+                      <label className="inline-flex items-center">
+                        <input
+                          type="radio"
+                          name="type"
+                          value="provider"
+                          checked={formData.type === 'provider'}
+                          onChange={handleChange}
+                          className="form-radio h-4 w-4 text-primary focus:ring-primary/50"
+                        />
+                        <span className="ml-2 font-mikhak-regular">{t.typeProvider}</span>
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <div>
                     <label htmlFor="name" className="block text-sm font-mikhak-medium text-gray-700 mb-1">
                       {t.name} *
                     </label>
@@ -273,4 +304,6 @@ const ReviewSection = ({ lang }) => {
 };
 
 export default ReviewSection;
+
+
 

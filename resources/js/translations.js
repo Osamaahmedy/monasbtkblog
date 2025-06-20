@@ -139,6 +139,9 @@ export const translations = {
         review: {
             title: "Share Your Feedback",
             subtitle: "We value your opinion and suggestions to improve our services",
+            type: "You are a",
+            typeCustomer: "Customer",
+            typeProvider: "Service Provider",
             name: "Full Name",
             email: "Email Address",
             phone: "Phone Number",
@@ -199,7 +202,7 @@ export const translations = {
         },
         about: {
             title: 'من نحن',
-            description: 'مناسبة تك هي شركة تعتمد على التكنولوجيا ومتخصصة في حلول تخطيط المناسبات. نحن نتفهم تحديات تنظيم حدث ناجح، وتطبيقنا مصمم لتبسيط العملية، مما يوفر وقتك وجهدك. تأسست مناسبة تك في بداية عام 2024، وهي ملتزمة بإحداث ثورة في صناعة تخطيط المناسبات من خلال تقديم حلول مبتكرة وشاملة.',
+            description: '"مناسبتك" هي شركة سعودية ناشئة تعتمد على التكنولوجيا، متخصصة في تقديم حلول ذكية لتنظيم المناسبات والفعاليات.\nنؤمن بأن التخطيط لمناسبة مميزة لا يجب أن يكون معقدًا، ولهذا صممنا تطبيق "مناسبتك" ليكون أداة سهلة وفعالة تساعد العملاء على توفير الوقت والجهد، والوصول إلى أفضل مزودي الخدمات بكل سلاسة.\nتأسست الشركة بداية عام 2024، ونسعى لإحداث نقلة نوعية في قطاع تنظيم المناسبات من خلال حلول مبتكرة وشاملة تواكب احتياجات السوق المحلي وتدعم رواد الأعمال في هذا المجال.',
         },
         occasions: {
             title: 'اكتشف مناسباتنا',
@@ -324,6 +327,9 @@ export const translations = {
         review: {
             title: "شاركنا رأيك",
             subtitle: "نحن نقدر آرائك واقتراحاتك لتحسين خدماتنا",
+            type: "أنت",
+            typeCustomer: "عميل",
+            typeProvider: "مزود خدمة",
             name: "الاسم الكامل",
             email: "البريد الإلكتروني",
             phone: "رقم الهاتف",
@@ -393,6 +399,8 @@ export const translations = {
         }
     },
 };
+
+
 
 
 
