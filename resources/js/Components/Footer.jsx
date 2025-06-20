@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { translations } from '../translations';
-import monasbtkLogo from '../../images/monasbtk_colored_logo.png';
+import monasbtkMainLogo from '../../images/monasbtk_main_logo.png';
 
 // Import local social media icons
 import linkedinLogo from '../../icons/linkedin_logo.png';
@@ -91,9 +91,12 @@ const Footer = ({ lang }) => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: false }}
               transition={{ duration: 0.8 }}
-              className="flex-shrink-0 bg-white/10 p-6 rounded-2xl backdrop-blur-sm shadow-xl"
             >
-              <img src={monasbtkLogo} alt="Monasbtk Logo" className="h-32 w-auto" />
+              <img 
+                src={monasbtkMainLogo} 
+                alt="Monasbtk Logo" 
+                className="h-40 w-auto" // Increased from h-28 to h-40
+              />
             </motion.div>
           </motion.div>
         </div>
@@ -251,4 +254,9 @@ const Footer = ({ lang }) => {
 };
 
 export default Footer;
+
+
+
+
+
 
