@@ -115,7 +115,7 @@ const Footer = ({ lang }) => {
             
             <div className="flex space-x-3 rtl:space-x-reverse mt-6">
               <motion.a 
-                href="#" 
+                href="https://www.linkedin.com/company/monasbatech/" 
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors shadow-md"
@@ -123,7 +123,7 @@ const Footer = ({ lang }) => {
                 <img src={socialIcons.linkedin} alt="LinkedIn" className="w-6 h-6" />
               </motion.a>
               <motion.a 
-                href="#" 
+                href="https://www.instagram.com/monasbtkapp?igsh=OThvZDR4YzF1bmJp&utm_source=qr" 
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors shadow-md"
@@ -131,7 +131,7 @@ const Footer = ({ lang }) => {
                 <img src={socialIcons.instagram} alt="Instagram" className="w-6 h-6" />
               </motion.a>
               <motion.a 
-                href="#" 
+                href="https://wa.me/966542728123" 
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors shadow-md"
@@ -139,7 +139,7 @@ const Footer = ({ lang }) => {
                 <img src={socialIcons.whatsapp} alt="WhatsApp" className="w-6 h-6" />
               </motion.a>
               <motion.a 
-                href="#" 
+                href="https://x.com/monasbtkapp?s=21&t=u1kZpmzFndvZZJvLgvtGAA" 
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 className="bg-white/10 hover:bg-white/20 p-2 rounded-full transition-colors shadow-md"
