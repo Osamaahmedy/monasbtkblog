@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { translations } from '../translations';
+import axios from 'axios';
 
 const ReviewSection = ({ lang }) => {
   const isRTL = lang === 'ar';
@@ -52,17 +53,28 @@ const ReviewSection = ({ lang }) => {
   
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log('Form submitted', formData); // Debug log
     
     if (validate()) {
       setIsSubmitting(true);
       
-      // Simulate API call
-      setTimeout(() => {
+      // Send email with form data
+      axios.post('/api/send-review', {
+        type: formData.type,
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+        recipientEmail: 'Monasbatech@gmail.com'
+      })
+      .then(response => {
+        console.log('Success response:', response); // Debug log
         setIsSubmitting(false);
         setIsSubmitted(true);
         
         // Reset form after submission
         setFormData({
+          type: 'customer',
           name: '',
           email: '',
           phone: '',
@@ -73,7 +85,19 @@ const ReviewSection = ({ lang }) => {
         setTimeout(() => {
           setIsSubmitted(false);
         }, 5000);
-      }, 1500);
+      })
+      .catch(error => {
+        console.error('Error details:', error.response ? error.response.data : error);
+        setIsSubmitting(false);
+        
+        // Always show a user-friendly message regardless of the actual error
+        const errorMessage = t.friendlyErrorMessage || 'We couldn\'t send your feedback right now. Please try again later.';
+        
+        setErrors(prev => ({
+          ...prev,
+          form: errorMessage
+        }));
+      });
     }
   };
   
@@ -177,6 +201,13 @@ const ReviewSection = ({ lang }) => {
                 )}
                 
                 <form onSubmit={handleSubmit} className={`space-y-6 ${isRTL ? 'text-right' : 'text-left'}`}>
+                  {/* Simplified error message display */}
+                  {errors.form && (
+                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded text-center">
+                      {errors.form}
+                    </div>
+                  )}
+                  
                   <div>
                     <label htmlFor="type" className="block text-sm font-mikhak-medium text-gray-700 mb-1">
                       {t.type} *
@@ -304,6 +335,14 @@ const ReviewSection = ({ lang }) => {
 };
 
 export default ReviewSection;
+
+
+
+
+
+
+
+
 
 
 

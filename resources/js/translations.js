@@ -152,7 +152,8 @@ export const translations = {
             emailPlaceholder: "Enter your email",
             phonePlaceholder: "Enter your phone number",
             messagePlaceholder: "Write your feedback or suggestions here...",
-            required: "Required field"
+            required: "Required field",
+            friendlyErrorMessage: "We couldn't send your feedback right now. Please try again later."
         },
         footer: {
             downloadTitle: "Plan Your Perfect Occasion with Monasbtk",
@@ -340,7 +341,8 @@ export const translations = {
             emailPlaceholder: "أدخل بريدك الإلكتروني",
             phonePlaceholder: "أدخل رقم هاتفك",
             messagePlaceholder: "اكتب ملاحظاتك أو اقتراحاتك هنا...",
-            required: "حقل مطلوب"
+            required: "حقل مطلوب",
+            friendlyErrorMessage: "لم نتمكن من إرسال ملاحظاتك الآن. يرجى المحاولة مرة أخرى لاحقًا."
         },
         footer: {
             downloadTitle: "خطط لمناسبتك المثالية مع مناسبتك",
@@ -399,6 +401,7 @@ export const translations = {
         }
     },
 };
+
 
 
 
