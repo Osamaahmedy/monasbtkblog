@@ -14,7 +14,7 @@ export const translations = {
         },
         about: {
             title: 'About Us',
-            description: 'MonasabaTech is a technology-driven company specializing in event planning solutions. We understand the challenges of organizing a successful event, and our app is designed to simplify the process, saving your time and effort. Founded at the initial of 2024, MonasabaTech is committed to revolutionizing the event planning industry by offering innovative and comprehensive solutions.',
+            description: 'Monasbtk is a Saudi startup that leverages technology to provide smart solutions for organizing events and occasions.\n We believe that planning a special occasion shouldn’t be complicated. That’s why we designed the “Monasbtk” app to be an easy and efficient tool that helps users save time and effort, while seamlessly connecting them with the best service providers.\n Founded in early 2024, our company aims to revolutionize the event planning sector by offering innovative and comprehensive solutions tailored to the needs of the local market, while also supporting entrepreneurs in this field.',
         },
         occasions: {
             title: 'Explore Our Occasions',
@@ -63,28 +63,28 @@ export const translations = {
         },
         features: {
             title: 'Our Features',
-            subtitle: 'Discover how Monasbtk app can make event planning easier and more enjoyable.',
+            subtitle: 'Discover how the “Monasbtk” app makes planning any event smart and simple:',
             specialOrganizer: {
-                title: 'Special Organizer',
-                description: 'A dedicated team helps arrange your event.'
+                title: 'Your Personal Planner',
+                description: 'A dedicated team helps you organize your event with professionalism and care.'
             },
             allServices: {
-                title: 'All Services at Fingertip',
-                description: 'Access all party needs easily.'
+                title: 'All Services in One Place',
+                description: 'From catering to photography and giveaways — everything you need is ready for you.'
             },
             saveTime: {
-                title: 'Save Time',
-                description: 'Book everything in one place.'
+                title: 'Save Time and Effort',
+                description: 'Book and arrange every detail from your phone, in just minutes.'
             },
             securePayments: {
-                title: 'Secure Payments',
-                description: 'Pay with Mada, Visa, MasterCard, Apple Pay.'
+                title: 'Secure Online Payments',
+                description: 'Pay easily with Mada, Visa, MasterCard, or Apple Pay.'
             }
             },
         middleBanner: {
-            line1: 'Arranging events is easier with Monasaba',
-            line2: 'Tech',
-            wordmark: 'Monasaba Tech'
+            line1: 'Arranging events is easier with Monasbtk',
+            line2: '',
+            wordmark: 'Monasbtk'
         },
         howToOrder: {
             title: 'How to Order?',
@@ -116,24 +116,24 @@ export const translations = {
         faq: {
             title: 'FAQ',
             customize: {
-                question: 'Can I customize the services for my event?',
-                answer: 'Absolutely! The app offers a range of customizable options for each category. You can choose different designs, themes, and setups to personalize your event according to your preferences.'
+                question: 'Can I customize services based on my event?',
+                answer: 'Absolutely! The app offers a variety of customizable options such as designs, themes, and service arrangements to match your style and the type of event you are planning.'
             },
             booking: {
-                question: 'How do I book services for my event through the app?',
-                answer: 'Yes, all service providers listed on the app are verified and reviewed to ensure they offer high-quality and reliable services. You can read reviews and view ratings for each provider before making your selection.'
+                question: 'How can I book services?',
+                answer: 'It is simple! Just select the service, set the details, and book directly from your phone — quickly and easily.'
             },
             verified: {
-                question: 'Are the service providers listed on the app verified?',
-                answer: 'Absolutely! The app offers a range of customizable options for each category. You can choose different designs, themes, and setups to personalize your event according to your preferences.'
+                question: 'Are the service providers reliable?',
+                answer: 'Yes, all service providers on the app are verified and their work is reviewed to ensure quality and trust. You can also check ratings and customer reviews before booking.'
             },
             tracking: {
-                question: 'How can I track my bookings and manage my event?',
-                answer: 'Once you have booked services through the app, you can use the event management tools to keep track of your bookings, make payments, and communicate with service providers. You will also receive notifications and reminders to help you stay organized.'
+                question: 'Can I track my bookings?',
+                answer: 'Of course! You can manage all your event details through an easy-to-use dashboard in the app. This includes order status, communication with the provider, payment tracking, and real-time notifications.'
             },
             eventTypes: {
-                question: 'What types of events can I plan using the app?',
-                answer: 'The app supports planning for a variety of events, including graduation parties, birthdays, Father\'s Day, Mother\'s Day, anniversaries, and gender reveal parties. You can find all the necessary services for each of these occasions within the app.'
+                question: 'What types of events does the app support?',
+                answer: "The app supports a wide range of events including graduation parties, birthdays, weddings, family occasions like Mother’s and Father’s Day, cakes, catering, photography, gender reveal parties — and more!"
             }
         },
         review: {
@@ -155,10 +155,10 @@ export const translations = {
             required: "Required field"
         },
         footer: {
-            downloadTitle: "Plan Your Perfect Occasion with Monasabatk",
-            downloadText: "Download Monasaba Tech Now and Make Your Celebrations Unforgettable!",
-            aboutTitle: "About Monasabatk",
-            aboutText: "Monasabatk is your all-in-one platform for planning and organizing perfect celebrations and events with ease.",
+            downloadTitle: "Plan Your Perfect Occasion with Monasbtk",
+            downloadText: "Download Monasbtk Now and Make Your Celebrations Unforgettable!",
+            aboutTitle: "About Monasbtk",
+            aboutText: "Monasbtk is your all-in-one platform for planning and organizing perfect celebrations and events with ease.",
             quickLinksTitle: "Quick Links",
             quickLinks: [
                 { text: "Home", url: "#" },
@@ -176,10 +176,10 @@ export const translations = {
                 { text: "Budget Tracking", url: "#" }
             ],
             contactTitle: "Contact Us",
-            email: "info@monasabatk.com",
-            phone: "+123 456 7890",
-            address: "123 Main Street, City, Country",
-            copyright: "All rights reserved Monasabatk Tech",
+            email: "info@Monasbtk.com",
+            phone: "+966 54 272 8123",
+            address: "Jedda, Saudi Arabia",
+            copyright: "All rights reserved Monasbtk",
             bottomLinks: [
                 { text: "Privacy Policy", url: "#" },
                 { text: "Terms of Service", url: "#" },
@@ -364,10 +364,10 @@ export const translations = {
                 { text: "تتبع الميزانية", url: "#" }
             ],
             contactTitle: "اتصل بنا",
-            email: "info@monasabatk.com",
-            phone: "+123 456 7890",
-            address: "123 الشارع الرئيسي، المدينة، البلد",
-            copyright: "جميع الحقوق محفوظة لمناسبتك تك",
+            email: "info@monasbtk.com",
+            phone: "+966 54 272 8123",
+            address: "جدة، المملكة العربية السعودية",
+            copyright: "جميع الحقوق محفوظة لمناسبتك",
             bottomLinks: [
                 { text: "سياسة الخصوصية", url: "#" },
                 { text: "شروط الخدمة", url: "#" },
