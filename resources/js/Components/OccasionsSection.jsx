@@ -193,19 +193,24 @@ const OccasionsSection = ({ lang }) => {
                                             {/* App Header */}
                                             <div className="text-white text-center mb-6">
                                                 <h3 className="text-xl font-mikhak-bold">{t.title}</h3>
-                                                <p className="text-xs opacity-80">Find the perfect occasion</p>
+                                                <p className="text-xs opacity-80">{t.subtitle}</p>
                                             </div>
                                             
-                                            {/* Search Bar */}
-                                            <div className="bg-white/10 rounded-full p-3 mb-6 flex items-center">
-                                                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                                </svg>
-                                                <div className="ml-2 text-white/80 text-xs">Search occasions...</div>
+                                            {/* Featured Occasion */}
+                                            <div className="bg-white/10 rounded-xl p-3 mb-4">
+                                                <div className="flex items-center mb-2">
+                                                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
+                                                        <img src={birthdayIcon} alt="Birthday" className="w-6 h-6 object-contain" />
+                                                    </div>
+                                                    <div>
+                                                        <h4 className="text-white text-sm">{t.birthday}</h4>
+                                                        <div className="w-20 h-2 bg-white/20 rounded-full mt-1"></div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             
                                             {/* Occasions Grid */}
-                                            <div className="grid grid-cols-2 gap-3">
+                                            <div className="grid grid-cols-2 gap-3 mb-4">
                                                 {occasions.slice(0, 4).map((occasion, index) => (
                                                     <div key={index} className="bg-white/10 rounded-xl p-3 aspect-square flex flex-col justify-center items-center">
                                                         <div className="w-12 h-12 rounded-full bg-white/20 mb-2 flex items-center justify-center">
@@ -215,28 +220,9 @@ const OccasionsSection = ({ lang }) => {
                                                                 className="w-8 h-8 object-contain" 
                                                             />
                                                         </div>
-                                                        <div className="w-full h-3 rounded-full bg-white/20 mb-1"></div>
-                                                        <div className="w-2/3 h-3 rounded-full bg-white/20"></div>
+                                                        <div className="text-white text-xs text-center mt-1">{t[occasion.key]}</div>
                                                     </div>
                                                 ))}
-                                            </div>
-                                            
-                                            {/* Featured Section */}
-                                            <div className="mt-6">
-                                                <h4 className="text-white text-sm mb-3">Featured</h4>
-                                                <div className="bg-white/10 rounded-xl p-4 flex items-center">
-                                                    <div className="w-10 h-10 rounded-full bg-white/20 mr-3 flex items-center justify-center">
-                                                        <img 
-                                                            src={birthdayIcon} 
-                                                            alt="Featured" 
-                                                            className="w-6 h-6" 
-                                                        />
-                                                    </div>
-                                                    <div>
-                                                        <h5 className="text-white text-xs">Birthday Special</h5>
-                                                        <div className="w-20 h-2 bg-white/20 rounded-full mt-1"></div>
-                                                    </div>
-                                                </div>
                                             </div>
                                             
                                             {/* Navigation Bar */}
@@ -301,6 +287,7 @@ const OccasionsSection = ({ lang }) => {
 };
 
 export default OccasionsSection;
+
 
 
 

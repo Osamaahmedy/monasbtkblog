@@ -81,37 +81,51 @@ const DownloadAppSection = ({ lang }) => {
                   {/* Inner Screen */}
                   <div className="rounded-[1.7rem] overflow-hidden w-full h-full bg-gradient-to-br from-[#6B1D8E] to-[#9B59B6] p-3">
                     <div dir={lang === 'ar' ? 'rtl' : 'ltr'} className="flex flex-col h-full">
-                      {/* Status bar */}
-                      <div className="flex justify-between items-center mb-3">
-                        <div className="w-6 h-1.5 rounded-full bg-white/20"></div>
-                        <div className="w-12 h-1.5 rounded-full bg-white/20"></div>
-                        <div className="w-6 h-1.5 rounded-full bg-white/20"></div>
-                      </div>
-                      
-                      {/* Content */}
-                      <div className="flex-1 flex flex-col gap-3">
-                        <div className="bg-white/10 rounded-lg p-2">
-                          <div className="w-full h-2 rounded-full bg-white/20 mb-1.5"></div>
-                          <div className="w-3/4 h-2 rounded-full bg-white/20"></div>
-                        </div>
-                        
-                        <div className="grid grid-cols-2 gap-2 flex-1">
-                          {[1, 2, 3, 4].map((item) => (
-                            <div key={item} className="bg-white/10 rounded-lg p-2 flex flex-col justify-center items-center">
-                              <div className="w-8 h-8 rounded-full bg-white/20 mb-1.5"></div>
-                              <div className="w-full h-1.5 rounded-full bg-white/20 mb-1"></div>
-                              <div className="w-2/3 h-1.5 rounded-full bg-white/20"></div>
-                            </div>
-                          ))}
-                        </div>
-                        
-                        <div className="bg-white/10 rounded-lg p-2 mt-auto">
-                          <div className="flex justify-between">
-                            <div className="w-6 h-6 rounded-full bg-white/20"></div>
-                            <div className="w-6 h-6 rounded-full bg-white/20"></div>
-                            <div className="w-6 h-6 rounded-full bg-white/20"></div>
-                            <div className="w-6 h-6 rounded-full bg-white/20"></div>
+                      {/* App Store Download Screen */}
+                      <div className="flex-1 flex flex-col">
+                        {/* App Header */}
+                        <div className="flex justify-between items-center mb-3">
+                          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                            <span className="text-white text-xs">←</span>
                           </div>
+                          <div className="text-white text-xs font-bold">App Store</div>
+                          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                            <span className="text-white text-xs">⋮</span>
+                          </div>
+                        </div>
+                        
+                        {/* App Preview */}
+                        <div className="bg-white/10 rounded-lg p-3 mb-3">
+                          <div className="flex items-center mb-2">
+                            <div className="w-12 h-12 rounded-xl bg-white/30 mr-2 flex items-center justify-center">
+                              <span className="text-white text-lg">M</span>
+                            </div>
+                            <div className="flex-1">
+                              <div className="text-white text-sm font-bold mb-1">Monasbtk</div>
+                              <div className="text-white/70 text-xs">{lang === 'ar' ? 'تنظيم المناسبات' : 'Event Planning'}</div>
+                            </div>
+                          </div>
+                          <div className="flex justify-between mt-2">
+                            <div className="text-white/70 text-xs">★★★★★</div>
+                            <div className="text-white/70 text-xs">4.9</div>
+                          </div>
+                        </div>
+                        
+                        {/* Screenshots */}
+                        <div className="mb-3">
+                          <div className="text-white text-xs mb-2">{lang === 'ar' ? 'لقطات الشاشة' : 'Screenshots'}</div>
+                          <div className="flex space-x-2 overflow-x-auto pb-2">
+                            <div className="w-20 h-36 rounded-lg bg-white/20 flex-shrink-0"></div>
+                            <div className="w-20 h-36 rounded-lg bg-white/20 flex-shrink-0"></div>
+                            <div className="w-20 h-36 rounded-lg bg-white/20 flex-shrink-0"></div>
+                          </div>
+                        </div>
+                        
+                        {/* Download Button */}
+                        <div className="mt-auto">
+                          <button className="w-full py-2 bg-white/20 rounded-lg text-white text-sm font-bold">
+                            {lang === 'ar' ? 'تنزيل' : 'DOWNLOAD'}
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -148,37 +162,60 @@ const DownloadAppSection = ({ lang }) => {
                   {/* Inner Screen */}
                   <div className="rounded-[1.7rem] overflow-hidden w-full h-full bg-gradient-to-br from-pink-600 to-purple-700 p-3">
                     <div dir={lang === 'ar' ? 'rtl' : 'ltr'} className="flex flex-col h-full">
-                      {/* Status bar */}
-                      <div className="flex justify-between items-center mb-3">
-                        <div className="w-6 h-1.5 rounded-full bg-white/20"></div>
-                        <div className="w-12 h-1.5 rounded-full bg-white/20"></div>
-                        <div className="w-6 h-1.5 rounded-full bg-white/20"></div>
-                      </div>
-                      
-                      {/* Content */}
-                      <div className="flex-1 flex flex-col gap-3">
-                        <div className="bg-white/10 rounded-lg p-2">
-                          <div className="w-full h-2 rounded-full bg-white/20 mb-1.5"></div>
-                          <div className="w-3/4 h-2 rounded-full bg-white/20"></div>
-                        </div>
-                        
-                        <div className="grid grid-cols-2 gap-2 flex-1">
-                          {[1, 2, 3, 4].map((item) => (
-                            <div key={item} className="bg-white/10 rounded-lg p-2 flex flex-col justify-center items-center">
-                              <div className="w-8 h-8 rounded-full bg-white/20 mb-1.5"></div>
-                              <div className="w-full h-1.5 rounded-full bg-white/20 mb-1"></div>
-                              <div className="w-2/3 h-1.5 rounded-full bg-white/20"></div>
-                            </div>
-                          ))}
-                        </div>
-                        
-                        <div className="bg-white/10 rounded-lg p-2 mt-auto">
-                          <div className="flex justify-between">
-                            <div className="w-6 h-6 rounded-full bg-white/20"></div>
-                            <div className="w-6 h-6 rounded-full bg-white/20"></div>
-                            <div className="w-6 h-6 rounded-full bg-white/20"></div>
-                            <div className="w-6 h-6 rounded-full bg-white/20"></div>
+                      {/* Google Play Download Screen */}
+                      <div className="flex-1 flex flex-col">
+                        {/* App Header */}
+                        <div className="flex justify-between items-center mb-3">
+                          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                            <span className="text-white text-xs">←</span>
                           </div>
+                          <div className="text-white text-xs font-bold">Google Play</div>
+                          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                            <span className="text-white text-xs">⋮</span>
+                          </div>
+                        </div>
+                        
+                        {/* App Preview */}
+                        <div className="bg-white/10 rounded-lg p-3 mb-3">
+                          <div className="flex items-center mb-2">
+                            <div className="w-12 h-12 rounded-xl bg-white/30 mr-2 flex items-center justify-center">
+                              <span className="text-white text-lg">M</span>
+                            </div>
+                            <div className="flex-1">
+                              <div className="text-white text-sm font-bold mb-1">Monasbtk</div>
+                              <div className="text-white/70 text-xs">{lang === 'ar' ? 'تنظيم المناسبات' : 'Event Planning'}</div>
+                            </div>
+                          </div>
+                          <div className="flex justify-between mt-2">
+                            <div className="text-white/70 text-xs">★★★★★</div>
+                            <div className="text-white/70 text-xs">4.8</div>
+                          </div>
+                        </div>
+                        
+                        {/* Features */}
+                        <div className="mb-3">
+                          <div className="text-white text-xs mb-2">{lang === 'ar' ? 'المميزات' : 'Features'}</div>
+                          <div className="space-y-2">
+                            <div className="flex items-center">
+                              <div className="w-6 h-6 rounded-full bg-white/20 mr-2 flex items-center justify-center">
+                                <span className="text-white text-xs">✓</span>
+                              </div>
+                              <div className="text-white text-xs">{lang === 'ar' ? 'تخطيط سهل' : 'Easy Planning'}</div>
+                            </div>
+                            <div className="flex items-center">
+                              <div className="w-6 h-6 rounded-full bg-white/20 mr-2 flex items-center justify-center">
+                                <span className="text-white text-xs">✓</span>
+                              </div>
+                              <div className="text-white text-xs">{lang === 'ar' ? 'حجز فوري' : 'Instant Booking'}</div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Download Button */}
+                        <div className="mt-auto">
+                          <button className="w-full py-2 bg-white/20 rounded-lg text-white text-sm font-bold">
+                            {lang === 'ar' ? 'تثبيت' : 'INSTALL'}
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -194,6 +231,7 @@ const DownloadAppSection = ({ lang }) => {
 };
 
 export default DownloadAppSection;
+
 
 
 

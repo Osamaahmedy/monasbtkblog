@@ -91,7 +91,6 @@ const AppMockup = ({ lang }) => (
         whileInView="visible"
         viewport={{ once: true, margin: "-100px", amount: 0.4 }}
         className="relative mx-auto"
-        // Floating animation - separate from the entrance animation
         animate={{
             y: [0, -15, 0],
             x: [0, 5, 0],
@@ -127,25 +126,62 @@ const AppMockup = ({ lang }) => (
             <div className="h-[32px] w-[3px] bg-gray-800 absolute -left-[11px] top-[120px] rounded-r-lg"></div>
             {/* Inner Screen */}
             <div className="rounded-[2rem] overflow-hidden w-full h-full bg-gradient-to-br from-[#6B1D8E] to-[#9B59B6] p-4">
+                {/* App Header */}
                 <div className="flex justify-between items-center mb-6">
-                    <div className="w-8 h-8 rounded-full bg-white/20"></div>
-                    <div className="w-24 h-6 rounded-full bg-white/20"></div>
-                    <div className="w-8 h-8 rounded-full bg-white/20"></div>
+                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white text-xs">
+                        <span>🏠</span>
+                    </div>
+                    <div className="w-24 h-6 rounded-full bg-white/20 flex items-center justify-center">
+                        <span className="text-white text-xs">Monasbtk</span>
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white text-xs">
+                        <span>👤</span>
+                    </div>
                 </div>
                 
+                {/* Feature Highlight */}
                 <div dir={lang === 'ar' ? 'rtl' : 'ltr'} className="bg-white/10 rounded-xl p-3 mb-4">
-                    <div className="w-full h-4 rounded-full bg-white/20 mb-2"></div>
-                    <div className="w-3/4 h-4 rounded-full bg-white/20"></div>
+                    <div className="flex items-center mb-2">
+                        <div className="w-6 h-6 rounded-full bg-white/30 mr-2 flex items-center justify-center">
+                            <span className="text-white text-xs">📅</span>
+                        </div>
+                        <div className="w-3/4 h-4 rounded-full bg-white/30"></div>
+                    </div>
+                    <div className="w-full h-10 rounded-lg bg-white/10 flex items-center justify-center">
+                        <span className="text-white text-xs">{lang === 'ar' ? 'منظم شخصي' : 'Personal Planner'}</span>
+                    </div>
                 </div>
                 
+                {/* Feature Grid */}
                 <div className="grid grid-cols-2 gap-3">
-                    {[1, 2, 3, 4].map((item) => (
-                        <div key={item} className="bg-white/10 rounded-xl p-3 aspect-square flex flex-col justify-center items-center">
-                            <div className="w-12 h-12 rounded-full bg-white/20 mb-2"></div>
-                            <div className="w-full h-3 rounded-full bg-white/20 mb-1"></div>
-                            <div className="w-2/3 h-3 rounded-full bg-white/20"></div>
+                    <div className="bg-white/10 rounded-xl p-3 aspect-square flex flex-col justify-center items-center">
+                        <div className="w-12 h-12 rounded-full bg-white/30 mb-2 flex items-center justify-center">
+                            <span className="text-white">📲</span>
                         </div>
-                    ))}
+                        <div className="w-full h-3 rounded-full bg-white/20 mb-1"></div>
+                        <div className="w-2/3 h-3 rounded-full bg-white/20"></div>
+                    </div>
+                    <div className="bg-white/10 rounded-xl p-3 aspect-square flex flex-col justify-center items-center">
+                        <div className="w-12 h-12 rounded-full bg-white/30 mb-2 flex items-center justify-center">
+                            <span className="text-white">⏰</span>
+                        </div>
+                        <div className="w-full h-3 rounded-full bg-white/20 mb-1"></div>
+                        <div className="w-2/3 h-3 rounded-full bg-white/20"></div>
+                    </div>
+                    <div className="bg-white/10 rounded-xl p-3 aspect-square flex flex-col justify-center items-center">
+                        <div className="w-12 h-12 rounded-full bg-white/30 mb-2 flex items-center justify-center">
+                            <span className="text-white">💳</span>
+                        </div>
+                        <div className="w-full h-3 rounded-full bg-white/20 mb-1"></div>
+                        <div className="w-2/3 h-3 rounded-full bg-white/20"></div>
+                    </div>
+                    <div className="bg-white/10 rounded-xl p-3 aspect-square flex flex-col justify-center items-center">
+                        <div className="w-12 h-12 rounded-full bg-white/30 mb-2 flex items-center justify-center">
+                            <span className="text-white">🎁</span>
+                        </div>
+                        <div className="w-full h-3 rounded-full bg-white/20 mb-1"></div>
+                        <div className="w-2/3 h-3 rounded-full bg-white/20"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -376,6 +412,8 @@ const FeaturesSection = ({ lang }) => {
 };
 
 export default FeaturesSection;
+
+
 
 
 

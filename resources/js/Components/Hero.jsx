@@ -115,30 +115,99 @@ const Hero = ({ lang }) => {
                                     <div className="w-6 h-1.5 rounded-full bg-white/20"></div>
                                 </div>
                                 
-                                {/* App content placeholder */}
-                                <div className="flex-1 flex flex-col items-center justify-center">
-                                    <motion.div 
-                                        className="w-16 h-16 rounded-full bg-white/10 mb-4 flex items-center justify-center"
-                                        animate={{ scale: [1, 1.1, 1] }}
-                                        transition={{ repeat: Infinity, duration: 2 }}
-                                    >
-                                        <span className="text-white text-2xl font-bold">M</span>
-                                    </motion.div>
-                                    <span className="text-white text-lg font-bold">Monasbtk App</span>
-                                    <motion.div 
-                                        className="mt-4 w-20 h-1 bg-white/30 rounded-full"
-                                        animate={{ width: ["5rem", "7rem", "5rem"] }}
-                                        transition={{ repeat: Infinity, duration: 2 }}
-                                    />
-                                </div>
-                                
-                                {/* Navigation bar */}
-                                <div className="bg-white/10 rounded-lg p-2 mt-auto">
-                                    <div className="flex justify-between">
-                                        <div className="w-6 h-6 rounded-full bg-white/20"></div>
-                                        <div className="w-6 h-6 rounded-full bg-white/20"></div>
-                                        <div className="w-6 h-6 rounded-full bg-white/20"></div>
-                                        <div className="w-6 h-6 rounded-full bg-white/20"></div>
+                                {/* App content - Home screen */}
+                                <div className="flex-1 flex flex-col">
+                                    {/* Welcome header */}
+                                    <div className="mb-4">
+                                        <h3 className="text-white text-lg font-bold mb-1">
+                                            {lang === 'ar' ? 'مرحباً بك!' : 'Welcome!'}
+                                        </h3>
+                                        <p className="text-white/70 text-xs">
+                                            {lang === 'ar' ? 'اكتشف مناسبتك المثالية' : 'Discover your perfect occasion'}
+                                        </p>
+                                    </div>
+                                    
+                                    {/* Featured occasions */}
+                                    <div className="bg-white/10 rounded-lg p-3 mb-4">
+                                        <div className="flex justify-between items-center mb-2">
+                                            <h4 className="text-white text-sm font-medium">
+                                                {lang === 'ar' ? 'مناسبات مميزة' : 'Featured Occasions'}
+                                            </h4>
+                                            <span className="text-white/50 text-xs">
+                                                {lang === 'ar' ? 'عرض الكل' : 'View all'}
+                                            </span>
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-2">
+                                            <div className="bg-white/10 rounded-lg p-2 flex flex-col items-center">
+                                                <div className="w-10 h-10 rounded-full bg-white/20 mb-1 flex items-center justify-center">
+                                                    <span className="text-white text-xs">🎂</span>
+                                                </div>
+                                                <span className="text-white text-xs">
+                                                    {lang === 'ar' ? 'أعياد ميلاد' : 'Birthdays'}
+                                                </span>
+                                            </div>
+                                            <div className="bg-white/10 rounded-lg p-2 flex flex-col items-center">
+                                                <div className="w-10 h-10 rounded-full bg-white/20 mb-1 flex items-center justify-center">
+                                                    <span className="text-white text-xs">💍</span>
+                                                </div>
+                                                <span className="text-white text-xs">
+                                                    {lang === 'ar' ? 'حفلات زفاف' : 'Weddings'}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    {/* Trending services */}
+                                    <div className="bg-white/10 rounded-lg p-3 mb-4">
+                                        <h4 className="text-white text-sm font-medium mb-2">
+                                            {lang === 'ar' ? 'خدمات رائجة' : 'Trending Services'}
+                                        </h4>
+                                        <div className="space-y-2">
+                                            <div className="flex items-center bg-white/10 rounded-lg p-2">
+                                                <div className="w-8 h-8 rounded-full bg-white/20 mr-2 flex items-center justify-center">
+                                                    <span className="text-white text-xs">🍰</span>
+                                                </div>
+                                                <div>
+                                                    <div className="text-white text-xs font-medium">
+                                                        {lang === 'ar' ? 'كيك مخصص' : 'Custom Cakes'}
+                                                    </div>
+                                                    <div className="text-white/50 text-[10px]">
+                                                        {lang === 'ar' ? '٤.٩ ★' : '4.9 ★'}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center bg-white/10 rounded-lg p-2">
+                                                <div className="w-8 h-8 rounded-full bg-white/20 mr-2 flex items-center justify-center">
+                                                    <span className="text-white text-xs">🎵</span>
+                                                </div>
+                                                <div>
+                                                    <div className="text-white text-xs font-medium">
+                                                        {lang === 'ar' ? 'دي جي' : 'DJ Services'}
+                                                    </div>
+                                                    <div className="text-white/50 text-[10px]">
+                                                        {lang === 'ar' ? '٤.٨ ★' : '4.8 ★'}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    {/* Navigation bar */}
+                                    <div className="bg-white/10 rounded-lg p-2 mt-auto">
+                                        <div className="flex justify-between">
+                                            <div className="w-6 h-6 rounded-full bg-white/40 flex items-center justify-center">
+                                                <span className="text-white text-xs">🏠</span>
+                                            </div>
+                                            <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+                                                <span className="text-white text-xs">🔍</span>
+                                            </div>
+                                            <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+                                                <span className="text-white text-xs">📅</span>
+                                            </div>
+                                            <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+                                                <span className="text-white text-xs">👤</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -151,4 +220,5 @@ const Hero = ({ lang }) => {
 };
 
 export default Hero;
+
 

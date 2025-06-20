@@ -14,14 +14,13 @@ const PhoneMockup = ({ index, lang }) => {
             className={`${rotations[index]} mx-4 relative`}
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: "-100px" }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ 
                 duration: 0.8, 
                 delay: delays[index], 
                 type: 'spring',
                 stiffness: 100
             }}
-            // Creative hover animation
             whileHover={{ 
                 y: -8,
                 scale: 1.05,
@@ -78,20 +77,34 @@ const PhoneMockup = ({ index, lang }) => {
                             <div className="w-6 h-1.5 rounded-full bg-white/20"></div>
                         </div>
                         
-                        {/* Content with subtle animations on hover */}
+                        {/* Event Planning Content */}
                         <div className="flex-1 flex flex-col gap-3">
+                            {/* Event Header */}
                             <motion.div 
                                 className="bg-white/10 rounded-lg p-2"
                                 whileHover={{ backgroundColor: "rgba(255,255,255,0.15)" }}
                             >
-                                <div className="w-full h-2 rounded-full bg-white/20 mb-1.5"></div>
+                                <div className="flex items-center mb-1.5">
+                                    <div className="w-6 h-6 rounded-full bg-white/30 mr-2 flex items-center justify-center">
+                                        <span className="text-white text-xs">🎉</span>
+                                    </div>
+                                    <div className="flex-1">
+                                        <div className="w-full h-2 rounded-full bg-white/30"></div>
+                                    </div>
+                                </div>
                                 <div className="w-3/4 h-2 rounded-full bg-white/20"></div>
                             </motion.div>
                             
+                            {/* Event Services Grid */}
                             <div className="grid grid-cols-2 gap-2 flex-1">
-                                {[1, 2, 3, 4].map((item) => (
+                                {[
+                                    { icon: '🍰', label: lang === 'ar' ? 'كيك' : 'Cake' },
+                                    { icon: '🎵', label: lang === 'ar' ? 'موسيقى' : 'Music' },
+                                    { icon: '📸', label: lang === 'ar' ? 'تصوير' : 'Photo' },
+                                    { icon: '🎁', label: lang === 'ar' ? 'هدايا' : 'Gifts' }
+                                ].map((item, i) => (
                                     <motion.div 
-                                        key={item} 
+                                        key={i} 
                                         className="bg-white/10 rounded-lg p-2 flex flex-col justify-center items-center"
                                         whileHover={{ 
                                             backgroundColor: "rgba(255,255,255,0.15)",
@@ -99,22 +112,32 @@ const PhoneMockup = ({ index, lang }) => {
                                             transition: { duration: 0.2 }
                                         }}
                                     >
-                                        <div className="w-8 h-8 rounded-full bg-white/20 mb-1.5"></div>
-                                        <div className="w-full h-1.5 rounded-full bg-white/20 mb-1"></div>
-                                        <div className="w-2/3 h-1.5 rounded-full bg-white/20"></div>
+                                        <div className="w-8 h-8 rounded-full bg-white/30 mb-1.5 flex items-center justify-center">
+                                            <span className="text-white text-xs">{item.icon}</span>
+                                        </div>
+                                        <div className="text-white text-[10px]">{item.label}</div>
                                     </motion.div>
                                 ))}
                             </div>
                             
+                            {/* Bottom Navigation */}
                             <motion.div 
                                 className="bg-white/10 rounded-lg p-2 mt-auto"
                                 whileHover={{ backgroundColor: "rgba(255,255,255,0.15)" }}
                             >
                                 <div className="flex justify-between">
-                                    <div className="w-6 h-6 rounded-full bg-white/20"></div>
-                                    <div className="w-6 h-6 rounded-full bg-white/20"></div>
-                                    <div className="w-6 h-6 rounded-full bg-white/20"></div>
-                                    <div className="w-6 h-6 rounded-full bg-white/20"></div>
+                                    <div className="w-6 h-6 rounded-full bg-white/30 flex items-center justify-center">
+                                        <span className="text-white text-[8px]">🏠</span>
+                                    </div>
+                                    <div className="w-6 h-6 rounded-full bg-white/30 flex items-center justify-center">
+                                        <span className="text-white text-[8px]">🔍</span>
+                                    </div>
+                                    <div className="w-6 h-6 rounded-full bg-white/30 flex items-center justify-center">
+                                        <span className="text-white text-[8px]">📅</span>
+                                    </div>
+                                    <div className="w-6 h-6 rounded-full bg-white/30 flex items-center justify-center">
+                                        <span className="text-white text-[8px]">👤</span>
+                                    </div>
                                 </div>
                             </motion.div>
                         </div>
@@ -236,5 +259,7 @@ const MiddleBannerSection = ({ lang }) => {
 };
 
 export default MiddleBannerSection;
+
+
 
 
