@@ -4,145 +4,171 @@ import { translations } from '../translations';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import monasbtkLogo from '../../images/monasbtk_colored_logo.png';
 
-const PhoneMockup = ({ index, lang }) => {
+// Import occasion icons with correct paths
+import birthdayIcon from '../../icons/occasions-birthday.svg';
+import graduationIcon from '../../icons/occasions-graduation.svg';
+import familyIcon from '../../icons/family-gathering.svg';
+import engagementIcon from '../../icons/engagment.svg';
+import motherIcon from '../../icons/occasions-mother.svg';
+import fatherIcon from '../../icons/occasions-father.svg';
+import marriageIcon from '../../icons/occasions-marriage.svg';
+import babyIcon from '../../icons/occasions-sex.svg';
+import anniversaryIcon from '../../icons/marriage_anniversary.png';
+
+const PhoneMockup = ({ index, lang, occasions }) => {
     // Different rotation for each phone
     const rotations = ['-rotate-6', 'rotate-0', 'rotate-6'];
     const delays = [0.2, 0.4, 0.6];
-    
+
+    // Get a subset of occasions for this mockup (4 per phone)
+    const startIdx = index * 4;
+    const phoneOccasions = occasions.slice(startIdx, startIdx + 4);
+
+    // Different themes for each phone
+    const phoneThemes = [
+        { title: translations[lang].occasions.title, subtitle: 'Celebrations' },
+        { title: translations[lang].occasions.title, subtitle: 'Family & Love' },
+        { title: translations[lang].occasions.title, subtitle: 'Special Events' }
+    ];
+
     return (
         <motion.div
-            className={`${rotations[index]} mx-4 relative`}
-            initial={{ opacity: 0, y: 50 }}
+            className={`${rotations[index]} mx-2 md:mx-4 relative flex-shrink-0 group`}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ 
-                duration: 0.8, 
-                delay: delays[index], 
-                type: 'spring',
-                stiffness: 100
+            viewport={{ once: true, margin: "-30px", amount: 0.2 }}
+            transition={{
+                duration: 0.5,
+                delay: delays[index] * 0.3, // Reduced delay
+                ease: "easeOut"
             }}
-            whileHover={{ 
-                y: -8,
-                scale: 1.05,
-                rotate: rotations[index] === '-rotate-6' ? '-2deg' : 
-                       rotations[index] === 'rotate-6' ? '2deg' : '0deg',
-                transition: { 
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 15
+            whileHover={{
+                y: -4, // Reduced movement
+                scale: 1.02, // Reduced scale
+                transition: {
+                    duration: 0.2,
+                    ease: "easeOut"
                 }
             }}
         >
-            {/* Glowing effect on hover */}
-            <motion.div 
-                className="absolute -inset-4 bg-purple-500/30 rounded-[2rem] blur-xl -z-10"
-                initial={{ opacity: 0.2 }}
-                whileHover={{ 
-                    opacity: 0.6,
-                    scale: 1.1,
-                    transition: { duration: 0.3 }
-                }}
-            />
-            
+            {/* Simplified glow effect */}
+            <div className="absolute -inset-2 bg-purple-500/20 rounded-[2rem] blur-lg -z-10 opacity-0 group-hover:opacity-40 transition-opacity duration-300" />
+
             {/* Outer Frame */}
-            <div className="relative border-gray-800 bg-gray-800 border-[6px] rounded-[2rem] h-[400px] w-[200px] shadow-xl">
+            <div className="relative border-gray-800 bg-gray-800 border-[4px] md:border-[6px] rounded-[2rem] h-[280px] md:h-[360px] lg:h-[400px] w-[140px] md:w-[180px] lg:w-[200px] shadow-xl">
                 {/* Top Bezel with Speaker */}
-                <div className="w-[100px] h-[14px] bg-gray-800 top-0 rounded-b-[0.8rem] left-1/2 -translate-x-1/2 absolute"></div>
+                <div className="w-[80px] sm:w-[100px] h-[12px] sm:h-[14px] bg-gray-800 top-0 rounded-b-[0.8rem] left-1/2 -translate-x-1/2 absolute"></div>
                 {/* Right Side Button */}
-                <div className="h-[36px] w-[2px] bg-gray-800 absolute -right-[8px] top-[100px] rounded-l-lg"></div>
+                <div className="h-[28px] sm:h-[36px] w-[2px] bg-gray-800 absolute -right-[6px] sm:-right-[8px] top-[80px] sm:top-[100px] rounded-l-lg"></div>
                 {/* Left Side Buttons */}
-                <div className="h-[26px] w-[2px] bg-gray-800 absolute -left-[8px] top-[60px] rounded-r-lg"></div>
-                <div className="h-[26px] w-[2px] bg-gray-800 absolute -left-[8px] top-[100px] rounded-r-lg"></div>
-                
-                {/* Inner Screen with pulse effect on hover */}
-                <motion.div 
-                    className="rounded-[1.7rem] overflow-hidden w-full h-full bg-gradient-to-br from-[#6B1D8E] to-[#9B59B6] p-3"
-                    whileHover={{
-                        background: "linear-gradient(135deg, #8E44AD 0%, #9B59B6 50%, #6B1D8E 100%)",
-                        backgroundSize: "200% 200%",
-                        transition: {
-                            background: {
-                                repeat: Infinity,
-                                duration: 2,
-                                ease: "easeInOut"
-                            }
-                        }
-                    }}
-                >
+                <div className="h-[20px] sm:h-[26px] w-[2px] bg-gray-800 absolute -left-[6px] sm:-left-[8px] top-[48px] sm:top-[60px] rounded-r-lg"></div>
+                <div className="h-[20px] sm:h-[26px] w-[2px] bg-gray-800 absolute -left-[6px] sm:-left-[8px] top-[80px] sm:top-[100px] rounded-r-lg"></div>
+
+                {/* Inner Screen - simplified for better performance */}
+                <div className="rounded-[1.7rem] overflow-hidden w-full h-full bg-gradient-to-br from-[#6B1D8E] to-[#9B59B6] p-2 md:p-3 group-hover:from-[#8E44AD] group-hover:to-[#6B1D8E] transition-all duration-300">
                     <div dir={lang === 'ar' ? 'rtl' : 'ltr'} className="flex flex-col h-full">
                         {/* Status bar */}
-                        <div className="flex justify-between items-center mb-3">
-                            <div className="w-6 h-1.5 rounded-full bg-white/20"></div>
-                            <div className="w-12 h-1.5 rounded-full bg-white/20"></div>
-                            <div className="w-6 h-1.5 rounded-full bg-white/20"></div>
+                        <div className="flex justify-between items-center mb-2 md:mb-3">
+                            <div className="w-4 md:w-6 h-1 md:h-1.5 rounded-full bg-white/20"></div>
+                            <div className="w-8 md:w-12 h-1 md:h-1.5 rounded-full bg-white/20"></div>
+                            <div className="w-4 md:w-6 h-1 md:h-1.5 rounded-full bg-white/20"></div>
                         </div>
-                        
-                        {/* Event Planning Content */}
-                        <div className="flex-1 flex flex-col gap-3">
-                            {/* Event Header */}
-                            <motion.div 
-                                className="bg-white/10 rounded-lg p-2"
-                                whileHover={{ backgroundColor: "rgba(255,255,255,0.15)" }}
-                            >
-                                <div className="flex items-center mb-1.5">
-                                    <div className="w-6 h-6 rounded-full bg-white/30 mr-2 flex items-center justify-center">
-                                        <span className="text-white text-xs">🎉</span>
+
+                        {/* Occasions Content */}
+                        <div className="flex-1 flex flex-col gap-2 md:gap-3">
+                            {/* Header - App Title */}
+                            <div className="bg-white/10 rounded-lg p-1.5 md:p-2 hover:bg-white/15 transition-colors duration-200">
+                                <div className="flex items-center mb-1 md:mb-1.5">
+                                    <div className="w-4 md:w-6 h-4 md:h-6 rounded-full bg-white/30 mr-1.5 md:mr-2 flex items-center justify-center">
+                                        <img
+                                            src={monasbtkLogo}
+                                            className="w-2.5 md:w-4 h-2.5 md:h-4 object-contain"
+                                            alt="Monasbtk"
+                                        />
                                     </div>
                                     <div className="flex-1">
-                                        <div className="w-full h-2 rounded-full bg-white/30"></div>
-                                    </div>
-                                </div>
-                                <div className="w-3/4 h-2 rounded-full bg-white/20"></div>
-                            </motion.div>
-                            
-                            {/* Event Services Grid */}
-                            <div className="grid grid-cols-2 gap-2 flex-1">
-                                {[
-                                    { icon: '🍰', label: lang === 'ar' ? 'كيك' : 'Cake' },
-                                    { icon: '🎵', label: lang === 'ar' ? 'موسيقى' : 'Music' },
-                                    { icon: '📸', label: lang === 'ar' ? 'تصوير' : 'Photo' },
-                                    { icon: '🎁', label: lang === 'ar' ? 'هدايا' : 'Gifts' }
-                                ].map((item, i) => (
-                                    <motion.div 
-                                        key={i} 
-                                        className="bg-white/10 rounded-lg p-2 flex flex-col justify-center items-center"
-                                        whileHover={{ 
-                                            backgroundColor: "rgba(255,255,255,0.15)",
-                                            y: -2,
-                                            transition: { duration: 0.2 }
-                                        }}
-                                    >
-                                        <div className="w-8 h-8 rounded-full bg-white/30 mb-1.5 flex items-center justify-center">
-                                            <span className="text-white text-xs">{item.icon}</span>
+                                        <div className="text-white text-[8px] md:text-[10px] font-medium">
+                                            {translations[lang].middleBanner.wordmark}
                                         </div>
-                                        <div className="text-white text-[10px]">{item.label}</div>
-                                    </motion.div>
-                                ))}
-                            </div>
-                            
-                            {/* Bottom Navigation */}
-                            <motion.div 
-                                className="bg-white/10 rounded-lg p-2 mt-auto"
-                                whileHover={{ backgroundColor: "rgba(255,255,255,0.15)" }}
-                            >
-                                <div className="flex justify-between">
-                                    <div className="w-6 h-6 rounded-full bg-white/30 flex items-center justify-center">
-                                        <span className="text-white text-[8px]">🏠</span>
-                                    </div>
-                                    <div className="w-6 h-6 rounded-full bg-white/30 flex items-center justify-center">
-                                        <span className="text-white text-[8px]">🔍</span>
-                                    </div>
-                                    <div className="w-6 h-6 rounded-full bg-white/30 flex items-center justify-center">
-                                        <span className="text-white text-[8px]">📅</span>
-                                    </div>
-                                    <div className="w-6 h-6 rounded-full bg-white/30 flex items-center justify-center">
-                                        <span className="text-white text-[8px]">👤</span>
                                     </div>
                                 </div>
-                            </motion.div>
+                                <div className="text-white text-[7px] md:text-[9px] opacity-80">
+                                    {phoneThemes[index].title}
+                                </div>
+                            </div>
+
+                            {/* Occasions Grid - 2x2 layout for 4 occasions */}
+                            <div className="grid grid-cols-2 gap-1.5 md:gap-2 flex-1">
+                                {phoneOccasions && phoneOccasions.length > 0 ? phoneOccasions.map((occasion, i) => (
+                                    <div
+                                        key={i}
+                                        className="bg-white/10 rounded-lg p-1.5 md:p-2 flex flex-col items-center justify-center hover:bg-white/15 hover:-translate-y-0.5 transition-all duration-200 aspect-square"
+                                    >
+                                        <div className="w-5 md:w-7 h-5 md:h-7 rounded-full bg-white/30 mb-1 flex items-center justify-center flex-shrink-0">
+                                            {occasion.icon ? (
+                                                <img
+                                                    src={occasion.icon}
+                                                    alt={translations[lang]?.occasions?.[occasion.key] || occasion.key}
+                                                    className="w-3 md:w-4 h-3 md:h-4 object-contain"
+                                                />
+                                            ) : (
+                                                <span className="text-white text-[8px]">🎉</span>
+                                            )}
+                                        </div>
+                                        <div className="text-white text-[8px] md:text-[10px] leading-tight text-center">
+                                            {translations[lang]?.occasions?.[occasion.key] || occasion.key}
+                                        </div>
+                                    </div>
+                                )) : (
+                                    // Fallback content if no occasions
+                                    Array.from({ length: 4 }, (_, i) => (
+                                        <div
+                                            key={i}
+                                            className="bg-white/10 rounded-lg p-1.5 md:p-2 flex flex-col items-center justify-center aspect-square"
+                                        >
+                                            <div className="w-5 md:w-7 h-5 md:h-7 rounded-full bg-white/30 mb-1 flex items-center justify-center flex-shrink-0">
+                                                <span className="text-white text-[8px]">🎉</span>
+                                            </div>
+                                            <div className="text-white text-[8px] md:text-[10px] leading-tight text-center">
+                                                Event
+                                            </div>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+
+                            {/* Bottom Navigation */}
+                            <div className="bg-white/10 rounded-lg p-1.5 md:p-2 mt-auto hover:bg-white/15 transition-colors duration-200">
+                                <div className="flex justify-between items-center">
+                                    <div className="flex flex-col items-center">
+                                        <div className="w-4 md:w-5 h-4 md:h-5 rounded-full bg-white/30 flex items-center justify-center mb-0.5">
+                                            <span className="text-white text-[6px] md:text-[8px]">🏠</span>
+                                        </div>
+                                        <div className="w-3 md:w-4 h-0.5 bg-[#794BC7] rounded-full"></div>
+                                    </div>
+                                    <div className="flex flex-col items-center">
+                                        <div className="w-4 md:w-5 h-4 md:h-5 rounded-full bg-white/20 flex items-center justify-center mb-0.5">
+                                            <span className="text-white text-[6px] md:text-[8px]">🔍</span>
+                                        </div>
+                                        <div className="w-3 md:w-4 h-0.5 bg-white/20 rounded-full"></div>
+                                    </div>
+                                    <div className="flex flex-col items-center">
+                                        <div className="w-4 md:w-5 h-4 md:h-5 rounded-full bg-white/20 flex items-center justify-center mb-0.5">
+                                            <span className="text-white text-[6px] md:text-[8px]">📅</span>
+                                        </div>
+                                        <div className="w-3 md:w-4 h-0.5 bg-white/20 rounded-full"></div>
+                                    </div>
+                                    <div className="flex flex-col items-center">
+                                        <div className="w-4 md:w-5 h-4 md:h-5 rounded-full bg-white/20 flex items-center justify-center mb-0.5">
+                                            <span className="text-white text-[6px] md:text-[8px]">👤</span>
+                                        </div>
+                                        <div className="w-3 md:w-4 h-0.5 bg-white/20 rounded-full"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </motion.div>
+                </div>
             </div>
         </motion.div>
     );
@@ -151,9 +177,30 @@ const PhoneMockup = ({ index, lang }) => {
 const MiddleBannerSection = ({ lang }) => {
     const t = translations[lang].middleBanner;
     const [sectionRef, isVisible] = useIntersectionObserver({
-        threshold: 0.2,
-        rootMargin: '-100px'
+        threshold: 0.1, // Reduced threshold for better mobile detection
+        rootMargin: '-50px' // Reduced margin for mobile compatibility
     });
+
+    // Define occasions data - 12 occasions (4 per phone)
+    const occasions = [
+        // Phone 1 - Celebrations
+        { key: 'birthday', icon: birthdayIcon },
+        { key: 'graduation', icon: graduationIcon },
+        { key: 'anniversary', icon: anniversaryIcon },
+        { key: 'baby', icon: babyIcon },
+
+        // Phone 2 - Family & Love
+        { key: 'marriage', icon: marriageIcon },
+        { key: 'engagement', icon: engagementIcon },
+        { key: 'mother', icon: motherIcon },
+        { key: 'father', icon: fatherIcon },
+
+        // Phone 3 - Gatherings & Special Events
+        { key: 'family', icon: familyIcon },
+        { key: 'birthday', icon: birthdayIcon }, // Birthday party variation
+        { key: 'graduation', icon: graduationIcon }, // Graduation ceremony variation
+        { key: 'anniversary', icon: anniversaryIcon }, // Anniversary celebration variation
+    ];
     
     return (
         <section 
@@ -199,7 +246,7 @@ const MiddleBannerSection = ({ lang }) => {
             />
             
             <div className="container mx-auto px-4 md:px-6">
-                <div className="bg-[#F6F2F9] rounded-[1.5rem] shadow-lg overflow-hidden">
+                <div className="bg-white rounded-[1.5rem] shadow-lg overflow-hidden">
                     <div className="px-4 py-10 md:px-6 md:py-16 text-center">
                         {/* Headline Text */}
                         <motion.div
@@ -208,49 +255,65 @@ const MiddleBannerSection = ({ lang }) => {
                             animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                             transition={{ duration: 0.8, delay: 0.2 }}
                         >
-                            <motion.h2 
-                                className="text-2xl md:text-3xl text-[#6B1D8E] mb-3 font-mikhak-medium"
+                            <motion.h2
+                                className="text-lg sm:text-xl md:text-3xl text-[#6B1D8E] mb-2 md:mb-3 font-mikhak-medium leading-tight"
                                 initial={{ opacity: 0 }}
-                                animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
+                                animate={{ opacity: 1 }} // Always animate to visible state
+                                whileInView={{ opacity: 1 }} // Ensure visibility when in view
+                                viewport={{ once: true, amount: 0.3 }}
                                 transition={{ duration: 0.8, delay: 0.4 }}
                             >
                                 {t.line1}
                             </motion.h2>
-                            
-                            <motion.h3 
-                                className="text-3xl md:text-4xl text-[#6B1D8E] font-mikhak-bold mb-6"
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                animate={isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                                transition={{ duration: 0.8, delay: 0.6, type: 'spring' }}
-                            >
-                                {t.line2}
-                            </motion.h3>
+
+                            {/* Only render h3 if line2 has content */}
+                            {t.line2 && (
+                                <motion.h3
+                                    className="text-xl sm:text-2xl md:text-4xl text-[#6B1D8E] font-mikhak-bold mb-4 md:mb-6 leading-tight"
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    animate={{ opacity: 1, scale: 1 }} // Always animate to visible state
+                                    whileInView={{ opacity: 1, scale: 1 }} // Ensure visibility when in view
+                                    viewport={{ once: true, amount: 0.3 }}
+                                    transition={{ duration: 0.8, delay: 0.6, type: 'spring' }}
+                                >
+                                    {t.line2}
+                                </motion.h3>
+                            )}
                             
                             <motion.div 
-                                className="flex items-center justify-center gap-2"
+                                className="flex items-center justify-center gap-2 mt-4"
                                 initial={{ opacity: 0, y: 20 }}
-                                animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }} // Always animate to visible state
+                                whileInView={{ opacity: 1, y: 0 }} // Ensure visibility when in view
+                                viewport={{ once: true, amount: 0.3 }}
                                 transition={{ duration: 0.8, delay: 0.8 }}
                             >
-                                <div className="w-10 h-10 flex items-center justify-center">
-                                    <img 
+                                <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 flex items-center justify-center flex-shrink-0">
+                                    <img
                                         src={monasbtkLogo}
                                         className="w-full h-full object-contain"
                                         alt="Monasbtk Logo"
                                     />
                                 </div>
-                                <span className="text-lg md:text-xl text-[#6B1D8E] font-mikhak-bold">
+                                <span className="text-base sm:text-lg md:text-xl text-[#6B1D8E] font-mikhak-bold">
                                     {t.wordmark}
                                 </span>
                             </motion.div>
                         </motion.div>
                         
-                        {/* Phone Mockups */}
-                        <div className="flex flex-wrap justify-center items-center gap-4">
-                            <PhoneMockup index={0} lang={lang} />
-                            <PhoneMockup index={1} lang={lang} />
-                            <PhoneMockup index={2} lang={lang} />
-                        </div>
+                        {/* Phone Mockups - Fixed responsive layout */}
+                        <motion.div
+                            className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 px-4"
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, amount: 0.2 }}
+                            transition={{ duration: 0.6, delay: 0.3 }}
+                        >
+                            <PhoneMockup index={0} lang={lang} occasions={occasions.slice(0, 4)} />
+                            <PhoneMockup index={1} lang={lang} occasions={occasions.slice(4, 8)} />
+                            <PhoneMockup index={2} lang={lang} occasions={occasions.slice(8, 12)} />
+                        </motion.div>
                     </div>
                 </div>
             </div>
