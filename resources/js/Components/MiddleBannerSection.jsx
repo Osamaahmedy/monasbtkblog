@@ -20,9 +20,8 @@ const PhoneMockup = ({ index, lang, occasions }) => {
     const rotations = ['-rotate-6', 'rotate-0', 'rotate-6'];
     const delays = [0.2, 0.4, 0.6];
 
-    // Get a subset of occasions for this mockup (4 per phone)
-    const startIdx = index * 4;
-    const phoneOccasions = occasions.slice(startIdx, startIdx + 4);
+    // Use the occasions passed directly (already sliced in parent component)
+    const phoneOccasions = occasions || [];
 
     // Different themes for each phone
     const phoneThemes = [
@@ -97,44 +96,25 @@ const PhoneMockup = ({ index, lang, occasions }) => {
                                 </div>
                             </div>
 
-                            {/* Occasions Grid - 2x2 layout for 4 occasions */}
-                            <div className="grid grid-cols-2 gap-1.5 md:gap-2 flex-1">
-                                {phoneOccasions && phoneOccasions.length > 0 ? phoneOccasions.map((occasion, i) => (
+                            {/* Occasions Grid - 3 occasions in a column layout */}
+                            <div className="flex flex-col gap-1.5 md:gap-2 flex-1">
+                                {phoneOccasions.map((occasion, i) => (
                                     <div
                                         key={i}
-                                        className="bg-white/10 rounded-lg p-1.5 md:p-2 flex flex-col items-center justify-center hover:bg-white/15 hover:-translate-y-0.5 transition-all duration-200 aspect-square"
+                                        className="bg-white/10 rounded-lg p-1.5 md:p-2 flex items-center hover:bg-white/15 hover:-translate-y-0.5 transition-all duration-200"
                                     >
-                                        <div className="w-5 md:w-7 h-5 md:h-7 rounded-full bg-white/30 mb-1 flex items-center justify-center flex-shrink-0">
-                                            {occasion.icon ? (
-                                                <img
-                                                    src={occasion.icon}
-                                                    alt={translations[lang]?.occasions?.[occasion.key] || occasion.key}
-                                                    className="w-3 md:w-4 h-3 md:h-4 object-contain"
-                                                />
-                                            ) : (
-                                                <span className="text-white text-[8px]">🎉</span>
-                                            )}
+                                        <div className="w-5 md:w-7 h-5 md:h-7 rounded-full bg-white/30 mr-2 flex items-center justify-center flex-shrink-0">
+                                            <img
+                                                src={occasion.icon}
+                                                alt={translations[lang]?.occasions?.[occasion.key] || occasion.key}
+                                                className="w-3 md:w-4 h-3 md:h-4 object-contain"
+                                            />
                                         </div>
-                                        <div className="text-white text-[8px] md:text-[10px] leading-tight text-center">
+                                        <div className="text-white text-[8px] md:text-[10px] leading-tight">
                                             {translations[lang]?.occasions?.[occasion.key] || occasion.key}
                                         </div>
                                     </div>
-                                )) : (
-                                    // Fallback content if no occasions
-                                    Array.from({ length: 4 }, (_, i) => (
-                                        <div
-                                            key={i}
-                                            className="bg-white/10 rounded-lg p-1.5 md:p-2 flex flex-col items-center justify-center aspect-square"
-                                        >
-                                            <div className="w-5 md:w-7 h-5 md:h-7 rounded-full bg-white/30 mb-1 flex items-center justify-center flex-shrink-0">
-                                                <span className="text-white text-[8px]">🎉</span>
-                                            </div>
-                                            <div className="text-white text-[8px] md:text-[10px] leading-tight text-center">
-                                                Event
-                                            </div>
-                                        </div>
-                                    ))
-                                )}
+                                ))}
                             </div>
 
                             {/* Bottom Navigation */}
@@ -181,25 +161,22 @@ const MiddleBannerSection = ({ lang }) => {
         rootMargin: '-50px' // Reduced margin for mobile compatibility
     });
 
-    // Define occasions data - 12 occasions (4 per phone)
+    // Define occasions data - 9 occasions from OccasionsSection (3 per phone)
     const occasions = [
         // Phone 1 - Celebrations
         { key: 'birthday', icon: birthdayIcon },
         { key: 'graduation', icon: graduationIcon },
-        { key: 'anniversary', icon: anniversaryIcon },
-        { key: 'baby', icon: babyIcon },
+        { key: 'family', icon: familyIcon },
 
-        // Phone 2 - Family & Love
-        { key: 'marriage', icon: marriageIcon },
+        // Phone 2 - Love & Relationships
         { key: 'engagement', icon: engagementIcon },
+        { key: 'marriage', icon: marriageIcon },
+        { key: 'anniversary', icon: anniversaryIcon },
+
+        // Phone 3 - Family Events
         { key: 'mother', icon: motherIcon },
         { key: 'father', icon: fatherIcon },
-
-        // Phone 3 - Gatherings & Special Events
-        { key: 'family', icon: familyIcon },
-        { key: 'birthday', icon: birthdayIcon }, // Birthday party variation
-        { key: 'graduation', icon: graduationIcon }, // Graduation ceremony variation
-        { key: 'anniversary', icon: anniversaryIcon }, // Anniversary celebration variation
+        { key: 'baby', icon: babyIcon },
     ];
     
     return (
@@ -311,9 +288,9 @@ const MiddleBannerSection = ({ lang }) => {
                             transition={{ duration: 0.6, delay: 0.3 }}
                         >
                             <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 max-w-full">
-                                <PhoneMockup index={0} lang={lang} occasions={occasions.slice(0, 4)} />
-                                <PhoneMockup index={1} lang={lang} occasions={occasions.slice(4, 8)} />
-                                <PhoneMockup index={2} lang={lang} occasions={occasions.slice(8, 12)} />
+                                <PhoneMockup index={0} lang={lang} occasions={occasions.slice(0, 3)} />
+                                <PhoneMockup index={1} lang={lang} occasions={occasions.slice(3, 6)} />
+                                <PhoneMockup index={2} lang={lang} occasions={occasions.slice(6, 9)} />
                             </div>
                         </motion.div>
                     </div>
