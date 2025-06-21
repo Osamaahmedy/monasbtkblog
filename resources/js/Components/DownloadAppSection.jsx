@@ -44,32 +44,37 @@ const DownloadAppSection = ({ lang }) => {
           </motion.div>
           
           {/* Phone Mockups - With consistent floating animations */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="md:w-1/2 relative h-[500px]"
+            className="md:w-1/2 relative h-[400px] md:h-[500px] overflow-hidden"
           >
-            <div className="flex justify-center items-center h-full">
+            <div className="flex justify-center items-center h-full max-w-full">
               {/* First Phone */}
               <motion.div
-                className="relative mx-4"
-                initial={{ rotate: -6 }}
-                animate={{ 
+                className="relative mx-1 md:mx-2 lg:mx-4 max-w-[160px] md:max-w-[180px] lg:max-w-[200px]"
+                initial={{ rotate: -3 }}
+                animate={{
                   y: [0, -10, 0],
-                  rotate: -6
+                  rotate: [-3, -6, -3]
                 }}
                 transition={{
                   y: {
                     repeat: Infinity,
                     duration: 4,
                     ease: "easeInOut"
+                  },
+                  rotate: {
+                    repeat: Infinity,
+                    duration: 6,
+                    ease: "easeInOut"
                   }
                 }}
               >
                 {/* Outer Frame */}
-                <div className="relative border-gray-800 bg-gray-800 border-[6px] rounded-[2rem] h-[400px] w-[200px] shadow-xl">
+                <div className="relative border-gray-800 bg-gray-800 border-[4px] md:border-[5px] lg:border-[6px] rounded-[1.5rem] md:rounded-[2rem] h-[300px] md:h-[350px] lg:h-[400px] w-[150px] md:w-[175px] lg:w-[200px] shadow-xl max-w-full">
                   {/* Top Bezel with Speaker */}
                   <div className="w-[100px] h-[14px] bg-gray-800 top-0 rounded-b-[0.8rem] left-1/2 -translate-x-1/2 absolute"></div>
                   {/* Right Side Button */}
@@ -135,22 +140,27 @@ const DownloadAppSection = ({ lang }) => {
               
               {/* Second Phone */}
               <motion.div
-                className="relative mx-4"
-                initial={{ rotate: 6 }}
-                animate={{ 
+                className="relative mx-1 md:mx-2 lg:mx-4 max-w-[160px] md:max-w-[180px] lg:max-w-[200px]"
+                initial={{ rotate: 3 }}
+                animate={{
                   y: [0, 10, 0],
-                  rotate: 6
+                  rotate: [3, 6, 3]
                 }}
                 transition={{
                   y: {
                     repeat: Infinity,
                     duration: 5,
                     ease: "easeInOut"
+                  },
+                  rotate: {
+                    repeat: Infinity,
+                    duration: 7,
+                    ease: "easeInOut"
                   }
                 }}
               >
                 {/* Outer Frame */}
-                <div className="relative border-gray-800 bg-gray-800 border-[6px] rounded-[2rem] h-[400px] w-[200px] shadow-xl">
+                <div className="relative border-gray-800 bg-gray-800 border-[4px] md:border-[5px] lg:border-[6px] rounded-[1.5rem] md:rounded-[2rem] h-[300px] md:h-[350px] lg:h-[400px] w-[150px] md:w-[175px] lg:w-[200px] shadow-xl max-w-full">
                   {/* Top Bezel with Speaker */}
                   <div className="w-[100px] h-[14px] bg-gray-800 top-0 rounded-b-[0.8rem] left-1/2 -translate-x-1/2 absolute"></div>
                   {/* Right Side Button */}

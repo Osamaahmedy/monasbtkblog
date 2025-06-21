@@ -33,7 +33,7 @@ const PhoneMockup = ({ index, lang, occasions }) => {
 
     return (
         <motion.div
-            className={`${rotations[index]} mx-2 md:mx-4 relative flex-shrink-0 group`}
+            className={`${rotations[index]} mx-1 md:mx-2 relative flex-shrink-0 group max-w-[120px] md:max-w-[180px] lg:max-w-[200px]`}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-30px", amount: 0.2 }}
@@ -43,8 +43,8 @@ const PhoneMockup = ({ index, lang, occasions }) => {
                 ease: "easeOut"
             }}
             whileHover={{
-                y: -4, // Reduced movement
-                scale: 1.02, // Reduced scale
+                y: -2, // Further reduced movement
+                scale: 1.01, // Further reduced scale
                 transition: {
                     duration: 0.2,
                     ease: "easeOut"
@@ -55,7 +55,7 @@ const PhoneMockup = ({ index, lang, occasions }) => {
             <div className="absolute -inset-2 bg-purple-500/20 rounded-[2rem] blur-lg -z-10 opacity-0 group-hover:opacity-40 transition-opacity duration-300" />
 
             {/* Outer Frame */}
-            <div className="relative border-gray-800 bg-gray-800 border-[4px] md:border-[6px] rounded-[2rem] h-[280px] md:h-[360px] lg:h-[400px] w-[140px] md:w-[180px] lg:w-[200px] shadow-xl">
+            <div className="relative border-gray-800 bg-gray-800 border-[3px] md:border-[4px] lg:border-[6px] rounded-[1.5rem] md:rounded-[2rem] h-[240px] md:h-[320px] lg:h-[400px] w-[120px] md:w-[160px] lg:w-[200px] shadow-xl max-w-full">
                 {/* Top Bezel with Speaker */}
                 <div className="w-[80px] sm:w-[100px] h-[12px] sm:h-[14px] bg-gray-800 top-0 rounded-b-[0.8rem] left-1/2 -translate-x-1/2 absolute"></div>
                 {/* Right Side Button */}
@@ -303,16 +303,18 @@ const MiddleBannerSection = ({ lang }) => {
                         
                         {/* Phone Mockups - Fixed responsive layout */}
                         <motion.div
-                            className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 px-4"
+                            className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 px-4 overflow-hidden"
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.2 }}
                             transition={{ duration: 0.6, delay: 0.3 }}
                         >
-                            <PhoneMockup index={0} lang={lang} occasions={occasions.slice(0, 4)} />
-                            <PhoneMockup index={1} lang={lang} occasions={occasions.slice(4, 8)} />
-                            <PhoneMockup index={2} lang={lang} occasions={occasions.slice(8, 12)} />
+                            <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-6 max-w-full">
+                                <PhoneMockup index={0} lang={lang} occasions={occasions.slice(0, 4)} />
+                                <PhoneMockup index={1} lang={lang} occasions={occasions.slice(4, 8)} />
+                                <PhoneMockup index={2} lang={lang} occasions={occasions.slice(8, 12)} />
+                            </div>
                         </motion.div>
                     </div>
                 </div>

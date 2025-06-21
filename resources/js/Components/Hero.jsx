@@ -81,7 +81,7 @@ const Hero = ({ lang }) => {
                     />
                     
                     {/* Phone Frame */}
-                    <div className="relative mx-auto border-gray-800 bg-gray-800 border-[8px] rounded-[2.5rem] h-[550px] w-[270px] shadow-xl">
+                    <div className="relative mx-auto border-gray-800 bg-gray-800 border-[6px] md:border-[8px] rounded-[2rem] md:rounded-[2.5rem] h-[400px] md:h-[500px] lg:h-[550px] w-[200px] md:w-[250px] lg:w-[270px] shadow-xl max-w-full">
                         {/* Top Bezel with Speaker */}
                         <div className="w-[140px] h-[18px] bg-gray-800 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
                         {/* Right Side Button */}

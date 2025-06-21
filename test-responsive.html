@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
+        
+        .container {
+            max-width: 100%;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+        
+        .phone-mockup {
+            width: 200px;
+            height: 400px;
+            background: #333;
+            border-radius: 20px;
+            margin: 10px;
+            transform: rotate(6deg);
+            max-width: 100%;
+        }
+        
+        .phones-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            overflow: hidden;
+            max-width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .phone-mockup {
+                width: 150px;
+                height: 300px;
+                transform: rotate(3deg);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .phone-mockup {
+                width: 120px;
+                height: 240px;
+                transform: rotate(2deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Responsive Phone Mockups Test</h1>
+        <p>Resize your browser window to test responsiveness</p>
+        
+        <div class="phones-container">
+            <div class="phone-mockup"></div>
+            <div class="phone-mockup"></div>
+            <div class="phone-mockup"></div>
+        </div>
+    </div>
+</body>
+</html>
