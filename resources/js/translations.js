@@ -8,7 +8,7 @@ export const translations = {
             faq: 'FAQ',
         },
         hero: {
-            title: 'Beautiful memories at your fingertip',
+            title: 'Beautiful memories at your fingertips',
             subtitle: 'Your one-stop destination for every occasion.',
             download: 'Download our App',
         },
@@ -197,7 +197,7 @@ export const translations = {
             faq: 'الأسئلة الشائعة',
         },
         hero: {
-            title: 'ذكريات جميلة في متناول يدك',
+            title: 'مناسبتك… حنا نخلدها لك',
             subtitle: 'وجهتك الوحيدة لكل مناسبة.',
             download: 'حمل تطبيقنا',
         },
