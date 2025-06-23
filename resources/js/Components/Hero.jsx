@@ -178,14 +178,14 @@ const Hero = ({ lang }) => {
                                             </div>
                                             <div className="flex items-center bg-white/10 rounded-lg p-2">
                                                 <div className="w-8 h-8 rounded-full bg-white/20 mr-2 flex items-center justify-center">
-                                                    <span className="text-white text-xs">🎵</span>
+                                                    <span className="text-white text-xs">📸</span>
                                                 </div>
                                                 <div>
                                                     <div className="text-white text-xs font-medium">
-                                                        {lang === 'ar' ? 'دي جي' : 'DJ Services'}
+                                                        {lang === 'ar' ? 'تصوير فوتوغرافي' : 'Photography'}
                                                     </div>
                                                     <div className="text-white/50 text-[10px]">
-                                                        {lang === 'ar' ? '٤.٨ ★' : '4.8 ★'}
+                                                        {lang === 'ar' ? '٤.٩ ★' : '4.9 ★'}
                                                     </div>
                                                 </div>
                                             </div>
