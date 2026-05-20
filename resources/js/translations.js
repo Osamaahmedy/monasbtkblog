@@ -6,6 +6,7 @@ export const translations = {
             features: 'Features',
             howToOrder: 'How To Order',
             faq: 'FAQ',
+            blog: 'Blog',
         },
         hero: {
             title: 'Beautiful memories at your fingertips',
@@ -182,9 +183,9 @@ export const translations = {
             address: "Jedda, Saudi Arabia",
             copyright: "All rights reserved Monasbtk",
             bottomLinks: [
-                { text: "Privacy Policy", url: "#" },
-                { text: "Terms of Service", url: "#" },
-                { text: "Cookie Policy", url: "#" }
+                { text: "Privacy Policy", url: "/privacy-policy" },
+                { text: "About Us", url: "/about-us" },
+                { text: "Contact Us", url: "/contact-us" }
             ]
         }
     },
@@ -195,6 +196,7 @@ export const translations = {
             features: 'المميزات',
             howToOrder: 'كيفية الطلب',
             faq: 'الأسئلة الشائعة',
+            blog: 'المدونة',
         },
         hero: {
             title: 'مناسبتك… حنا نخلدها لك',
@@ -371,9 +373,9 @@ export const translations = {
             address: "جدة، المملكة العربية السعودية",
             copyright: "جميع الحقوق محفوظة لمناسبتك",
             bottomLinks: [
-                { text: "سياسة الخصوصية", url: "#" },
-                { text: "شروط الخدمة", url: "#" },
-                { text: "سياسة ملفات الكوكيز", url: "#" }
+                { text: "سياسة الخصوصية", url: "/privacy-policy" },
+                { text: "من نحن", url: "/about-us" },
+                { text: "اتصل بنا", url: "/contact-us" }
             ]
         }
     },

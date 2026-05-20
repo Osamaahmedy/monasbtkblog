@@ -23,6 +23,8 @@
         "vite": "^6.3.5"
     },
     "dependencies": {
-        "framer-motion": "^12.16.0"
+        "framer-motion": "^12.16.0",
+        "react-quill": "^2.0.0",
+        "ziggy-js": "^2.6.2"
     }
 }

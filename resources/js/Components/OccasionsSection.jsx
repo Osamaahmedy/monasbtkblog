@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { translations } from '../translations';
-
+import PhoneFrame from './PhoneFrame';
 // --- Icon Imports ---
 import birthdayIcon from '../../icons/occasions-birthday.svg';
 import graduationIcon from '../../icons/occasions-graduation.svg';
@@ -33,9 +33,9 @@ const OccasionsSection = ({ lang }) => {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
-            transition: { 
-                duration: 0.8, 
-                staggerChildren: 0.1 
+            transition: {
+                duration: 0.8,
+                staggerChildren: 0.1
             }
         }
     };
@@ -62,7 +62,7 @@ const OccasionsSection = ({ lang }) => {
         >
             {/* Decorative background elements */}
             <div className="absolute inset-0 -z-10 overflow-hidden">
-                <motion.div 
+                <motion.div
                     className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full filter blur-3xl"
                     animate={{
                         x: [0, 50, 0],
@@ -74,7 +74,7 @@ const OccasionsSection = ({ lang }) => {
                         ease: "easeInOut"
                     }}
                 />
-                <motion.div 
+                <motion.div
                     className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary/10 rounded-full filter blur-3xl"
                     animate={{
                         x: [0, -50, 0],
@@ -90,18 +90,18 @@ const OccasionsSection = ({ lang }) => {
 
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
                 {/* Section Header */}
-                <motion.div 
+                <motion.div
                     className="text-center mb-16"
                     variants={titleVariants}
                 >
-                    <motion.h2 
+                    <motion.h2
                         className="text-4xl font-mikhak-bold mb-4 inline-block relative"
                         variants={titleVariants}
                     >
                         {t.title}
                         <div className="absolute -bottom-3 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary rounded-full"></div>
                     </motion.h2>
-                    <motion.p 
+                    <motion.p
                         className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto font-mikhak-regular"
                         variants={titleVariants}
                     >
@@ -111,7 +111,7 @@ const OccasionsSection = ({ lang }) => {
 
                 <div className="flex flex-col lg:flex-row items-center gap-12">
                     {/* Left Side: Phone Mockup */}
-                    <motion.div 
+                    <motion.div
                         className="lg:w-1/3 hidden lg:block"
                         variants={{
                             hidden: { opacity: 0, x: -50 },
@@ -120,7 +120,7 @@ const OccasionsSection = ({ lang }) => {
                     >
                         <div className="relative">
                             {/* Glow effect behind phone */}
-                            <motion.div 
+                            <motion.div
                                 className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-xl -z-10"
                                 animate={{
                                     scale: [1, 1.1, 1],
@@ -132,20 +132,20 @@ const OccasionsSection = ({ lang }) => {
                                     ease: "easeInOut"
                                 }}
                             />
-                            
+
                             {/* Phone Mockup - Styled like Features Section */}
                             <motion.div
                                 variants={{
                                     hidden: { opacity: 0, scale: 0.8, rotate: -10 },
-                                    visible: { 
-                                        opacity: 1, 
-                                        scale: 1, 
+                                    visible: {
+                                        opacity: 1,
+                                        scale: 1,
                                         rotate: 6,
-                                        transition: { 
-                                            duration: 0.8, 
-                                            delay: 0.6, 
-                                            type: 'spring', 
-                                            stiffness: 100 
+                                        transition: {
+                                            duration: 0.8,
+                                            delay: 0.6,
+                                            type: 'spring',
+                                            stiffness: 100
                                         }
                                     }
                                 }}
@@ -165,8 +165,8 @@ const OccasionsSection = ({ lang }) => {
                                 }}
                             >
                                 {/* Glow effect */}
-                                <motion.div 
-                                    className="absolute -inset-4 bg-[#9B59B6] rounded-full blur-xl opacity-20 -z-10"
+                                <motion.div
+                                    className="absolute -inset-4 bg-[#9B59B6] rounded-full blur-2xl opacity-30 -z-10"
                                     animate={{
                                         scale: [1, 1.2, 1],
                                         opacity: [0.2, 0.3, 0.2]
@@ -177,78 +177,17 @@ const OccasionsSection = ({ lang }) => {
                                         ease: "easeInOut"
                                     }}
                                 />
-                                {/* Outer Frame */}
-                                <div className="relative mx-auto border-gray-800 bg-gray-800 border-[6px] md:border-[8px] rounded-[2rem] md:rounded-[2.5rem] h-[400px] md:h-[500px] lg:h-[550px] w-[200px] md:w-[250px] lg:w-[270px] shadow-xl transform rotate-3 md:rotate-6 hover:rotate-0 transition-transform duration-500 max-w-full">
-                                    {/* Top Bezel with Speaker */}
-                                    <div className="w-[140px] h-[18px] bg-gray-800 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
-                                    {/* Right Side Button */}
-                                    <div className="h-[46px] w-[3px] bg-gray-800 absolute -right-[11px] top-[124px] rounded-l-lg"></div>
-                                    {/* Left Side Buttons */}
-                                    <div className="h-[32px] w-[3px] bg-gray-800 absolute -left-[11px] top-[70px] rounded-r-lg"></div>
-                                    <div className="h-[32px] w-[3px] bg-gray-800 absolute -left-[11px] top-[120px] rounded-r-lg"></div>
-                                    {/* Inner Screen */}
-                                    <div className="rounded-[2rem] overflow-hidden w-full h-full bg-gradient-to-b from-primary to-secondary p-4">
-                                        {/* App Content */}
-                                        <div className="h-full flex flex-col">
-                                            {/* App Header */}
-                                            <div className="text-white text-center mb-6">
-                                                <h3 className="text-xl font-mikhak-bold">{t.title}</h3>
-                                                <p className="text-xs opacity-80">{t.subtitle}</p>
-                                            </div>
-                                            
-                                            {/* Featured Occasion */}
-                                            <div className="bg-white/10 rounded-xl p-3 mb-4">
-                                                <div className="flex items-center mb-2">
-                                                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
-                                                        <img src={birthdayIcon} alt="Birthday" className="w-6 h-6 object-contain" />
-                                                    </div>
-                                                    <div>
-                                                        <h4 className="text-white text-sm">{t.birthday}</h4>
-                                                        <div className="w-20 h-2 bg-white/20 rounded-full mt-1"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            {/* Occasions Grid */}
-                                            <div className="grid grid-cols-2 gap-3 mb-4">
-                                                {occasions.slice(0, 4).map((occasion, index) => (
-                                                    <div key={index} className="bg-white/10 rounded-xl p-3 aspect-square flex flex-col justify-center items-center">
-                                                        <div className="w-12 h-12 rounded-full bg-white/20 mb-2 flex items-center justify-center">
-                                                            <img 
-                                                                src={occasion.icon} 
-                                                                alt={t[occasion.key]} 
-                                                                className="w-8 h-8 object-contain" 
-                                                            />
-                                                        </div>
-                                                        <div className="text-white text-xs text-center mt-1">{t[occasion.key]}</div>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                            
-                                            {/* Navigation Bar */}
-                                            <div className="mt-auto">
-                                                <div className="grid grid-cols-4 gap-3">
-                                                    {[1, 2, 3, 4].map((item) => (
-                                                        <div key={item} className="flex flex-col items-center">
-                                                            <div className="w-8 h-8 rounded-full bg-white/20 mb-1"></div>
-                                                            <div className="w-10 h-2 bg-white/20 rounded-full"></div>
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <PhoneFrame imgSrc="/images/app_mockup.png" />
                             </motion.div>
                         </div>
                     </motion.div>
 
                     {/* Right Side: Occasions Grid */}
-                    <motion.div 
+                    <motion.div
                         className="lg:w-2/3"
                         variants={cardVariants}
                     >
-                        <motion.div 
+                        <motion.div
                             className="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6"
                             variants={sectionVariants}
                         >
@@ -256,7 +195,7 @@ const OccasionsSection = ({ lang }) => {
                                 <motion.div
                                     key={occasion.key}
                                     variants={cardVariants}
-                                    whileHover={{ 
+                                    whileHover={{
                                         y: -8,
                                         boxShadow: "0 15px 30px rgba(121, 75, 199, 0.1)",
                                         transition: { duration: 0.2 }
@@ -273,7 +212,7 @@ const OccasionsSection = ({ lang }) => {
                                     <h3 className="text-base md:text-lg font-mikhak-medium text-gray-800">
                                         {t[occasion.key]}
                                     </h3>
-                                    
+
                                     {/* Simple underline indicator */}
                                     <div className="mt-3 h-0.5 w-0 bg-primary rounded-full group-hover:w-12 transition-all duration-300"></div>
                                 </motion.div>

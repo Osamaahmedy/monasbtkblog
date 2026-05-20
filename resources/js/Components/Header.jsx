@@ -9,11 +9,12 @@ const Header = ({ lang, toggleLanguage }) => {
     const t = translations[lang];
 
     const navLinks = [
-        { name: t.nav.categories, href: '#occasions-section' },
-        { name: t.nav.shops, href: '#occasion-offers-section' },
-        { name: t.nav.features, href: '#features-section' },
-        { name: t.nav.howToOrder, href: '#how-to-order-section' },
-        { name: t.nav.faq, href: '#faq-section' },
+        { name: t.nav.categories, href: '/#occasions-section' },
+        { name: t.nav.shops, href: '/#occasion-offers-section' },
+        { name: t.nav.features, href: '/#features-section' },
+        { name: t.nav.howToOrder, href: '/#how-to-order-section' },
+        { name: t.nav.faq, href: '/#faq-section' },
+        { name: t.nav.blog, href: '/blog' },
     ];
 
     return (

@@ -1,218 +1,195 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { translations } from '../translations';
+import PhoneFrame from './PhoneFrame';
+
+// SVG Icons
+const AppleIcon = () => (
+    <svg viewBox="0 0 814 1000" className="w-6 h-6 fill-white flex-shrink-0" xmlns="http://www.w3.org/2000/svg">
+        <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-37.5-155.5-127.4C46.7 790.7 0 663 0 541.8c0-207.5 135.4-317.3 269-317.3 70.1 0 128.4 46.4 172.5 46.4 42.8 0 109.6-49 192.5-49 31 0 108.2 2.6 168.5 80.1zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z" />
+    </svg>
+);
+
+const GooglePlayIcon = () => (
+    <svg viewBox="0 0 512 512" className="w-6 h-6 flex-shrink-0" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <linearGradient id="gp1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#00C6FF" />
+                <stop offset="100%" stopColor="#0078FF" />
+            </linearGradient>
+            <linearGradient id="gp2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#FFD800" />
+                <stop offset="100%" stopColor="#FF8A00" />
+            </linearGradient>
+            <linearGradient id="gp3" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#FF3A44" />
+                <stop offset="100%" stopColor="#C31162" />
+            </linearGradient>
+            <linearGradient id="gp4" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#32DF84" />
+                <stop offset="100%" stopColor="#00C170" />
+            </linearGradient>
+        </defs>
+        <path fill="url(#gp1)" d="M30 6.5C18.6 0 5.4 0.8 0 9.2L200 256 30 6.5z" />
+        <path fill="url(#gp2)" d="M512 256l-96-55.6-59.2 55.6 59.2 55.6L512 256z" />
+        <path fill="url(#gp3)" d="M0 502.8C5.4 511.2 18.6 512 30 505.5L200 256 0 502.8z" />
+        <path fill="url(#gp4)" d="M200 256L0 9.2C0 9.2 0 9.2 0 9.2L370 200.4 200 256z M200 256L370 311.6 0 502.8C0 502.8 0 502.8 0 502.8L200 256z" />
+    </svg>
+);
+
+const StoreButton = ({ href, icon, topLabel, bottomLabel, isComingSoon = false }) => (
+    <motion.a
+        href={href}
+        target={isComingSoon ? undefined : "_blank"}
+        rel="noopener noreferrer"
+        whileHover={{ scale: 1.04, y: -2 }}
+        whileTap={{ scale: 0.96 }}
+        className={`
+            relative flex items-center gap-3 px-5 py-3 rounded-2xl min-w-[160px]
+            bg-white/5 backdrop-blur-md border border-white/10
+            hover:bg-white/10 hover:border-white/20
+            shadow-lg hover:shadow-white/10
+            transition-all duration-300 overflow-hidden group
+            ${isComingSoon ? 'cursor-default' : 'cursor-pointer'}
+        `}
+    >
+        {/* Shimmer */}
+        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+
+        {icon}
+
+        <div className="flex flex-col leading-tight">
+            <span className="text-white/50 text-[10px] font-mikhak-regular tracking-wider uppercase">
+                {topLabel}
+            </span>
+            <span className="text-white text-sm font-mikhak-bold">
+                {bottomLabel}
+            </span>
+        </div>
+    </motion.a>
+);
 
 const Hero = ({ lang }) => {
     const t = translations[lang];
+    const isRtl = lang === 'ar';
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.15, delayChildren: 0.2 }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 24 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] } }
+    };
 
     return (
-        <main className="mt-16 md:mt-24 flex flex-col md:flex-row items-center justify-between">
-            {/* Left Side: Headline and Download Buttons */}
+        <main
+            dir={isRtl ? 'rtl' : 'ltr'}
+            className="mt-16 md:mt-24 flex flex-col md:flex-row items-center justify-between gap-12"
+        >
+            {/* Left: Text & Buttons */}
             <motion.div
-                key={lang} // Re-trigger animation on language change
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false }} // Allow animation to re-run
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-center md:text-start md:w-1/2"
+                key={lang}
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false }}
+                className="text-center md:text-start md:w-1/2 space-y-6"
             >
-                <h1 className="text-4xl lg:text-6xl font-extrabold leading-tight font-mikhak-bold">
+                {/* Badge */}
+                <motion.div variants={itemVariants} className="flex justify-center md:justify-start">
+                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/10 text-white/70 text-xs font-mikhak-medium backdrop-blur-sm">
+                        <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                        {isRtl ? 'متاح الآن على App Store' : 'Now available on App Store'}
+                    </span>
+                </motion.div>
+
+                {/* Title */}
+                <motion.h1
+                    variants={itemVariants}
+                    className="text-4xl lg:text-6xl font-extrabold leading-tight font-mikhak-bold"
+                >
                     {t.hero.title}
-                </h1>
-                <p className="mt-4 text-lg text-gray-300 font-mikhak-regular">
+                </motion.h1>
+
+                {/* Subtitle */}
+                <motion.p
+                    variants={itemVariants}
+                    className="text-lg text-gray-300 font-mikhak-regular leading-relaxed max-w-md mx-auto md:mx-0"
+                >
                     {t.hero.subtitle}
-                </p>
-                <div className="mt-8">
-                    <p className="font-semibold mb-4">{t.hero.download}</p>
-                    <div className="flex justify-center md:justify-start space-x-4 rtl:space-x-reverse">
-                        <motion.a
+                </motion.p>
+
+                {/* Download Buttons */}
+                <motion.div variants={itemVariants} className="space-y-3">
+                    <p className="text-sm font-mikhak-medium text-white/50 uppercase tracking-widest">
+                        {t.hero.download}
+                    </p>
+                    <div className="flex flex-wrap justify-center md:justify-start gap-4">
+                        <StoreButton
+                            href="https://apps.apple.com/sa/app/monasbtk/id6755626634"
+                            icon={<AppleIcon />}
+                            topLabel={isRtl ? 'تحميل من' : 'Download on the'}
+                            bottomLabel="App Store"
+                        />
+                        <StoreButton
                             href="#"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="bg-black text-white rounded-lg px-4 py-2 flex items-center space-x-2 hover:bg-gray-800 transition-colors"
-                        >
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/1200px-Download_on_the_App_Store_Badge.svg.png" alt="App Store" className="h-8" />
-                        </motion.a>
-                        <motion.a
-                            href="#"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="bg-black text-white rounded-lg px-4 py-2 flex items-center space-x-2 hover:bg-gray-800 transition-colors"
-                        >
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/1200px-Google_Play_Store_badge_EN.svg.png" alt="Google Play" className="h-8" />
-                        </motion.a>
+                            icon={<GooglePlayIcon />}
+                            topLabel={isRtl ? 'قريباً على' : 'Coming soon on'}
+                            bottomLabel="Google Play"
+                            isComingSoon={true}
+                        />
                     </div>
-                </div>
+                </motion.div>
+
+                {/* Stats Row */}
+                <motion.div
+                    variants={itemVariants}
+                    className="flex justify-center md:justify-start gap-8 pt-2"
+                >
+                    {[
+                        { value: '4.9★', label: isRtl ? 'تقييم المستخدمين' : 'User Rating' },
+                        { value: '10K+', label: isRtl ? 'مستخدم نشط' : 'Active Users' },
+                        { value: '100%', label: isRtl ? 'مجاني' : 'Free' },
+                    ].map((stat) => (
+                        <div key={stat.label} className="text-center">
+                            <p className="text-white font-mikhak-bold text-lg">{stat.value}</p>
+                            <p className="text-white/40 text-xs font-mikhak-regular">{stat.label}</p>
+                        </div>
+                    ))}
+                </motion.div>
             </motion.div>
 
-            {/* Right Side: Enhanced Phone Mockup with Advanced Animations */}
+            {/* Right: Phone Mockup */}
             <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="mt-12 md:mt-0 md:w-1/2 flex justify-center"
+                className="md:w-1/2 flex justify-center"
             >
-                {/* Floating animation container */}
                 <motion.div
-                    animate={{
-                        y: [0, -15, 0],
-                        rotate: [0, 2, 0]
-                    }}
-                    transition={{
-                        repeat: Infinity,
-                        duration: 6,
-                        ease: "easeInOut"
-                    }}
+                    animate={{ y: [0, -15, 0], rotate: [0, 1.5, 0] }}
+                    transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
                     className="relative"
                 >
-                    {/* Glow effect */}
-                    <motion.div 
-                        className="absolute -inset-4 bg-[#9B59B6] rounded-full blur-xl opacity-20 -z-10"
-                        animate={{
-                            scale: [1, 1.2, 1],
-                            opacity: [0.2, 0.3, 0.2]
-                        }}
-                        transition={{
-                            repeat: Infinity,
-                            duration: 4,
-                            ease: "easeInOut"
-                        }}
+                    {/* Outer glow ring */}
+                    <motion.div
+                        className="absolute -inset-8 rounded-full blur-3xl -z-10 bg-[#9B59B6]"
+                        animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.4, 0.2] }}
+                        transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
                     />
-                    
-                    {/* Phone Frame */}
-                    <div className="relative mx-auto border-gray-800 bg-gray-800 border-[6px] md:border-[8px] rounded-[2rem] md:rounded-[2.5rem] h-[400px] md:h-[500px] lg:h-[550px] w-[200px] md:w-[250px] lg:w-[270px] shadow-xl max-w-full">
-                        {/* Top Bezel with Speaker */}
-                        <div className="w-[140px] h-[18px] bg-gray-800 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
-                        {/* Right Side Button */}
-                        <div className="h-[46px] w-[3px] bg-gray-800 absolute -right-[11px] top-[124px] rounded-l-lg"></div>
-                        {/* Left Side Buttons */}
-                        <div className="h-[32px] w-[3px] bg-gray-800 absolute -left-[11px] top-[70px] rounded-r-lg"></div>
-                        <div className="h-[32px] w-[3px] bg-gray-800 absolute -left-[11px] top-[120px] rounded-r-lg"></div>
-                        
-                        {/* Inner Screen with animated gradient */}
-                        <motion.div 
-                            className="rounded-[2rem] overflow-hidden w-full h-full bg-gradient-to-br from-[#6B1D8E] to-[#9B59B6] p-3"
-                            animate={{
-                                background: [
-                                    "linear-gradient(135deg, #6B1D8E 0%, #9B59B6 100%)",
-                                    "linear-gradient(225deg, #6B1D8E 0%, #9B59B6 100%)",
-                                    "linear-gradient(315deg, #6B1D8E 0%, #9B59B6 100%)",
-                                    "linear-gradient(45deg, #6B1D8E 0%, #9B59B6 100%)"
-                                ]
-                            }}
-                            transition={{
-                                repeat: Infinity,
-                                duration: 8,
-                                ease: "easeInOut"
-                            }}
-                        >
-                            <div dir={lang === 'ar' ? 'rtl' : 'ltr'} className="flex flex-col h-full">
-                                {/* Status bar */}
-                                <div className="flex justify-between items-center mb-3">
-                                    <div className="w-6 h-1.5 rounded-full bg-white/20"></div>
-                                    <div className="w-12 h-1.5 rounded-full bg-white/20"></div>
-                                    <div className="w-6 h-1.5 rounded-full bg-white/20"></div>
-                                </div>
-                                
-                                {/* App content - Home screen */}
-                                <div className="flex-1 flex flex-col">
-                                    {/* Welcome header */}
-                                    <div className="mb-4">
-                                        <h3 className="text-white text-lg font-bold mb-1">
-                                            {lang === 'ar' ? 'مرحباً بك!' : 'Welcome!'}
-                                        </h3>
-                                        <p className="text-white/70 text-xs">
-                                            {lang === 'ar' ? 'اكتشف مناسبتك المثالية' : 'Discover your perfect occasion'}
-                                        </p>
-                                    </div>
-                                    
-                                    {/* Featured occasions */}
-                                    <div className="bg-white/10 rounded-lg p-3 mb-4">
-                                        <div className="flex justify-between items-center mb-2">
-                                            <h4 className="text-white text-sm font-medium">
-                                                {lang === 'ar' ? 'مناسبات مميزة' : 'Featured Occasions'}
-                                            </h4>
-                                            <span className="text-white/50 text-xs">
-                                                {lang === 'ar' ? 'عرض الكل' : 'View all'}
-                                            </span>
-                                        </div>
-                                        <div className="grid grid-cols-2 gap-2">
-                                            <div className="bg-white/10 rounded-lg p-2 flex flex-col items-center">
-                                                <div className="w-10 h-10 rounded-full bg-white/20 mb-1 flex items-center justify-center">
-                                                    <span className="text-white text-xs">🎂</span>
-                                                </div>
-                                                <span className="text-white text-xs">
-                                                    {lang === 'ar' ? 'أعياد ميلاد' : 'Birthdays'}
-                                                </span>
-                                            </div>
-                                            <div className="bg-white/10 rounded-lg p-2 flex flex-col items-center">
-                                                <div className="w-10 h-10 rounded-full bg-white/20 mb-1 flex items-center justify-center">
-                                                    <span className="text-white text-xs">💍</span>
-                                                </div>
-                                                <span className="text-white text-xs">
-                                                    {lang === 'ar' ? 'حفلات زفاف' : 'Weddings'}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    {/* Trending services */}
-                                    <div className="bg-white/10 rounded-lg p-3 mb-4">
-                                        <h4 className="text-white text-sm font-medium mb-2">
-                                            {lang === 'ar' ? 'خدمات رائجة' : 'Trending Services'}
-                                        </h4>
-                                        <div className="space-y-2">
-                                            <div className="flex items-center bg-white/10 rounded-lg p-2">
-                                                <div className="w-8 h-8 rounded-full bg-white/20 mr-2 flex items-center justify-center">
-                                                    <span className="text-white text-xs">🍰</span>
-                                                </div>
-                                                <div>
-                                                    <div className="text-white text-xs font-medium">
-                                                        {lang === 'ar' ? 'كيك مخصص' : 'Custom Cakes'}
-                                                    </div>
-                                                    <div className="text-white/50 text-[10px]">
-                                                        {lang === 'ar' ? '٤.٩ ★' : '4.9 ★'}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="flex items-center bg-white/10 rounded-lg p-2">
-                                                <div className="w-8 h-8 rounded-full bg-white/20 mr-2 flex items-center justify-center">
-                                                    <span className="text-white text-xs">📸</span>
-                                                </div>
-                                                <div>
-                                                    <div className="text-white text-xs font-medium">
-                                                        {lang === 'ar' ? 'تصوير فوتوغرافي' : 'Photography'}
-                                                    </div>
-                                                    <div className="text-white/50 text-[10px]">
-                                                        {lang === 'ar' ? '٤.٩ ★' : '4.9 ★'}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    {/* Navigation bar */}
-                                    <div className="bg-white/10 rounded-lg p-2 mt-auto">
-                                        <div className="flex justify-between">
-                                            <div className="w-6 h-6 rounded-full bg-white/40 flex items-center justify-center">
-                                                <span className="text-white text-xs">🏠</span>
-                                            </div>
-                                            <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
-                                                <span className="text-white text-xs">🔍</span>
-                                            </div>
-                                            <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
-                                                <span className="text-white text-xs">📅</span>
-                                            </div>
-                                            <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
-                                                <span className="text-white text-xs">👤</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </div>
+                    {/* Inner accent glow */}
+                    <motion.div
+                        className="absolute -inset-2 rounded-full blur-xl -z-10 bg-purple-400"
+                        animate={{ scale: [1, 1.05, 1], opacity: [0.1, 0.25, 0.1] }}
+                        transition={{ repeat: Infinity, duration: 3, ease: "easeInOut", delay: 1 }}
+                    />
+                    <PhoneFrame imgSrc="/images/phone_1.png" />
                 </motion.div>
             </motion.div>
         </main>
@@ -220,5 +197,3 @@ const Hero = ({ lang }) => {
 };
 
 export default Hero;
-
-

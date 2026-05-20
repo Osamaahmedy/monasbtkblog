@@ -1,2 +1,6 @@
 User-agent: *
-Disallow:
+Disallow: /dashboard
+Disallow: /admin
+Disallow: /profile
+
+Sitemap: https://monasbtk.com/sitemap.xml

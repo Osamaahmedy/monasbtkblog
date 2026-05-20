@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { translations } from '../translations';
 import personalPlannerIcon from '../../images/personal_planner.png';
+import PhoneFrame from './PhoneFrame';
 
 const FeatureCard = ({ icon, title, description, index }) => {
     return (
@@ -104,7 +105,7 @@ const AppMockup = ({ lang }) => (
     >
         {/* Glow effect */}
         <motion.div 
-            className="absolute -inset-4 bg-[#9B59B6] rounded-full blur-xl opacity-20 -z-10"
+            className="absolute -inset-4 bg-[#9B59B6] rounded-full blur-2xl opacity-30 -z-10"
             animate={{
                 scale: [1, 1.2, 1],
                 opacity: [0.2, 0.3, 0.2]
@@ -115,76 +116,7 @@ const AppMockup = ({ lang }) => (
                 ease: "easeInOut"
             }}
         />
-        {/* Outer Frame */}
-        <div className="relative mx-auto border-gray-800 bg-gray-800 border-[6px] md:border-[8px] rounded-[2rem] md:rounded-[2.5rem] h-[400px] md:h-[500px] lg:h-[550px] w-[200px] md:w-[250px] lg:w-[270px] shadow-xl transform rotate-3 md:rotate-6 hover:rotate-0 transition-transform duration-500 max-w-full">
-            {/* Top Bezel with Speaker */}
-            <div className="w-[140px] h-[18px] bg-gray-800 top-0 rounded-b-[1rem] left-1/2 -translate-x-1/2 absolute"></div>
-            {/* Right Side Button */}
-            <div className="h-[46px] w-[3px] bg-gray-800 absolute -right-[11px] top-[124px] rounded-l-lg"></div>
-            {/* Left Side Buttons */}
-            <div className="h-[32px] w-[3px] bg-gray-800 absolute -left-[11px] top-[70px] rounded-r-lg"></div>
-            <div className="h-[32px] w-[3px] bg-gray-800 absolute -left-[11px] top-[120px] rounded-r-lg"></div>
-            {/* Inner Screen */}
-            <div className="rounded-[2rem] overflow-hidden w-full h-full bg-gradient-to-br from-[#6B1D8E] to-[#9B59B6] p-4">
-                {/* App Header */}
-                <div className="flex justify-between items-center mb-6">
-                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white text-xs">
-                        <span>🏠</span>
-                    </div>
-                    <div className="w-24 h-6 rounded-full bg-white/20 flex items-center justify-center">
-                        <span className="text-white text-xs">Monasbtk</span>
-                    </div>
-                    <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white text-xs">
-                        <span>👤</span>
-                    </div>
-                </div>
-                
-                {/* Feature Highlight */}
-                <div dir={lang === 'ar' ? 'rtl' : 'ltr'} className="bg-white/10 rounded-xl p-3 mb-4">
-                    <div className="flex items-center mb-2">
-                        <div className="w-6 h-6 rounded-full bg-white/30 mr-2 flex items-center justify-center">
-                            <span className="text-white text-xs">📅</span>
-                        </div>
-                        <div className="w-3/4 h-4 rounded-full bg-white/30"></div>
-                    </div>
-                    <div className="w-full h-10 rounded-lg bg-white/10 flex items-center justify-center">
-                        <span className="text-white text-xs">{lang === 'ar' ? 'منظم شخصي' : 'Personal Planner'}</span>
-                    </div>
-                </div>
-                
-                {/* Feature Grid */}
-                <div className="grid grid-cols-2 gap-3">
-                    <div className="bg-white/10 rounded-xl p-3 aspect-square flex flex-col justify-center items-center">
-                        <div className="w-12 h-12 rounded-full bg-white/30 mb-2 flex items-center justify-center">
-                            <span className="text-white">📲</span>
-                        </div>
-                        <div className="w-full h-3 rounded-full bg-white/20 mb-1"></div>
-                        <div className="w-2/3 h-3 rounded-full bg-white/20"></div>
-                    </div>
-                    <div className="bg-white/10 rounded-xl p-3 aspect-square flex flex-col justify-center items-center">
-                        <div className="w-12 h-12 rounded-full bg-white/30 mb-2 flex items-center justify-center">
-                            <span className="text-white">⏰</span>
-                        </div>
-                        <div className="w-full h-3 rounded-full bg-white/20 mb-1"></div>
-                        <div className="w-2/3 h-3 rounded-full bg-white/20"></div>
-                    </div>
-                    <div className="bg-white/10 rounded-xl p-3 aspect-square flex flex-col justify-center items-center">
-                        <div className="w-12 h-12 rounded-full bg-white/30 mb-2 flex items-center justify-center">
-                            <span className="text-white">💳</span>
-                        </div>
-                        <div className="w-full h-3 rounded-full bg-white/20 mb-1"></div>
-                        <div className="w-2/3 h-3 rounded-full bg-white/20"></div>
-                    </div>
-                    <div className="bg-white/10 rounded-xl p-3 aspect-square flex flex-col justify-center items-center">
-                        <div className="w-12 h-12 rounded-full bg-white/30 mb-2 flex items-center justify-center">
-                            <span className="text-white">🎁</span>
-                        </div>
-                        <div className="w-full h-3 rounded-full bg-white/20 mb-1"></div>
-                        <div className="w-2/3 h-3 rounded-full bg-white/20"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <PhoneFrame imgSrc="/images/app_mockup.png" />
     </motion.div>
 );
 
