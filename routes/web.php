@@ -3,9 +3,13 @@
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\PageController;
+
 use Inertia\Inertia;
 use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 Route::get('/', function () {
@@ -19,16 +23,15 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/contact-us', [PageController::class, 'contactUs'])->name('pages.contact');
+Route::post('/contact/send', [ReviewController::class, 'sendContact'])->name('contact.send');
 // Public Blog Routes
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{article:slug}', [BlogController::class, 'show'])->name('blog.show');
 Route::post('/blog/{article}/comments', [CommentController::class, 'store'])->name('comments.store');
-
 // Static Pages
 Route::get('/privacy-policy', [\App\Http\Controllers\PageController::class, 'privacyPolicy'])->name('pages.privacy');
 Route::get('/about-us', [\App\Http\Controllers\PageController::class, 'aboutUs'])->name('pages.about');
-Route::get('/contact-us', [\App\Http\Controllers\PageController::class, 'contactUs'])->name('pages.contact');
-
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard', [
