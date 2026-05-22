@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,10 +19,17 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
-        return Inertia::render('Profile/Edit', [
+        $data = [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
-            'status' => session('status'),
-        ]);
+            'status'          => session('status'),
+        ];
+
+        // Only super admin (id=1) can see user management
+        if ($request->user()->id === 1) {
+            $data['users'] = User::orderBy('id')->get(['id', 'name', 'email', 'is_active', 'created_at']);
+        }
+
+        return Inertia::render('Profile/Edit', $data);
     }
 
     /**
@@ -38,26 +46,5 @@ class ProfileController extends Controller
         $request->user()->save();
 
         return Redirect::route('profile.edit');
-    }
-
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'password' => ['required', 'current_password'],
-        ]);
-
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
     }
 }

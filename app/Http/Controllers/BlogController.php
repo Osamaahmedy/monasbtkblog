@@ -11,19 +11,28 @@ class BlogController extends Controller
 {
     public function index(Request $request)
     {
+        $category = $request->get('category');
+        $search   = $request->get('search');
+
         $query = Article::select('id', 'title', 'slug', 'image', 'status', 'category_id', 'user_id', 'created_at', 'short_description')
-            ->with('category', 'user')
+            ->with('category:id,title', 'user:id,name')
             ->where('status', 'published');
 
-        if ($request->has('category')) {
-            $query->whereHas('category', function($q) use ($request) {
-                $q->where('id', $request->category);
-            });
+        if ($category) {
+            $query->where('category_id', $category);
+        }
+
+        if ($search) {
+            $query->where(fn($q) =>
+                $q->whereRaw("JSON_EXTRACT(title, '$.en') LIKE ?", ["%{$search}%"])
+                  ->orWhereRaw("JSON_EXTRACT(title, '$.ar') LIKE ?", ["%{$search}%"])
+            );
         }
 
         return Inertia::render('Blog/Index', [
-            'articles' => $query->latest()->paginate(12),
-            'categories' => Category::all()
+            'articles'   => $query->latest()->paginate(12)->withQueryString(),
+            'categories' => Category::select('id', 'title')->get(),
+            'filters'    => ['category' => $category, 'search' => $search],
         ]);
     }
 

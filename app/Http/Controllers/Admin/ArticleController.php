@@ -11,57 +11,71 @@ use Inertia\Inertia;
 
 class ArticleController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $perPage = in_array((int) $request->get('per_page', 10), [5, 10, 25, 50])
+            ? (int) $request->get('per_page', 10)
+            : 10;
+
+        $status = $request->get('status');
+        $search = $request->get('search');
+
+        $articles = Article::select('id', 'title', 'slug', 'image', 'status', 'category_id', 'user_id', 'created_at')
+            ->with('category:id,title', 'user:id,name')
+            ->when($status && $status !== 'all', fn($q) => $q->where('status', $status))
+            ->when($search, fn($q) => $q->where(fn($q2) =>
+                $q2->whereRaw("JSON_EXTRACT(title, '$.en') LIKE ?", ["%{$search}%"])
+                   ->orWhereRaw("JSON_EXTRACT(title, '$.ar') LIKE ?", ["%{$search}%"])
+            ))
+            ->latest()
+            ->paginate($perPage)
+            ->withQueryString();
+
         return Inertia::render('Admin/Articles/Index', [
-            'articles' => Article::select('id', 'title', 'slug', 'image', 'status', 'category_id', 'user_id', 'created_at')
-                            ->with('category', 'user')
-                            ->latest()
-                            ->paginate(request()->input('per_page', 5))
-                            ->withQueryString(),
-            'filters' => request()->only(['per_page'])
+            'articles' => $articles,
+            'filters'  => [
+                'per_page' => $perPage,
+                'status'   => $status ?? 'all',
+                'search'   => $search ?? '',
+            ],
         ]);
     }
 
     public function create()
     {
         return Inertia::render('Admin/Articles/Create', [
-            'categories' => Category::all()
+            'categories' => Category::select('id', 'title')->get(),
         ]);
     }
 
     public function store(Request $request)
     {
-        $request->merge([
-            'slug' => Str::slug($request->input('title.en', ''))
-        ]);
+        $request->merge(['slug' => Str::slug($request->input('title.en', ''))]);
 
         $request->validate([
-            'title.en' => 'required|string|max:255',
-            'title.ar' => 'required|string|max:255',
-            'slug' => 'required|string|unique:articles,slug',
+            'title.en'    => 'required|string|max:255',
+            'title.ar'    => 'required|string|max:255',
+            'slug'        => 'required|string|unique:articles,slug',
             'category_id' => 'required|exists:categories,id',
-            'content.en' => 'required',
-            'content.ar' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'content.en'  => 'required',
+            'content.ar'  => 'required',
+            'image'       => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'status'      => 'required|in:published,draft',
         ], [
-            'slug.unique' => 'The English title generates a slug that is already in use. Please use a different English title.',
+            'slug.unique' => 'This English title is already used. Please choose a different title.',
         ]);
 
-        $imagePath = null;
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('articles', 'public');
-        }
+        $imagePath = $request->file('image')->store('articles', 'public');
 
         Article::create([
-            'user_id' => auth()->id(),
-            'category_id' => $request->category_id,
-            'title' => $request->title,
-            'slug' => $request->slug,
+            'user_id'           => auth()->id(),
+            'category_id'       => $request->category_id,
+            'title'             => $request->title,
+            'slug'              => $request->slug,
             'short_description' => $request->short_description,
-            'content' => $request->content,
-            'image' => $imagePath,
-            'status' => 'published',
+            'content'           => $request->content,
+            'image'             => $imagePath,
+            'status'            => $request->status,
         ]);
 
         return redirect()->route('admin.articles.index')->with('success', 'Article created successfully.');
@@ -70,35 +84,35 @@ class ArticleController extends Controller
     public function edit(Article $article)
     {
         return Inertia::render('Admin/Articles/Edit', [
-            'article' => $article,
-            'categories' => Category::all()
+            'article'    => $article,
+            'categories' => Category::select('id', 'title')->get(),
         ]);
     }
 
     public function update(Request $request, Article $article)
     {
-        $request->merge([
-            'slug' => Str::slug($request->input('title.en', ''))
-        ]);
+        $request->merge(['slug' => Str::slug($request->input('title.en', ''))]);
 
         $request->validate([
-            'title.en' => 'required|string|max:255',
-            'title.ar' => 'required|string|max:255',
-            'slug' => 'required|string|unique:articles,slug,' . $article->id,
+            'title.en'    => 'required|string|max:255',
+            'title.ar'    => 'required|string|max:255',
+            'slug'        => 'required|string|unique:articles,slug,' . $article->id,
             'category_id' => 'required|exists:categories,id',
-            'content.en' => 'required',
-            'content.ar' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'content.en'  => 'required',
+            'content.ar'  => 'required',
+            'image'       => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'status'      => 'required|in:published,draft',
         ], [
-            'slug.unique' => 'The English title generates a slug that is already in use. Please use a different English title.',
+            'slug.unique' => 'This English title is already used. Please choose a different title.',
         ]);
 
         $data = [
-            'category_id' => $request->category_id,
-            'title' => $request->title,
-            'slug' => $request->slug,
+            'category_id'       => $request->category_id,
+            'title'             => $request->title,
+            'slug'              => $request->slug,
             'short_description' => $request->short_description,
-            'content' => $request->content,
+            'content'           => $request->content,
+            'status'            => $request->status,
         ];
 
         if ($request->hasFile('image')) {
@@ -113,6 +127,7 @@ class ArticleController extends Controller
     public function destroy(Article $article)
     {
         $article->delete();
+
         return redirect()->route('admin.articles.index')->with('success', 'Article deleted successfully.');
     }
 }

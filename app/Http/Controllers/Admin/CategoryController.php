@@ -9,17 +9,25 @@ use Inertia\Inertia;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $perPage = (int) $request->get('per_page', 10);
+        $perPage = in_array($perPage, [5, 10, 25, 50]) ? $perPage : 10;
+
         return Inertia::render('Admin/Categories/Index', [
-            'categories' => Category::latest()->paginate(10)
+            'categories' => Category::withCount('articles')->latest()->paginate($perPage)->withQueryString(),
         ]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('Admin/Categories/Create');
     }
 
     public function edit(Category $category)
     {
         return Inertia::render('Admin/Categories/Edit', [
-            'category' => $category
+            'category' => $category,
         ]);
     }
 
@@ -28,7 +36,7 @@ class CategoryController extends Controller
         $request->validate([
             'title.en' => 'required|string|max:255',
             'title.ar' => 'required|string|max:255',
-            'image' => 'nullable|image|max:2048',
+            'image'    => 'nullable|image|max:2048',
         ]);
 
         $imagePath = null;
@@ -37,12 +45,12 @@ class CategoryController extends Controller
         }
 
         Category::create([
-            'title' => $request->title,
+            'title'       => $request->title,
             'description' => $request->description,
-            'image' => $imagePath,
+            'image'       => $imagePath,
         ]);
 
-        return redirect()->back()->with('success', 'Category created successfully.');
+        return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
     }
 
     public function update(Request $request, Category $category)
@@ -50,10 +58,11 @@ class CategoryController extends Controller
         $request->validate([
             'title.en' => 'required|string|max:255',
             'title.ar' => 'required|string|max:255',
+            'image'    => 'nullable|image|max:2048',
         ]);
 
         $data = [
-            'title' => $request->title,
+            'title'       => $request->title,
             'description' => $request->description,
         ];
 
@@ -63,12 +72,13 @@ class CategoryController extends Controller
 
         $category->update($data);
 
-        return redirect()->back()->with('success', 'Category updated successfully.');
+        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->back()->with('success', 'Category deleted successfully.');
+
+        return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully.');
     }
 }

@@ -13,26 +13,30 @@ class CommentController extends Controller
     {
         $status = $request->get('status');
         $search = $request->get('search');
+        $perPage = in_array((int)$request->get('per_page', 15), [10, 15, 25, 50]) ? (int)$request->get('per_page', 15) : 15;
 
-        $comments = Comment::with('article')
-            ->when($status && $status !== 'all', function ($query) use ($status) {
-                $query->where('status', $status);
-            })
-            ->when($search, function ($query) use ($search) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('author_name', 'like', "%{$search}%")
-                      ->orWhere('content', 'like', "%{$search}%");
-                });
-            })
+        $comments = Comment::with('article:id,title,slug')
+            ->when($status && $status !== 'all', fn($q) => $q->where('status', $status))
+            ->when($search, fn($q) => $q->where(fn($q2) =>
+                $q2->where('author_name', 'like', "%{$search}%")
+                   ->orWhere('content', 'like', "%{$search}%")
+            ))
             ->latest()
-            ->paginate(10)
+            ->paginate($perPage)
             ->withQueryString();
 
         return Inertia::render('Admin/Comments/Index', [
             'comments' => $comments,
-            'filters' => [
-                'status' => $status ?? 'all',
-                'search' => $search ?? '',
+            'filters'  => [
+                'status'   => $status ?? 'all',
+                'search'   => $search ?? '',
+                'per_page' => $perPage,
+            ],
+            'counts' => [
+                'all'      => Comment::count(),
+                'pending'  => Comment::where('status', 'pending')->count(),
+                'approved' => Comment::where('status', 'approved')->count(),
+                'spam'     => Comment::where('status', 'spam')->count(),
             ],
         ]);
     }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
@@ -52,13 +53,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/comments/{comment}/status', [AdminCommentController::class, 'updateStatus'])->name('comments.update-status');
     Route::delete('/comments/{comment}', [AdminCommentController::class, 'destroy'])->name('comments.destroy');
     Route::post('/comments/bulk-action', [AdminCommentController::class, 'bulkAction'])->name('comments.bulk-action');
-});
+
+    // User management (super admin only)
+    Route::post('/users', [AdminUserController::class, 'store'])->name('users.store');
+    Route::patch('/users/{user}/toggle-active', [AdminUserController::class, 'toggleActive'])->name('users.toggle-active');
+    Route::delete('/users/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
+  });
 });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 // Sitemap
