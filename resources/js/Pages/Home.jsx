@@ -37,13 +37,19 @@ export default function Home({ articles }) {
                 <meta name="keywords" content="Monasbtk, events, occasions, celebrations, party planning, Saudi Arabia" />
             </Head>
             <div className="relative w-full overflow-hidden bg-gradient-to-br from-primary via-shining to-secondary text-white">
-                {/* Abstract Shapes */}
-                <div className="absolute top-0 left-0 w-72 h-72 bg-shining rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-                <div className="absolute top-0 right-0 w-72 h-72 bg-secondary rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-                <div className="absolute bottom-20 left-20 w-72 h-72 bg-primary rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+                {/* Tech Grid Overlay */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
+
+                {/* Animated Glowing Light Beam */}
+                <div className="absolute top-0 left-1/4 w-1/2 h-[450px] bg-purple-400/20 rounded-full blur-[140px] pointer-events-none animate-pulse-glow"></div>
+
+                {/* Abstract Shapes with Fixed Typo-Animations */}
+                <div className="absolute top-0 left-0 w-80 h-80 bg-shining/40 rounded-full mix-blend-screen filter blur-2xl opacity-60 animate-blob"></div>
+                <div className="absolute top-10 right-10 w-80 h-80 bg-secondary/40 rounded-full mix-blend-screen filter blur-2xl opacity-60 animate-blob animate-delay-2000"></div>
+                <div className="absolute bottom-20 left-20 w-80 h-80 bg-primary/40 rounded-full mix-blend-screen filter blur-2xl opacity-60 animate-blob animate-delay-4000"></div>
 
                 <div className="relative z-10 overflow-x-hidden">
-                    <div className="p-4 sm:p-6 lg:p-8">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
                         <Header lang={lang} toggleLanguage={toggleLanguage} />
                         <Hero lang={lang} />
                     </div>

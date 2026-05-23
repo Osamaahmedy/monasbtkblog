@@ -21,11 +21,6 @@ export default function PhoneFrame({ imgSrc, alt = 'App Screen', className = '' 
                 <div className="absolute -left-[9px] md:-left-[11px] top-[72px] md:top-[82px] h-[26px] w-[3px] rounded-r-full bg-gray-800" />
                 <div className="absolute -left-[9px] md:-left-[11px] top-[108px] md:top-[118px] h-[26px] w-[3px] rounded-r-full bg-gray-800" />
 
-                {/* Speaker / notch area */}
-                <div className="absolute top-2 left-1/2 -translate-x-1/2 z-20">
-                    <div className="mx-auto h-[18px] w-[82px] rounded-b-[1rem] bg-gray-900 shadow-inner" />
-                </div>
-
                 {/* Screen */}
                 <div className="relative z-10 h-full w-full overflow-hidden rounded-[2rem] md:rounded-[2.5rem] bg-black">
                     {imgSrc ? (

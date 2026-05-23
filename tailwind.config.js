@@ -13,6 +13,10 @@ export default {
       },
       animation: {
         blob: "blob 7s infinite",
+        float: "float 6s ease-in-out infinite",
+        "float-delay": "float 8s ease-in-out infinite 2s",
+        "float-alt": "float-alt 7s ease-in-out infinite 1s",
+        "pulse-glow": "pulseGlow 4s ease-in-out infinite",
       },
       keyframes: {
         blob: {
@@ -26,8 +30,20 @@ export default {
             transform: "translate(-20px, 20px) scale(0.9)",
           },
           "100%": {
-            transform: "tranlate(0px, 0px) scale(1)",
+            transform: "translate(0px, 0px) scale(1)",
           },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-12px)" },
+        },
+        "float-alt": {
+          "0%, 100%": { transform: "translateY(0) rotate(0deg)" },
+          "50%": { transform: "translateY(-8px) rotate(2deg)" },
+        },
+        pulseGlow: {
+          "0%, 100%": { opacity: "0.2" },
+          "50%": { opacity: "0.5" },
         },
       },
       fontFamily: {
@@ -36,6 +52,7 @@ export default {
         'mikhak-regular': ['Mikhak-Regular', 'sans-serif'],
         'mikhak-light': ['Mikhak-Light', 'sans-serif'],
         'katty-purry': ['KattyPurry', 'sans-serif'],
+        'outfit': ['Outfit', 'sans-serif'],
       },
     },
   },

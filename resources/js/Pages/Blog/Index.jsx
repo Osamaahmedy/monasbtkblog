@@ -10,8 +10,10 @@ const readTime = (article, lang) => {
     // short_description is ~10% of article length on average, so multiply by 10
     return Math.max(1, Math.ceil((words * 10) / 200));
 };
+
 const fmtDate = (d, lang) =>
     new Date(d).toLocaleDateString(lang === 'ar' ? 'ar-EG' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
 const initials = (name = '') => name.charAt(0).toUpperCase();
 
 // ── translations ───────────────────────────────────────────────────────────────
@@ -32,59 +34,65 @@ const T = {
 function Avatar({ name, size = 24 }) {
     return (
         <span style={{ width: size, height: size, fontSize: size * 0.38, flexShrink: 0 }}
-            className="inline-flex items-center justify-center rounded-full bg-gradient-to-br from-pink-400 to-rose-500 text-white font-bold">
+            className="inline-flex items-center justify-center rounded-full bg-gradient-to-br from-[#e07aa8] to-[#c0507a] text-white font-bold select-none">
             {initials(name)}
         </span>
     );
 }
 
 // ── Category badge ─────────────────────────────────────────────────────────────
-function CatBadge({ label }) {
+function CatBadge({ label, isAr }) {
     return (
-        <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold tracking-wide bg-rose-50 text-rose-600 border border-rose-100">
+        <span className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold tracking-wide bg-rose-50 text-[#c0507a] border border-rose-100/50 ${isAr ? 'font-mikhak-medium' : 'font-outfit'}`}>
             {label}
         </span>
     );
 }
 
 // ── Featured hero card ─────────────────────────────────────────────────────────
-function FeaturedCard({ article, lang, t }) {
+function FeaturedCard({ article, lang, t, isAr }) {
     return (
         <Link href={route('blog.show', article.slug)}
-            className="group block relative overflow-hidden rounded-3xl mb-8 shadow-sm hover:shadow-xl transition-shadow duration-500">
+            className="group block relative overflow-hidden rounded-[2rem] mb-10 shadow-sm hover:shadow-[0_20px_45px_rgba(192,80,122,0.06)] border border-rose-100/30 transition-all duration-500 cursor-pointer select-none">
             {/* Image */}
-            <div className="aspect-[16/7] bg-gradient-to-br from-rose-100 to-pink-200 overflow-hidden">
+            <div className="aspect-[16/7] bg-gradient-to-br from-rose-100 via-pink-50 to-rose-50 overflow-hidden relative">
                 {article.image
                     ? <img src={`/storage/${article.image}`} alt={article.title[lang]}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103" />
                     : <div className="w-full h-full bg-gradient-to-br from-rose-200 via-pink-100 to-rose-50" />
                 }
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
             </div>
+            
             {/* Content overlay */}
-            <div className="absolute bottom-0 left-0 right-0 p-7 text-white">
-                <span className="inline-block mb-3 px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-white/20 backdrop-blur-sm border border-white/25">
-                    ✦ {t.featured}
-                </span>
-                {article.category?.title?.[lang] && (
-                    <span className="ml-2 inline-block mb-3 px-3 py-1 rounded-full text-[10px] font-semibold bg-rose-500/80 backdrop-blur-sm">
-                        {article.category.title[lang]}
+            <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 text-white">
+                <div className="flex flex-wrap gap-2 mb-3">
+                    <span className={`inline-block px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-white/20 backdrop-blur-md border border-white/25 ${isAr ? 'font-mikhak-medium' : 'font-outfit'}`}>
+                        ✦ {t.featured}
                     </span>
-                )}
-                <h2 className="font-serif text-2xl md:text-3xl font-normal leading-tight mb-3 drop-shadow-sm group-hover:text-rose-200 transition-colors">
+                    {article.category?.title?.[lang] && (
+                        <span className={`inline-block px-3 py-1 rounded-full text-[10px] font-bold bg-[#c0507a]/90 backdrop-blur-md border border-[#c0507a]/20 ${isAr ? 'font-mikhak-medium' : 'font-outfit'}`}>
+                            {article.category.title[lang]}
+                        </span>
+                    )}
+                </div>
+                
+                <h2 className={`text-xl sm:text-2.5xl md:text-3.5xl font-extrabold leading-snug mb-3 drop-shadow-sm group-hover:text-rose-200 transition-colors ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`}>
                     {article.title[lang]}
                 </h2>
+                
                 {article.short_description?.[lang] && (
-                    <p className="text-white/75 text-sm line-clamp-2 mb-4 max-w-2xl font-light">
+                    <p className={`text-white/85 text-xs sm:text-sm line-clamp-2 mb-5 max-w-3xl ${isAr ? 'font-mikhak-regular' : 'font-outfit font-light'}`}>
                         {article.short_description[lang]}
                     </p>
                 )}
-                <div className="flex items-center gap-3 text-white/70 text-xs">
+                
+                <div className={`flex items-center gap-3 text-white/70 text-xs ${isAr ? 'font-mikhak-regular' : 'font-outfit'}`}>
                     <Avatar name={article.user?.name} size={22} />
-                    <span>{article.user?.name}</span>
-                    <span className="opacity-50">·</span>
+                    <span className="font-semibold">{article.user?.name}</span>
+                    <span className="opacity-40">·</span>
                     <span>{fmtDate(article.created_at, lang)}</span>
-                    <span className="opacity-50">·</span>
+                    <span className="opacity-40">·</span>
                     <span>{readTime(article, lang)} {t.read}</span>
                 </div>
             </div>
@@ -93,17 +101,21 @@ function FeaturedCard({ article, lang, t }) {
 }
 
 // ── Article card ───────────────────────────────────────────────────────────────
-function ArticleCard({ article, lang, t, index }) {
+function ArticleCard({ article, lang, t, index, isAr }) {
     return (
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.04, duration: 0.28 }}>
+        <motion.div 
+            initial={{ opacity: 0, y: 15 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ delay: index * 0.05, duration: 0.35, ease: 'easeOut' }}
+        >
             <Link href={route('blog.show', article.slug)}
-                className="group flex gap-4 py-5 border-b border-rose-50 hover:border-rose-100 transition-colors">
+                className="group flex gap-4 sm:gap-6 py-6 border-b border-rose-100/50 hover:border-rose-200/50 transition-colors cursor-pointer select-none">
                 {/* Thumbnail */}
-                <div className="flex-shrink-0 w-24 h-20 md:w-28 md:h-22 rounded-2xl overflow-hidden bg-gradient-to-br from-rose-100 to-pink-50">
+                <div className="flex-shrink-0 w-24 h-20 sm:w-32 sm:h-24 rounded-2xl overflow-hidden bg-rose-50 border border-rose-100/30">
                     {article.image
                         ? <img src={`/storage/${article.image}`} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                         : <div className="w-full h-full flex items-center justify-center opacity-30">
-                            <svg className="w-8 h-8 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-8 h-8 text-rose-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <rect x="3" y="3" width="18" height="18" rx="2" strokeWidth="1.5"/>
                                 <circle cx="8.5" cy="8.5" r="1.5" strokeWidth="1.5"/>
                                 <path d="M21 15l-5-5L5 21" strokeWidth="1.5"/>
@@ -115,23 +127,26 @@ function ArticleCard({ article, lang, t, index }) {
                 <div className="flex-1 min-w-0">
                     <div className="flex flex-wrap items-center gap-2 mb-2">
                         <Avatar name={article.user?.name} size={20} />
-                        <span className="text-xs font-medium text-slate-600">{article.user?.name}</span>
+                        <span className={`text-xs font-semibold text-slate-500 ${isAr ? 'font-mikhak-medium' : 'font-outfit'}`}>{article.user?.name}</span>
                         {article.category?.title?.[lang] && (
                             <>
                                 <span className="text-rose-200 text-xs">·</span>
-                                <CatBadge label={article.category.title[lang]} />
+                                <CatBadge label={article.category.title[lang]} isAr={isAr} />
                             </>
                         )}
                     </div>
-                    <h3 className="font-serif text-base md:text-lg font-normal leading-snug text-slate-800 group-hover:text-rose-600 transition-colors mb-1.5 line-clamp-2">
+                    
+                    <h3 className={`text-base sm:text-lg font-bold leading-snug text-slate-800 group-hover:text-[#c0507a] transition-colors mb-2 line-clamp-2 ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`}>
                         {article.title[lang]}
                     </h3>
+                    
                     {article.short_description?.[lang] && (
-                        <p className="text-sm text-slate-500 font-light line-clamp-1 mb-2">
+                        <p className={`text-xs sm:text-sm text-slate-500 line-clamp-1 mb-2.5 ${isAr ? 'font-mikhak-regular' : 'font-outfit font-light'}`}>
                             {article.short_description[lang]}
                         </p>
                     )}
-                    <div className="flex items-center gap-2 text-xs text-slate-400">
+                    
+                    <div className={`flex items-center gap-2 text-xs text-slate-400 ${isAr ? 'font-mikhak-regular' : 'font-outfit'}`}>
                         <span>{fmtDate(article.created_at, lang)}</span>
                         <span>·</span>
                         <span>{readTime(article, lang)} {t.read}</span>
@@ -174,30 +189,28 @@ export default function Index({ articles, categories, filters }) {
     };
 
     return (
-        <div dir={isAr ? 'rtl' : 'ltr'} className="min-h-screen" style={{ fontFamily: "'DM Sans', system-ui, sans-serif", background: '#fdf9fb', color: '#2a1f30' }}>
+        <div dir={isAr ? 'rtl' : 'ltr'} className="min-h-screen" style={{ background: '#fdf9fb', color: '#2a1f30' }}>
             <Head title={t.blog + ' – Monasbtk'} />
             <style>{`
-                @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
-                .font-serif { font-family: 'DM Serif Display', Georgia, serif; }
-                .blog-nav { position:sticky;top:0;z-index:100;height:60px;background:rgba(253,249,251,0.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(220,150,170,0.13); }
-                .blog-inner { max-width:1160px;margin:0 auto;padding:0 24px; }
-                .cat-scroll { display:flex;gap:6px;overflow-x:auto;padding:12px 0;scrollbar-width:none; }
+                .blog-nav { position:sticky;top:0;z-index:100;height:68px;background:rgba(253,249,251,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(220,150,170,0.13); }
+                .blog-inner { max-width:1180px;margin:0 auto;padding:0 24px; }
+                .cat-scroll { display:flex;gap:8px;overflow-x:auto;padding:14px 0;scrollbar-width:none; }
                 .cat-scroll::-webkit-scrollbar { display:none; }
-                .cat-pill { white-space:nowrap;flex-shrink:0;padding:7px 18px;border-radius:999px;font-size:13px;font-weight:500;text-decoration:none;border:1px solid transparent;transition:all .15s; }
-                .cat-on  { background:#c0507a;color:#fff;box-shadow:0 3px 14px rgba(192,80,122,.22); }
-                .cat-off { color:#7a6070;border-color:rgba(200,140,170,.22); }
-                .cat-off:hover { color:#c0507a;border-color:rgba(192,80,122,.4);background:rgba(192,80,122,.04); }
-                .content-grid { display:grid;grid-template-columns:1fr 272px;gap:52px;align-items:start; }
-                .sidebar { position:sticky;top:120px; }
-                .sb-block { margin-bottom:28px; }
-                .sb-label { font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#b0909a;padding-bottom:10px;border-bottom:1px solid rgba(200,140,170,.15);margin-bottom:14px; }
+                .cat-pill { white-space:nowrap;flex-shrink:0;padding:8px 20px;border-radius:999px;font-size:13.5px;font-weight:600;text-decoration:none;border:1px solid transparent;transition:all .3s; }
+                .cat-on  { background:#c0507a;color:#fff;box-shadow:0 6px 20px rgba(192,80,122,.2); }
+                .cat-off { color:#7a6070;border-color:rgba(200,140,170,.2);background:rgba(255,255,255,0.4); }
+                .cat-off:hover { color:#c0507a;border-color:rgba(192,80,122,.35);background:rgba(192,80,122,.03); }
+                .content-grid { display:grid;grid-template-columns:1fr 280px;gap:56px;align-items:start; }
+                .sidebar { position:sticky;top:140px; }
+                .sb-block { margin-bottom:32px; }
+                .sb-label { font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#b0909a;padding-bottom:10px;border-bottom:1px solid rgba(200,140,170,.15);margin-bottom:16px; }
                 .sb-topics { display:flex;flex-wrap:wrap;gap:6px; }
-                .sb-chip { padding:6px 14px;border-radius:999px;font-size:12.5px;font-weight:500;text-decoration:none;transition:all .15s; }
+                .sb-chip { padding:7px 16px;border-radius:999px;font-size:12.5px;font-weight:600;text-decoration:none;transition:all .2s; }
                 .sb-on  { background:#c0507a;color:#fff; }
-                .sb-off { background:#f5ecf2;color:#6a5060;border:1px solid rgba(200,140,170,.2); }
+                .sb-off { background:#fff;color:#7a6070;border:1px solid rgba(200,140,170,.18); }
                 .sb-off:hover { border-color:rgba(192,80,122,.35);color:#c0507a; }
-                .about-card { border-radius:18px;border:1px solid rgba(200,140,170,.18);background:#fff;padding:20px; }
-                .page-btn { display:inline-flex;align-items:center;gap:6px;padding:9px 22px;border-radius:999px;font-size:13px;font-weight:500;text-decoration:none;transition:all .18s;border:none;cursor:pointer; }
+                .about-card { border-radius:24px;border:1px solid rgba(200,140,170,.14);background:#fff;padding:24px; }
+                .page-btn { display:inline-flex;align-items:center;gap:8px;padding:10px 24px;border-radius:999px;font-size:13.5px;font-weight:600;text-decoration:none;transition:all .2s;border:none;cursor:pointer; }
                 .page-on  { background:#c0507a;color:#fff; }
                 .page-on:hover { background:#aa4068;transform:translateY(-1px); }
                 .page-off { background:#f0e8ed;color:#c0a8b4;cursor:not-allowed; }
@@ -208,16 +221,20 @@ export default function Index({ articles, categories, filters }) {
             {/* ── NAV ── */}
             <nav className="blog-nav">
                 <div className="blog-inner h-full flex items-center justify-between">
-                    <Link href="/" style={{ fontFamily:'DM Serif Display,serif', fontSize:20, color:'#2a1f30', textDecoration:'none' }}>Monasbtk</Link>
-                    <div className="flex items-center gap-5">
-                        <Link href="/" style={{ fontSize:13.5, color:'#7a6070', textDecoration:'none' }}>{t.home}</Link>
-                        <div className="flex rounded-full overflow-hidden border" style={{ borderColor:'rgba(192,80,122,.2)' }}>
+                    <Link href="/" className={`text-xl font-extrabold text-slate-800 ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`}>
+                        Monasbtk
+                    </Link>
+                    <div className="flex items-center gap-6">
+                        <Link href="/" className={`text-sm font-bold text-slate-600 hover:text-[#c0507a] transition-colors ${isAr ? 'font-mikhak-medium' : 'font-outfit'}`}>
+                            {t.home}
+                        </Link>
+                        <div className="flex rounded-full overflow-hidden border border-rose-100 bg-white/40">
                             {['en','ar'].map(l => (
                                 <button key={l} onClick={() => switchLang(l)}
-                                    style={{ padding:'5px 14px', fontSize:12, fontWeight:500, cursor:'pointer', border:'none',
+                                    style={{ padding:'5px 14px', fontSize:11, fontWeight:700, cursor:'pointer', border:'none',
                                         background: lang === l ? '#c0507a' : 'transparent',
-                                        color: lang === l ? '#fff' : '#c0507a', transition:'all .15s' }}>
-                                    {l === 'en' ? 'En' : 'ع'}
+                                        color: lang === l ? '#fff' : '#c0507a', transition:'all .2s' }}>
+                                    {l === 'en' ? 'EN' : 'عربي'}
                                 </button>
                             ))}
                         </div>
@@ -226,33 +243,53 @@ export default function Index({ articles, categories, filters }) {
             </nav>
 
             {/* ── HERO ── */}
-            <div style={{ background:'#fff', borderBottom:'1px solid rgba(220,150,170,.12)', padding:'52px 0 40px' }}>
+            <div className="bg-gradient-to-b from-[#FFFDFE] to-[#FDF9FB] border-b border-rose-100/50 py-16 sm:py-20">
                 <div className="blog-inner">
                     <div className="max-w-2xl">
-                        <p style={{ fontSize:10.5, fontWeight:700, letterSpacing:'.12em', textTransform:'uppercase', color:'#c0507a', marginBottom:14, display:'flex', alignItems:'center', gap:8 }}>
-                            <span style={{ width:5, height:5, borderRadius:'50%', background:'#c0507a', display:'inline-block' }} />
-                            Monasbtk Editorial
+                        <p className={`text-xs font-bold tracking-wider uppercase text-[#c0507a] mb-4 flex items-center gap-2 ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`}>
+                            <span className="w-2 h-2 rounded-full bg-[#c0507a] animate-pulse" />
+                            {isAr ? 'مدونة مناسبتك التحريرية' : 'Monasbtk Editorial'}
                         </p>
-                        <h1 style={{ fontFamily:'DM Serif Display,serif', fontSize:'clamp(36px,6vw,58px)', fontWeight:400, lineHeight:1.1, letterSpacing:'-.02em', color:'#1e1520', marginBottom:16 }}>
-                            {isAr ? <><em style={{ fontStyle:'italic', color:'#c0507a' }}>مناسبتك</em><br/>المدونة</> : <>The <em style={{ fontStyle:'italic', color:'#c0507a' }}>Monasbtk</em><br/>Blog</>}
+                        
+                        <h1 className={`text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.12] tracking-tight text-[#1e1520] mb-6 ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`}>
+                            {isAr ? (
+                                <>
+                                    مدونة <span className="text-[#c0507a]">مناسبتك</span>
+                                </>
+                            ) : (
+                                <>
+                                    The <span className="text-[#c0507a]">Monasbtk</span> Blog
+                                </>
+                            )}
                         </h1>
-                        {/* Search */}
-                        <form onSubmit={handleSearch} style={{ display:'flex', gap:8, marginTop:24, maxWidth:460 }}>
-                            <div style={{ position:'relative', flex:1 }}>
-                                <svg style={{ position:'absolute', left:14, top:'50%', transform:'translateY(-50%)', width:15, height:15, color:'#b0909a' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+
+                        {/* Search Input Box */}
+                        <form onSubmit={handleSearch} className="flex gap-3 mt-8 max-w-lg">
+                            <div className="relative flex-1">
+                                <svg className={`absolute ${isAr ? 'right-4' : 'left-4'} top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                                 </svg>
-                                <input ref={searchRef} value={searchVal} onChange={e => setSearchVal(e.target.value)}
-                                    placeholder={t.search} style={{ width:'100%', paddingLeft:38, paddingRight:14, paddingTop:10, paddingBottom:10, borderRadius:999, border:'1.5px solid rgba(200,140,170,.25)', background:'#fdf4f8', fontSize:13.5, fontFamily:'inherit', outline:'none', color:'#2a1f30' }} />
+                                <input 
+                                    ref={searchRef} 
+                                    value={searchVal} 
+                                    onChange={e => setSearchVal(e.target.value)}
+                                    placeholder={t.search} 
+                                    className={`w-full py-3.5 rounded-full border border-rose-200/60 bg-white/80 text-sm focus:border-[#c0507a]/40 focus:ring-1 focus:ring-[#c0507a]/20 outline-none text-[#2a1f30] shadow-sm transition-all
+                                        ${isAr ? 'pr-11 pl-4 font-mikhak-regular' : 'pl-11 pr-4 font-outfit'}`} 
+                                />
                             </div>
-                            <button type="submit" style={{ padding:'10px 20px', borderRadius:999, background:'#c0507a', color:'#fff', fontSize:13, fontWeight:600, border:'none', cursor:'pointer', whiteSpace:'nowrap' }}>
+                            <button 
+                                type="submit" 
+                                className={`px-6 py-3.5 rounded-full bg-[#c0507a] text-white text-sm font-bold border-none cursor-pointer transition-all duration-300 hover:bg-[#aa4068] hover:shadow-lg hover:shadow-rose-500/10 active:scale-95 whitespace-nowrap select-none ${isAr ? 'font-mikhak-medium' : 'font-outfit'}`}
+                            >
                                 {t.searchBtn}
                             </button>
                         </form>
+
                         {filters?.search && (
-                            <div style={{ marginTop:10, display:'flex', alignItems:'center', gap:8, fontSize:13, color:'#7a6070' }}>
-                                <span>Results for: <strong>"{filters.search}"</strong> — {articles.total} found</span>
-                                <button onClick={clearSearch} style={{ fontSize:12, color:'#c0507a', background:'none', border:'none', cursor:'pointer', fontWeight:600 }}>× {t.clearSearch}</button>
+                            <div className={`mt-4 flex items-center gap-3 text-sm text-slate-500 ${isAr ? 'font-mikhak-regular' : 'font-outfit'}`}>
+                                <span>{isAr ? `نتائج البحث عن: ` : `Results for: `} <strong>"{filters.search}"</strong> — {articles.total} {isAr ? 'مقال' : 'found'}</span>
+                                <button onClick={clearSearch} className="text-xs text-[#c0507a] bg-none border-none cursor-pointer font-bold hover:underline">× {t.clearSearch}</button>
                             </div>
                         )}
                     </div>
@@ -260,15 +297,15 @@ export default function Index({ articles, categories, filters }) {
             </div>
 
             {/* ── CATEGORY BAR ── */}
-            <div style={{ position:'sticky', top:60, zIndex:80, background:'rgba(253,249,251,.96)', backdropFilter:'blur(10px)', borderBottom:'1px solid rgba(220,150,170,.12)' }}>
+            <div style={{ position:'sticky', top:68, zIndex:80, background:'rgba(253,249,251,.96)', backdropFilter:'blur(12px)', borderBottom:'1px solid rgba(220,150,170,.12)' }}>
                 <div className="blog-inner">
                     <div className="cat-scroll">
                         <Link href={route('blog.index', filters?.search ? { search: filters.search } : {})}
-                            className={`cat-pill ${!currentCat ? 'cat-on' : 'cat-off'}`}>{t.all}</Link>
+                            className={`cat-pill ${!currentCat ? 'cat-on' : 'cat-off'} ${isAr ? 'font-mikhak-medium' : 'font-outfit'}`}>{t.all}</Link>
                         {categories.map(cat => (
                             <Link key={cat.id}
                                 href={route('blog.index', { category: cat.id, ...(filters?.search ? { search: filters.search } : {}) })}
-                                className={`cat-pill ${currentCat == cat.id ? 'cat-on' : 'cat-off'}`}>
+                                className={`cat-pill ${currentCat == cat.id ? 'cat-on' : 'cat-off'} ${isAr ? 'font-mikhak-medium' : 'font-outfit'}`}>
                                 {cat.title[lang]}
                             </Link>
                         ))}
@@ -276,55 +313,55 @@ export default function Index({ articles, categories, filters }) {
                 </div>
             </div>
 
-            {/* ── MAIN ── */}
-            <div className="blog-inner" style={{ paddingTop:36, paddingBottom:72 }}>
+            {/* ── MAIN CONTENT ── */}
+            <div className="blog-inner py-12 sm:py-16">
                 <div className="content-grid">
                     <main>
                         {/* Featured hero article */}
-                        {showFeatured && <FeaturedCard article={featured} lang={lang} t={t} />}
+                        {showFeatured && <FeaturedCard article={featured} lang={lang} t={t} isAr={isAr} />}
 
                         {/* Articles list */}
                         <AnimatePresence mode="wait">
-                            <motion.div key={currentCat || 'all'} initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ duration:.2 }}>
+                            <motion.div key={currentCat || 'all'} initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ duration:.2 }} className="space-y-2">
                                 {(showFeatured ? rest : articles.data).map((article, i) => (
-                                    <ArticleCard key={article.id} article={article} lang={lang} t={t} index={i} />
+                                    <ArticleCard key={article.id} article={article} lang={lang} t={t} index={i} isAr={isAr} />
                                 ))}
                             </motion.div>
                         </AnimatePresence>
 
-                        {/* Empty */}
+                        {/* Empty page */}
                         {articles.data.length === 0 && (
-                            <div style={{ textAlign:'center', padding:'64px 0' }}>
-                                <div style={{ width:56, height:56, borderRadius:'50%', background:'rgba(192,80,122,.07)', margin:'0 auto 16px', display:'flex', alignItems:'center', justifyContent:'center' }}>
-                                    <svg width="24" height="24" fill="none" stroke="#c0507a" strokeWidth="1.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                            <div className="text-center py-16">
+                                <div className="w-16 h-16 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center mx-auto mb-4">
+                                    <svg className="w-6 h-6 text-[#c0507a]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                                 </div>
-                                <p style={{ color:'#8a7080', marginBottom:16 }}>{t.empty}</p>
-                                <Link href={route('blog.index')} style={{ display:'inline-flex', padding:'9px 22px', borderRadius:999, background:'#c0507a', color:'#fff', fontSize:13, fontWeight:500, textDecoration:'none' }}>{t.all}</Link>
+                                <p className={`text-slate-500 mb-6 ${isAr ? 'font-mikhak-regular' : 'font-outfit'}`}>{t.empty}</p>
+                                <Link href={route('blog.index')} className={`inline-flex px-6 py-3 rounded-full bg-[#c0507a] text-white text-sm font-semibold hover:bg-[#aa4068] transition-all ${isAr ? 'font-mikhak-medium' : 'font-outfit'}`}>{t.all}</Link>
                             </div>
                         )}
 
-                        {/* Pagination */}
+                        {/* Pagination controls */}
                         {articles.last_page > 1 && (
-                            <div style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:12, paddingTop:36 }}>
+                            <div className={`flex items-center justify-center gap-4 pt-10 ${isAr ? 'font-mikhak-medium' : 'font-outfit'}`}>
                                 {articles.prev_page_url
                                     ? <Link href={articles.prev_page_url} className="page-btn page-on">
-                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" style={{ transform: isAr ? 'rotate(180deg)' : 'none' }}><path d="M15 18l-6-6 6-6"/></svg>
-                                        {t.prev}
+                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ transform: isAr ? 'rotate(180deg)' : 'none' }}><path d="M15 18l-6-6 6-6"/></svg>
+                                        <span>{t.prev}</span>
                                       </Link>
                                     : <span className="page-btn page-off">
-                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" style={{ transform: isAr ? 'rotate(180deg)' : 'none' }}><path d="M15 18l-6-6 6-6"/></svg>
-                                        {t.prev}
+                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ transform: isAr ? 'rotate(180deg)' : 'none' }}><path d="M15 18l-6-6 6-6"/></svg>
+                                        <span>{t.prev}</span>
                                       </span>
                                 }
-                                <span style={{ fontSize:12.5, color:'#b0909a' }}>{articles.current_page} / {articles.last_page}</span>
+                                <span className="text-sm font-semibold text-slate-400">{articles.current_page} / {articles.last_page}</span>
                                 {articles.next_page_url
                                     ? <Link href={articles.next_page_url} className="page-btn page-on">
-                                        {t.next}
-                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" style={{ transform: isAr ? 'rotate(180deg)' : 'none' }}><path d="M9 18l6-6-6-6"/></svg>
+                                        <span>{t.next}</span>
+                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ transform: isAr ? 'rotate(180deg)' : 'none' }}><path d="M9 18l6-6-6-6"/></svg>
                                       </Link>
                                     : <span className="page-btn page-off">
-                                        {t.next}
-                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" style={{ transform: isAr ? 'rotate(180deg)' : 'none' }}><path d="M9 18l6-6-6-6"/></svg>
+                                        <span>{t.next}</span>
+                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ transform: isAr ? 'rotate(180deg)' : 'none' }}><path d="M9 18l6-6-6-6"/></svg>
                                       </span>
                                 }
                             </div>
@@ -335,12 +372,12 @@ export default function Index({ articles, categories, filters }) {
                     <aside className="sidebar">
                         {/* Topics */}
                         <div className="sb-block">
-                            <div className="sb-label">{t.topics}</div>
+                            <div className={`sb-label ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`}>{t.topics}</div>
                             <div className="sb-topics">
-                                <Link href={route('blog.index')} className={`sb-chip ${!currentCat ? 'sb-on' : 'sb-off'}`}>{t.all}</Link>
+                                <Link href={route('blog.index')} className={`sb-chip ${!currentCat ? 'sb-on' : 'sb-off'} ${isAr ? 'font-mikhak-medium' : 'font-outfit'}`}>{t.all}</Link>
                                 {categories.map(cat => (
                                     <Link key={cat.id} href={route('blog.index', { category: cat.id })}
-                                        className={`sb-chip ${currentCat == cat.id ? 'sb-on' : 'sb-off'}`}>
+                                        className={`sb-chip ${currentCat == cat.id ? 'sb-on' : 'sb-off'} ${isAr ? 'font-mikhak-medium' : 'font-outfit'}`}>
                                         {cat.title[lang]}
                                     </Link>
                                 ))}
@@ -350,27 +387,31 @@ export default function Index({ articles, categories, filters }) {
                         {/* About card */}
                         <div className="sb-block">
                             <div className="about-card">
-                                <div style={{ fontFamily:'DM Serif Display,serif', fontSize:17, color:'#1e1520', marginBottom:10 }}>{t.about}</div>
-                                <p style={{ fontSize:13, lineHeight:1.76, color:'#7a6070', fontWeight:300, marginBottom:14 }}>{t.aboutText}</p>
-                                <Link href="/" style={{ display:'inline-flex', alignItems:'center', gap:4, fontSize:13, fontWeight:500, color:'#c0507a', textDecoration:'none' }}>
-                                    {t.learnMore}
-                                    <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" style={{ transform: isAr ? 'rotate(180deg)' : 'none' }}><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                <div className={`text-base font-extrabold text-slate-800 mb-3.5 ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`}>
+                                    {t.about}
+                                </div>
+                                <p className={`text-sm leading-relaxed text-slate-500 mb-4 ${isAr ? 'font-mikhak-regular' : 'font-outfit font-light'}`}>
+                                    {t.aboutText}
+                                </p>
+                                <Link href="/" className={`inline-flex items-center gap-1.5 text-sm font-bold text-[#c0507a] hover:text-[#aa4068] transition-colors select-none ${isAr ? 'font-mikhak-medium' : 'font-outfit'}`}>
+                                    <span>{t.learnMore}</span>
+                                    <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ transform: isAr ? 'rotate(180deg)' : 'none' }}><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                                 </Link>
                             </div>
                         </div>
 
-                        {/* Stats */}
+                        {/* Stats card */}
                         {articles.total > 0 && (
-                            <div style={{ padding:'16px 20px', borderRadius:16, background:'rgba(192,80,122,.05)', border:'1px solid rgba(192,80,122,.1)', textAlign:'center' }}>
-                                <div style={{ fontFamily:'DM Serif Display,serif', fontSize:30, color:'#c0507a', lineHeight:1 }}>{articles.total}</div>
-                                <div style={{ fontSize:12, color:'#b0909a', marginTop:4 }}>{t.articles} published</div>
+                            <div className="p-6 rounded-3xl bg-[#c0507a]/[0.02] border border-[#c0507a]/10 text-center select-none">
+                                <div className={`text-4xl font-extrabold text-[#c0507a] leading-none ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`}>{articles.total}</div>
+                                <div className={`text-xs font-semibold text-slate-400 mt-2 ${isAr ? 'font-mikhak-regular' : 'font-outfit'}`}>{articles.total} {t.articles} published</div>
                             </div>
                         )}
 
                         {/* Footer links */}
-                        <div style={{ display:'flex', flexWrap:'wrap', gap:'8px 14px', marginTop:24 }}>
-                            {[['/', isAr?'الرئيسية':'Home'],['/about',isAr?'عن مناسبتك':'About'],['/contact',isAr?'تواصل':'Contact'],['/privacy-policy',isAr?'الخصوصية':'Privacy']].map(([href, label]) => (
-                                <Link key={href} href={href} style={{ fontSize:12, color:'#c0a8b4', textDecoration:'none' }}>{label}</Link>
+                        <div className="flex flex-wrap gap-x-4 gap-y-2 mt-8 px-2">
+                            {[['/', isAr?'الرئيسية':'Home'],['/about',isAr?'عن مناسبتك':'About'],['/contact',isAr?'تواصل معنا':'Contact'],['/privacy-policy',isAr?'سياسة الخصوصية':'Privacy']].map(([href, label]) => (
+                                <Link key={href} href={href} className={`text-xs font-semibold text-slate-400 hover:text-[#c0507a] transition-colors ${isAr ? 'font-mikhak-regular' : 'font-outfit'}`}>{label}</Link>
                             ))}
                         </div>
                     </aside>

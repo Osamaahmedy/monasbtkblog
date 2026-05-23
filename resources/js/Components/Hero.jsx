@@ -42,31 +42,71 @@ const StoreButton = ({ href, icon, topLabel, bottomLabel, isComingSoon = false }
         href={href}
         target={isComingSoon ? undefined : "_blank"}
         rel="noopener noreferrer"
-        whileHover={{ scale: 1.04, y: -2 }}
-        whileTap={{ scale: 0.96 }}
+        whileHover={{ scale: 1.05, y: -4 }}
+        whileTap={{ scale: 0.95 }}
         className={`
-            relative flex items-center gap-3 px-5 py-3 rounded-2xl min-w-[160px]
-            bg-white/5 backdrop-blur-md border border-white/10
-            hover:bg-white/10 hover:border-white/20
-            shadow-lg hover:shadow-white/10
+            relative flex items-center gap-3 px-5 py-3 rounded-2xl min-w-[165px]
+            bg-white/[0.04] backdrop-blur-md border border-white/10
+            hover:bg-white/[0.09] hover:border-white/20
+            shadow-[0_4px_24px_rgba(0,0,0,0.15)] hover:shadow-[0_8px_32px_rgba(255,255,255,0.04)]
             transition-all duration-300 overflow-hidden group
-            ${isComingSoon ? 'cursor-default' : 'cursor-pointer'}
+            ${isComingSoon ? 'cursor-default opacity-80' : 'cursor-pointer'}
         `}
     >
-        {/* Shimmer */}
-        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/5 to-transparent" />
+        {/* Shimmer Sweep */}
+        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-        {icon}
+        <div className="text-white group-hover:scale-110 transition-transform duration-300">
+            {icon}
+        </div>
 
-        <div className="flex flex-col leading-tight">
-            <span className="text-white/50 text-[10px] font-mikhak-regular tracking-wider uppercase">
+        <div className="flex flex-col leading-tight select-none">
+            <span className="text-white/40 text-[9px] font-outfit uppercase tracking-widest">
                 {topLabel}
             </span>
-            <span className="text-white text-sm font-mikhak-bold">
+            <span className="text-white text-sm font-outfit font-semibold">
                 {bottomLabel}
             </span>
         </div>
     </motion.a>
+);
+
+// Stats Icons
+const StarIcon = () => (
+    <svg className="w-5 h-5 text-amber-400 fill-amber-400 filter drop-shadow-[0_0_4px_rgba(251,191,36,0.5)]" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+    </svg>
+);
+
+const UsersIcon = () => (
+    <svg className="w-5 h-5 text-purple-400 filter drop-shadow-[0_0_4px_rgba(192,132,252,0.5)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+    </svg>
+);
+
+const GiftIcon = () => (
+    <svg className="w-5 h-5 text-pink-400 filter drop-shadow-[0_0_4px_rgba(244,114,182,0.5)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+    </svg>
+);
+
+const AvatarStack = () => (
+    <div className="flex -space-x-2 rtl:space-x-reverse select-none">
+        {[
+            'bg-gradient-to-tr from-pink-500 to-rose-400',
+            'bg-gradient-to-tr from-purple-500 to-indigo-400',
+            'bg-gradient-to-tr from-cyan-500 to-blue-400',
+            'bg-gradient-to-tr from-amber-500 to-orange-400',
+        ].map((bg, idx) => (
+            <motion.div
+                key={idx}
+                whileHover={{ y: -4, scale: 1.1, zIndex: 10 }}
+                className={`w-7 h-7 rounded-full border-2 border-purple-950/80 ${bg} flex items-center justify-center text-[10px] font-bold text-white shadow-md cursor-pointer transition-all duration-200`}
+            >
+                {['👩‍🦰', '🧑', '👱‍♀️', '👨'][idx]}
+            </motion.div>
+        ))}
+    </div>
 );
 
 const Hero = ({ lang }) => {
@@ -89,7 +129,7 @@ const Hero = ({ lang }) => {
     return (
         <main
             dir={isRtl ? 'rtl' : 'ltr'}
-            className="mt-16 md:mt-24 flex flex-col md:flex-row items-center justify-between gap-12"
+            className="mt-16 md:mt-24 flex flex-col md:flex-row items-center justify-between gap-16 relative z-10"
         >
             {/* Left: Text & Buttons */}
             <motion.div
@@ -98,35 +138,48 @@ const Hero = ({ lang }) => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: false }}
-                className="text-center md:text-start md:w-1/2 space-y-6"
+                className="text-center md:text-start md:w-1/2 space-y-8"
             >
                 {/* Badge */}
                 <motion.div variants={itemVariants} className="flex justify-center md:justify-start">
-                    <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/10 text-white/70 text-xs font-mikhak-medium backdrop-blur-sm">
-                        <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                        {isRtl ? 'متاح الآن على App Store' : 'Now available on App Store'}
+                    <span className={`inline-flex items-center gap-2.5 px-4.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 text-white/80 text-xs shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-md relative overflow-hidden group select-none ${isRtl ? 'font-mikhak-medium' : 'font-outfit font-medium'}`}>
+                        {/* Shimmer light sweep */}
+                        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        </span>
+                        <span className="tracking-wide">
+                            {isRtl ? 'متاح الآن على App Store' : 'Now live on the App Store'}
+                        </span>
                     </span>
                 </motion.div>
 
                 {/* Title */}
-                <motion.h1
-                    variants={itemVariants}
-                    className="text-4xl lg:text-6xl font-extrabold leading-tight font-mikhak-bold"
-                >
-                    {t.hero.title}
-                </motion.h1>
+                <motion.div variants={itemVariants}>
+                    {isRtl ? (
+                        <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-[1.15] font-mikhak-bold">
+                            <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-300 bg-clip-text text-transparent">مناسبتك</span>
+                            <span className="text-white block sm:inline">… حنا نخلدها لك</span>
+                        </h1>
+                    ) : (
+                        <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-[1.15] font-outfit tracking-tight">
+                            <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-300 bg-clip-text text-transparent">Beautiful memories</span> <br className="hidden lg:block" /> at your fingertips
+                        </h1>
+                    )}
+                </motion.div>
 
                 {/* Subtitle */}
                 <motion.p
                     variants={itemVariants}
-                    className="text-lg text-gray-300 font-mikhak-regular leading-relaxed max-w-md mx-auto md:mx-0"
+                    className={`text-lg text-white/80 leading-relaxed max-w-md mx-auto md:mx-0 ${isRtl ? 'font-mikhak-regular' : 'font-outfit font-light'}`}
                 >
                     {t.hero.subtitle}
                 </motion.p>
 
                 {/* Download Buttons */}
-                <motion.div variants={itemVariants} className="space-y-3">
-                    <p className="text-sm font-mikhak-medium text-white/50 uppercase tracking-widest">
+                <motion.div variants={itemVariants} className="space-y-4">
+                    <p className={`text-xs font-semibold text-white/40 uppercase tracking-widest ${isRtl ? 'font-mikhak-medium' : 'font-outfit'}`}>
                         {t.hero.download}
                     </p>
                     <div className="flex flex-wrap justify-center md:justify-start gap-4">
@@ -146,50 +199,142 @@ const Hero = ({ lang }) => {
                     </div>
                 </motion.div>
 
-                {/* Stats Row */}
+                {/* Glassmorphic Stats Row */}
                 <motion.div
                     variants={itemVariants}
-                    className="flex justify-center md:justify-start gap-8 pt-2"
+                    className="grid grid-cols-3 gap-4 pt-4 max-w-md mx-auto md:mx-0"
                 >
-                    {[
-                        { value: '4.9★', label: isRtl ? 'تقييم المستخدمين' : 'User Rating' },
-                        { value: '10K+', label: isRtl ? 'مستخدم نشط' : 'Active Users' },
-                        { value: '100%', label: isRtl ? 'مجاني' : 'Free' },
-                    ].map((stat) => (
-                        <div key={stat.label} className="text-center">
-                            <p className="text-white font-mikhak-bold text-lg">{stat.value}</p>
-                            <p className="text-white/40 text-xs font-mikhak-regular">{stat.label}</p>
+                    <div className="flex flex-col items-center md:items-start p-4 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-sm hover:bg-white/[0.06] transition-colors duration-300">
+                        <div className="flex items-center gap-1.5 mb-1">
+                            <StarIcon />
+                            <span className={`text-white text-lg font-bold ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}>4.9</span>
                         </div>
-                    ))}
+                        <p className={`text-white/50 text-[10px] sm:text-xs font-semibold ${isRtl ? 'font-mikhak-regular' : 'font-outfit'}`}>
+                            {isRtl ? 'تقييم المستخدمين' : 'User Rating'}
+                        </p>
+                        <div className="mt-2.5">
+                            <AvatarStack />
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col items-center md:items-start p-4 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-sm hover:bg-white/[0.06] transition-colors duration-300">
+                        <div className="flex items-center gap-1.5 mb-1">
+                            <UsersIcon />
+                            <span className={`text-white text-lg font-bold ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}>10K+</span>
+                        </div>
+                        <p className={`text-white/50 text-[10px] sm:text-xs font-semibold ${isRtl ? 'font-mikhak-regular' : 'font-outfit'}`}>
+                            {isRtl ? 'مستخدم نشط' : 'Active Users'}
+                        </p>
+                    </div>
+
+
                 </motion.div>
             </motion.div>
 
-            {/* Right: Phone Mockup */}
+            {/* Right: Phone Mockup & Floating 3D Cards */}
             <motion.div
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="md:w-1/2 flex justify-center"
+                className="md:w-1/2 flex justify-center relative select-none w-full"
             >
+                {/* Glowing Background Glows */}
                 <motion.div
-                    animate={{ y: [0, -15, 0], rotate: [0, 1.5, 0] }}
+                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full blur-3xl -z-10 bg-purple-600/30"
+                    animate={{ scale: [1, 1.25, 1], opacity: [0.3, 0.5, 0.3] }}
+                    transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+                />
+                <motion.div
+                    className="absolute top-1/3 left-1/3 w-64 h-64 rounded-full blur-2xl -z-10 bg-pink-500/20"
+                    animate={{ scale: [1.1, 0.9, 1.1], opacity: [0.2, 0.4, 0.2] }}
+                    transition={{ repeat: Infinity, duration: 4, ease: "easeInOut", delay: 1 }}
+                />
+
+                <motion.div
+                    animate={{ y: [0, -15, 0], rotate: [0, 1, 0] }}
                     transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
                     className="relative"
                 >
                     {/* Outer glow ring */}
                     <motion.div
-                        className="absolute -inset-8 rounded-full blur-3xl -z-10 bg-[#9B59B6]"
+                        className="absolute -inset-8 rounded-full blur-3xl -z-10 bg-[#9B59B6]/30"
                         animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.4, 0.2] }}
                         transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
                     />
                     {/* Inner accent glow */}
                     <motion.div
-                        className="absolute -inset-2 rounded-full blur-xl -z-10 bg-purple-400"
+                        className="absolute -inset-2 rounded-full blur-xl -z-10 bg-purple-400/20"
                         animate={{ scale: [1, 1.05, 1], opacity: [0.1, 0.25, 0.1] }}
                         transition={{ repeat: Infinity, duration: 3, ease: "easeInOut", delay: 1 }}
                     />
+
+                    {/* Phone Frame */}
                     <PhoneFrame imgSrc="/images/phone_1.png" />
+
+                    {/* Floating Card 1: Top/Side Booking Confirmed */}
+                    <motion.div
+                        animate={{ y: [0, -10, 0], x: [0, 4, 0] }}
+                        transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+                        className={`absolute z-20 top-12 ${isRtl ? '-left-8 sm:-left-16' : '-right-8 sm:-right-16'} p-3 rounded-2xl bg-slate-900/60 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] flex items-center gap-3 select-none backdrop-blur-md`}
+                    >
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-pink-500 to-rose-400 flex items-center justify-center text-sm shadow-md">
+                            🎉
+                        </div>
+                        <div className="flex flex-col text-start">
+                            <span className={`text-[9px] font-semibold text-white/40 uppercase tracking-widest ${isRtl ? 'font-mikhak-regular' : 'font-outfit'}`}>
+                                {isRtl ? 'الطلب القادم' : 'Upcoming Event'}
+                            </span>
+                            <span className={`text-xs font-bold text-white ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}>
+                                {isRtl ? 'حفل تخرج - مؤكد' : 'Graduation Party'}
+                            </span>
+                        </div>
+                    </motion.div>
+
+                    {/* Floating Card 2: Bottom/Side Cake Ordered */}
+                    <motion.div
+                        animate={{ y: [0, 8, 0], x: [0, -3, 0] }}
+                        transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }}
+                        className={`absolute z-20 bottom-16 ${isRtl ? '-right-10 sm:-right-20' : '-left-10 sm:-left-20'} p-3 rounded-2xl bg-slate-900/60 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] flex items-center gap-3 select-none backdrop-blur-md`}
+                    >
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-400 flex items-center justify-center text-sm shadow-md">
+                            🎂
+                        </div>
+                        <div className="flex flex-col text-start">
+                            <span className={`text-[9px] font-semibold text-white/40 uppercase tracking-widest ${isRtl ? 'font-mikhak-regular' : 'font-outfit'}`}>
+                                {isRtl ? 'تم الحجز' : 'Event Booked'}
+                            </span>
+                            <span className={`text-xs font-bold text-white ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}>
+                                {isRtl ? 'كعكة عيد الميلاد' : 'Birthday Cake'}
+                            </span>
+                        </div>
+                    </motion.div>
+
+                    {/* Floating Badge 3: Mini Themes indicator */}
+                    <motion.div
+                        animate={{ scale: [1, 1.05, 1], rotate: [0, 6, 0], y: [0, -6, 0] }}
+                        transition={{ repeat: Infinity, duration: 4, ease: "easeInOut", delay: 0.5 }}
+                        className={`absolute z-20 top-[40%] ${isRtl ? '-right-10 sm:-right-14' : '-left-10 sm:-left-14'} p-2 rounded-xl bg-slate-900/50 backdrop-blur-md border border-white/10 text-white text-xs flex items-center gap-1.5 shadow-md`}
+                    >
+                        <span className="text-sm">✨</span>
+                        <span className={`font-semibold ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}>{isRtl ? 'ثيمات تفاعلية' : 'Live Themes'}</span>
+                    </motion.div>
+
+                    {/* Emojis floating particles */}
+                    <motion.div
+                        animate={{ y: [0, -12, 0], opacity: [0.3, 0.7, 0.3] }}
+                        transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 0.2 }}
+                        className="absolute -top-6 left-[20%] text-xl pointer-events-none"
+                    >
+                        🎈
+                    </motion.div>
+                    <motion.div
+                        animate={{ y: [0, -18, 0], opacity: [0.2, 0.6, 0.2] }}
+                        transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 1.5 }}
+                        className="absolute bottom-2 right-[15%] text-xl pointer-events-none"
+                    >
+                        🎁
+                    </motion.div>
                 </motion.div>
             </motion.div>
         </main>
