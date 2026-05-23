@@ -59,7 +59,7 @@ const OccasionsSection = ({ lang }) => {
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false }}
+            viewport={{ once: true, amount: 0.15 }}
         >
             {/* Elegant Background Textures */}
             <div className="absolute inset-0 bg-[radial-gradient(rgba(121,75,199,0.03)_1.5px,transparent_1.5px)] [background-size:24px_24px] pointer-events-none" />
@@ -67,6 +67,7 @@ const OccasionsSection = ({ lang }) => {
             <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
                 <motion.div
                     className="absolute top-1/4 left-1/4 w-80 h-80 bg-primary/5 rounded-full filter blur-3xl"
+                    style={{ willChange: "transform" }}
                     animate={{
                         x: [0, 40, 0],
                         y: [0, 20, 0],
@@ -79,6 +80,7 @@ const OccasionsSection = ({ lang }) => {
                 />
                 <motion.div
                     className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/5 rounded-full filter blur-3xl"
+                    style={{ willChange: "transform" }}
                     animate={{
                         x: [0, -40, 0],
                         y: [0, -20, 0],
@@ -133,6 +135,7 @@ const OccasionsSection = ({ lang }) => {
                             {/* Glowing effect behind phone */}
                             <motion.div
                                 className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full blur-2xl -z-10"
+                                style={{ willChange: "transform, opacity" }}
                                 animate={{
                                     scale: [1, 1.1, 1],
                                     opacity: [0.6, 0.8, 0.6]
@@ -143,15 +146,14 @@ const OccasionsSection = ({ lang }) => {
                                     ease: "easeInOut"
                                 }}
                             />
-
+ 
                             {/* Phone Mockup Wrapper with Floaters */}
                             <motion.div
                                 variants={{
-                                    hidden: { opacity: 0, scale: 0.9, rotate: -3 },
+                                    hidden: { opacity: 0, scale: 0.9 },
                                     visible: {
                                         opacity: 1,
                                         scale: 1,
-                                        rotate: isRtl ? -4 : 4,
                                         transition: {
                                             duration: 0.8,
                                             delay: 0.3,
@@ -162,49 +164,60 @@ const OccasionsSection = ({ lang }) => {
                                 }}
                                 initial="hidden"
                                 whileInView="visible"
-                                viewport={{ once: false, margin: "-100px" }}
+                                viewport={{ once: true, margin: "-100px" }}
                                 className="relative mx-auto"
-                                animate={{
-                                    y: [0, -12, 0],
-                                    x: [0, 4, 0]
-                                }}
-                                transition={{
-                                    repeat: Infinity,
-                                    duration: 6,
-                                    ease: "easeInOut"
-                                }}
+                                style={{ willChange: "transform, opacity" }}
                             >
-                                {/* Floating Badges / Icons */}
                                 <motion.div
-                                    animate={{ y: [0, -10, 0] }}
-                                    transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                                    className="absolute -top-4 -right-4 w-12 h-12 rounded-full bg-white shadow-[0_8px_24px_rgba(0,0,0,0.08)] border border-purple-100 flex items-center justify-center text-xl z-20 cursor-pointer hover:scale-110 transition-transform duration-200"
+                                    animate={{
+                                        y: [0, -12, 0],
+                                        x: [0, 4, 0],
+                                        rotate: isRtl ? [-4, -2, -4] : [4, 6, 4]
+                                    }}
+                                    transition={{
+                                        repeat: Infinity,
+                                        duration: 6,
+                                        ease: "easeInOut"
+                                    }}
+                                    style={{ willChange: "transform" }}
+                                    className="relative"
                                 >
-                                    🎓
+                                    {/* Floating Badges / Icons */}
+                                    <motion.div
+                                        animate={{ y: [0, -10, 0] }}
+                                        transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                                        style={{ willChange: "transform" }}
+                                        className="absolute -top-4 -right-4 w-12 h-12 rounded-full bg-white shadow-[0_8px_24px_rgba(0,0,0,0.08)] border border-purple-100 flex items-center justify-center text-xl z-20 cursor-pointer hover:scale-110 transition-transform duration-200"
+                                    >
+                                        🎓
+                                    </motion.div>
+                                    <motion.div
+                                        animate={{ y: [0, 8, 0] }}
+                                        transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
+                                        style={{ willChange: "transform" }}
+                                        className="absolute top-24 -left-6 w-12 h-12 rounded-full bg-white shadow-[0_8px_24px_rgba(0,0,0,0.08)] border border-pink-100 flex items-center justify-center text-xl z-20 cursor-pointer hover:scale-110 transition-transform duration-200"
+                                    >
+                                        🎂
+                                    </motion.div>
+                                    <motion.div
+                                        animate={{ y: [0, -8, 0] }}
+                                        transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 0.5 }}
+                                        style={{ willChange: "transform" }}
+                                        className="absolute bottom-20 -right-4 w-12 h-12 rounded-full bg-white shadow-[0_8px_24px_rgba(0,0,0,0.08)] border border-indigo-100 flex items-center justify-center text-xl z-20 cursor-pointer hover:scale-110 transition-transform duration-200"
+                                    >
+                                        💍
+                                    </motion.div>
+                                    <motion.div
+                                        animate={{ y: [0, 10, 0] }}
+                                        transition={{ repeat: Infinity, duration: 5.5, ease: "easeInOut", delay: 1.5 }}
+                                        style={{ willChange: "transform" }}
+                                        className="absolute bottom-32 -left-8 w-12 h-12 rounded-full bg-white shadow-[0_8px_24px_rgba(0,0,0,0.08)] border border-rose-100 flex items-center justify-center text-xl z-20 cursor-pointer hover:scale-110 transition-transform duration-200"
+                                    >
+                                        🎈
+                                    </motion.div>
+ 
+                                    <PhoneFrame imgSrc="/images/app_mockup.png" />
                                 </motion.div>
-                                <motion.div
-                                    animate={{ y: [0, 8, 0] }}
-                                    transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
-                                    className="absolute top-24 -left-6 w-12 h-12 rounded-full bg-white shadow-[0_8px_24px_rgba(0,0,0,0.08)] border border-pink-100 flex items-center justify-center text-xl z-20 cursor-pointer hover:scale-110 transition-transform duration-200"
-                                >
-                                    🎂
-                                </motion.div>
-                                <motion.div
-                                    animate={{ y: [0, -8, 0] }}
-                                    transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 0.5 }}
-                                    className="absolute bottom-20 -right-4 w-12 h-12 rounded-full bg-white shadow-[0_8px_24px_rgba(0,0,0,0.08)] border border-indigo-100 flex items-center justify-center text-xl z-20 cursor-pointer hover:scale-110 transition-transform duration-200"
-                                >
-                                    💍
-                                </motion.div>
-                                <motion.div
-                                    animate={{ y: [0, 10, 0] }}
-                                    transition={{ repeat: Infinity, duration: 5.5, ease: "easeInOut", delay: 1.5 }}
-                                    className="absolute bottom-32 -left-8 w-12 h-12 rounded-full bg-white shadow-[0_8px_24px_rgba(0,0,0,0.08)] border border-rose-100 flex items-center justify-center text-xl z-20 cursor-pointer hover:scale-110 transition-transform duration-200"
-                                >
-                                    🎈
-                                </motion.div>
-
-                                <PhoneFrame imgSrc="/images/app_mockup.png" />
                             </motion.div>
                         </div>
                     </motion.div>

@@ -75,11 +75,10 @@ const FeatureCard = ({ icon, title, description, index, isRtl }) => {
 const AppMockup = ({ isRtl }) => (
     <motion.div
         variants={{
-            hidden: { opacity: 0, scale: 0.9, rotate: -3 },
+            hidden: { opacity: 0, scale: 0.9 },
             visible: { 
                 opacity: 1, 
                 scale: 1, 
-                rotate: isRtl ? -4 : 4,
                 transition: { 
                     duration: 0.8, 
                     delay: 0.3, 
@@ -92,19 +91,12 @@ const AppMockup = ({ isRtl }) => (
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
         className="relative mx-auto"
-        animate={{
-            y: [0, -12, 0],
-            x: [0, 4, 0]
-        }}
-        transition={{
-            repeat: Infinity,
-            duration: 6,
-            ease: "easeInOut"
-        }}
+        style={{ willChange: "transform, opacity" }}
     >
         {/* Glow effect */}
         <motion.div 
             className="absolute -inset-4 bg-purple-500/10 rounded-full blur-2xl opacity-40 -z-10"
+            style={{ willChange: "transform, opacity" }}
             animate={{
                 scale: [1, 1.15, 1],
                 opacity: [0.3, 0.5, 0.3]
@@ -116,30 +108,47 @@ const AppMockup = ({ isRtl }) => (
             }}
         />
 
-        {/* Floating cards around features mockup */}
         <motion.div
-            animate={{ y: [0, -6, 0] }}
-            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-            className={`absolute top-16 ${isRtl ? '-left-6' : '-right-6'} px-4 py-2.5 rounded-2xl bg-white shadow-[0_8px_24px_rgba(0,0,0,0.06)] border border-purple-100 flex items-center gap-2 z-20 cursor-pointer select-none`}
+            animate={{
+                y: [0, -12, 0],
+                x: [0, 4, 0],
+                rotate: isRtl ? [-4, -2, -4] : [4, 6, 4]
+            }}
+            transition={{
+                repeat: Infinity,
+                duration: 6,
+                ease: "easeInOut"
+            }}
+            style={{ willChange: "transform" }}
+            className="relative"
         >
-            <span className="text-lg">🔒</span>
-            <span className={`text-xs font-bold text-slate-700 ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}>
-                {isRtl ? 'دفع آمن ١٠٠٪' : '100% Secure Payment'}
-            </span>
-        </motion.div>
+            {/* Floating cards around features mockup */}
+            <motion.div
+                animate={{ y: [0, -6, 0] }}
+                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                style={{ willChange: "transform" }}
+                className={`absolute top-16 ${isRtl ? '-left-6' : '-right-6'} px-4 py-2.5 rounded-2xl bg-white shadow-[0_8px_24px_rgba(0,0,0,0.06)] border border-purple-100 flex items-center gap-2 z-20 cursor-pointer select-none`}
+            >
+                <span className="text-lg">🔒</span>
+                <span className={`text-xs font-bold text-slate-700 ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}>
+                    {isRtl ? 'دفع آمن ١٠٠٪' : '100% Secure Payment'}
+                </span>
+            </motion.div>
 
-        <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
-            className={`absolute bottom-24 ${isRtl ? '-right-6' : '-left-6'} px-4 py-2.5 rounded-2xl bg-white shadow-[0_8px_24px_rgba(0,0,0,0.06)] border border-pink-100 flex items-center gap-2 z-20 cursor-pointer select-none`}
-        >
-            <span className="text-lg">⚡</span>
-            <span className={`text-xs font-bold text-slate-700 ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}>
-                {isRtl ? 'سرعة بالطلب' : 'Instant Booking'}
-            </span>
-        </motion.div>
+            <motion.div
+                animate={{ y: [0, 6, 0] }}
+                transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
+                style={{ willChange: "transform" }}
+                className={`absolute bottom-24 ${isRtl ? '-right-6' : '-left-6'} px-4 py-2.5 rounded-2xl bg-white shadow-[0_8px_24px_rgba(0,0,0,0.06)] border border-pink-100 flex items-center gap-2 z-20 cursor-pointer select-none`}
+            >
+                <span className="text-lg">⚡</span>
+                <span className={`text-xs font-bold text-slate-700 ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}>
+                    {isRtl ? 'سرعة بالطلب' : 'Instant Booking'}
+                </span>
+            </motion.div>
 
-        <PhoneFrame imgSrc="/images/app_mockup.png" />
+            <PhoneFrame imgSrc="/images/app_mockup.png" />
+        </motion.div>
     </motion.div>
 );
 
@@ -208,6 +217,7 @@ const FeaturesSection = ({ lang }) => {
             <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
                 <motion.div 
                     className="absolute top-20 left-10 w-80 h-80 bg-primary/5 rounded-full filter blur-3xl"
+                    style={{ willChange: "transform" }}
                     animate={{
                         x: [0, 40, 0],
                         y: [0, 20, 0]
@@ -220,6 +230,7 @@ const FeaturesSection = ({ lang }) => {
                 />
                 <motion.div 
                     className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/5 rounded-full filter blur-3xl"
+                    style={{ willChange: "transform" }}
                     animate={{
                         x: [0, -40, 0],
                         y: [0, 20, 0]

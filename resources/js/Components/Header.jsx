@@ -57,9 +57,11 @@ const Header = ({ lang, toggleLanguage }) => {
             <AnimatePresence>
                 {isMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
+                        initial={{ opacity: 0, scaleY: 0.9, y: -10 }}
+                        animate={{ opacity: 1, scaleY: 1, y: 0 }}
+                        exit={{ opacity: 0, scaleY: 0.9, y: -10 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        style={{ originY: 0, willChange: "transform, opacity" }}
                         className="md:hidden mt-4 bg-white/10 rounded-lg p-4"
                     >
                         {navLinks.map((link) => (

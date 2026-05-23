@@ -185,6 +185,7 @@ const DownloadAppSection = ({ lang }) => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
             className="lg:w-1/2 relative h-[450px] sm:h-[550px] lg:h-[600px] w-full"
+            style={{ willChange: "transform, opacity" }}
           >
             {/* Ambient Background Radial Glow behind phones */}
             <div className="absolute inset-0 bg-gradient-to-r from-pink-500/10 to-purple-500/10 rounded-full blur-3xl -z-10" />
@@ -194,6 +195,7 @@ const DownloadAppSection = ({ lang }) => {
               <motion.div
                 animate={{ y: [0, -8, 0] }}
                 transition={{ repeat: Infinity, duration: 4.2, ease: "easeInOut" }}
+                style={{ willChange: "transform" }}
                 className={`absolute top-16 ${isRtl ? 'right-0 sm:right-6' : 'left-0 sm:left-6'} px-4 py-2.5 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md shadow-lg flex items-center gap-2 z-20 cursor-pointer select-none`}
               >
                 <span className="text-lg">⭐</span>
@@ -206,6 +208,7 @@ const DownloadAppSection = ({ lang }) => {
               {/* Phone 1 */}
               <motion.div
                 className="relative"
+                style={{ willChange: "transform" }}
                 animate={{ y: [0, -12, 0], rotate: [-3, -6, -3] }}
                 transition={{
                   y: { repeat: Infinity, duration: 4, ease: 'easeInOut' },
@@ -220,6 +223,7 @@ const DownloadAppSection = ({ lang }) => {
               {/* Phone 2 */}
               <motion.div
                 className="relative"
+                style={{ willChange: "transform" }}
                 animate={{ y: [0, 12, 0], rotate: [3, 6, 3] }}
                 transition={{
                   y: { repeat: Infinity, duration: 5, ease: 'easeInOut' },

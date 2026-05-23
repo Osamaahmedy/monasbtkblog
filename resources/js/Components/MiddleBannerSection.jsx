@@ -21,6 +21,7 @@ const PhoneWrapper = ({ index, imgSrc }) => {
             viewport={{ once: true, margin: '-20px' }}
             transition={{ duration: 0.55, delay: index * 0.12, ease: 'easeOut' }}
             className="relative flex-shrink-0 mx-auto"
+            style={{ willChange: "transform, opacity" }}
         >
             <motion.div
                 animate={{ y: c.y, rotate: c.rot }}
@@ -29,9 +30,11 @@ const PhoneWrapper = ({ index, imgSrc }) => {
                     rotate: { repeat: Infinity, duration: c.rDur, ease: 'easeInOut' },
                 }}
                 className="relative animate-float"
+                style={{ willChange: "transform" }}
             >
                 <motion.div
                     className={`absolute -inset-3 md:-inset-5 ${c.glow} rounded-full blur-2xl -z-10`}
+                    style={{ willChange: "transform, opacity" }}
                     animate={{ scale: [1, 1.08, 1], opacity: [0.2, 0.42, 0.2] }}
                     transition={{ repeat: Infinity, duration: 4.2, ease: 'easeInOut', delay: c.glowDelay }}
                 />
@@ -50,7 +53,7 @@ const MiddleBannerSection = ({ lang }) => {
     const [sectionRef, isVisible] = useIntersectionObserver({
         threshold: 0.1,
         rootMargin: '-50px',
-    });
+    }, true);
 
     const itemVariants = {
         hidden: { opacity: 0, y: 20 },
@@ -102,11 +105,13 @@ const MiddleBannerSection = ({ lang }) => {
             {/* Glowing background shapes */}
             <motion.div
                 className="absolute top-16 left-10 w-56 h-56 bg-primary/5 rounded-full filter blur-3xl pointer-events-none"
+                style={{ willChange: "transform" }}
                 animate={{ x: [0, 30, 0], y: [0, 20, 0], scale: [1, 1.15, 1] }}
                 transition={{ repeat: Infinity, duration: 15, ease: 'easeInOut' }}
             />
             <motion.div
                 className="absolute bottom-10 right-10 w-64 h-64 bg-secondary/5 rounded-full filter blur-3xl pointer-events-none"
+                style={{ willChange: "transform" }}
                 animate={{ x: [0, -25, 0], y: [0, 28, 0], scale: [1, 1.2, 1] }}
                 transition={{ repeat: Infinity, duration: 18, ease: 'easeInOut', delay: 0.8 }}
             />

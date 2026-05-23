@@ -55,7 +55,7 @@ const OccasionOffersSection = ({ lang }) => {
     const [sectionRef, isVisible] = useIntersectionObserver({
         threshold: 0.1,
         rootMargin: '-80px'
-    });
+    }, true);
 
     const tabs = Object.keys(occasionOffersData);
 
