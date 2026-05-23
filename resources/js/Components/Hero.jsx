@@ -136,8 +136,7 @@ const Hero = ({ lang }) => {
                 key={lang}
                 variants={containerVariants}
                 initial="hidden"
-                whileInView="visible"
-                viewport={{ once: false }}
+                animate="visible"
                 className="text-center md:text-start md:w-1/2 space-y-8"
             >
                 {/* Badge */}
@@ -234,19 +233,21 @@ const Hero = ({ lang }) => {
             {/* Right: Phone Mockup & Floating 3D Cards */}
             <motion.div
                 initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="md:w-1/2 flex justify-center relative select-none w-full"
+                style={{ willChange: "transform, opacity" }}
             >
                 {/* Glowing Background Glows */}
                 <motion.div
                     className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full blur-3xl -z-10 bg-purple-600/30"
+                    style={{ willChange: "transform, opacity" }}
                     animate={{ scale: [1, 1.25, 1], opacity: [0.3, 0.5, 0.3] }}
                     transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
                 />
                 <motion.div
                     className="absolute top-1/3 left-1/3 w-64 h-64 rounded-full blur-2xl -z-10 bg-pink-500/20"
+                    style={{ willChange: "transform, opacity" }}
                     animate={{ scale: [1.1, 0.9, 1.1], opacity: [0.2, 0.4, 0.2] }}
                     transition={{ repeat: Infinity, duration: 4, ease: "easeInOut", delay: 1 }}
                 />
@@ -255,16 +256,19 @@ const Hero = ({ lang }) => {
                     animate={{ y: [0, -15, 0], rotate: [0, 1, 0] }}
                     transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
                     className="relative"
+                    style={{ willChange: "transform" }}
                 >
                     {/* Outer glow ring */}
                     <motion.div
                         className="absolute -inset-8 rounded-full blur-3xl -z-10 bg-[#9B59B6]/30"
+                        style={{ willChange: "transform, opacity" }}
                         animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.4, 0.2] }}
                         transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
                     />
                     {/* Inner accent glow */}
                     <motion.div
                         className="absolute -inset-2 rounded-full blur-xl -z-10 bg-purple-400/20"
+                        style={{ willChange: "transform, opacity" }}
                         animate={{ scale: [1, 1.05, 1], opacity: [0.1, 0.25, 0.1] }}
                         transition={{ repeat: Infinity, duration: 3, ease: "easeInOut", delay: 1 }}
                     />
@@ -276,6 +280,7 @@ const Hero = ({ lang }) => {
                     <motion.div
                         animate={{ y: [0, -10, 0], x: [0, 4, 0] }}
                         transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+                        style={{ willChange: "transform" }}
                         className={`absolute z-20 top-12 ${isRtl ? '-left-8 sm:-left-16' : '-right-8 sm:-right-16'} p-3 rounded-2xl bg-slate-900/60 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] flex items-center gap-3 select-none backdrop-blur-md`}
                     >
                         <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-pink-500 to-rose-400 flex items-center justify-center text-sm shadow-md">
@@ -295,6 +300,7 @@ const Hero = ({ lang }) => {
                     <motion.div
                         animate={{ y: [0, 8, 0], x: [0, -3, 0] }}
                         transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }}
+                        style={{ willChange: "transform" }}
                         className={`absolute z-20 bottom-16 ${isRtl ? '-right-10 sm:-right-20' : '-left-10 sm:-left-20'} p-3 rounded-2xl bg-slate-900/60 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] flex items-center gap-3 select-none backdrop-blur-md`}
                     >
                         <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-400 flex items-center justify-center text-sm shadow-md">
@@ -314,6 +320,7 @@ const Hero = ({ lang }) => {
                     <motion.div
                         animate={{ scale: [1, 1.05, 1], rotate: [0, 6, 0], y: [0, -6, 0] }}
                         transition={{ repeat: Infinity, duration: 4, ease: "easeInOut", delay: 0.5 }}
+                        style={{ willChange: "transform" }}
                         className={`absolute z-20 top-[40%] ${isRtl ? '-right-10 sm:-right-14' : '-left-10 sm:-left-14'} p-2 rounded-xl bg-slate-900/50 backdrop-blur-md border border-white/10 text-white text-xs flex items-center gap-1.5 shadow-md`}
                     >
                         <span className="text-sm">✨</span>
@@ -324,6 +331,7 @@ const Hero = ({ lang }) => {
                     <motion.div
                         animate={{ y: [0, -12, 0], opacity: [0.3, 0.7, 0.3] }}
                         transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 0.2 }}
+                        style={{ willChange: "transform, opacity" }}
                         className="absolute -top-6 left-[20%] text-xl pointer-events-none"
                     >
                         🎈
@@ -331,6 +339,7 @@ const Hero = ({ lang }) => {
                     <motion.div
                         animate={{ y: [0, -18, 0], opacity: [0.2, 0.6, 0.2] }}
                         transition={{ repeat: Infinity, duration: 7, ease: "easeInOut", delay: 1.5 }}
+                        style={{ willChange: "transform, opacity" }}
                         className="absolute bottom-2 right-[15%] text-xl pointer-events-none"
                     >
                         🎁
