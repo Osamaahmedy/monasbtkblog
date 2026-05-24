@@ -39,29 +39,30 @@ const GooglePlayIcon = () => (
 
 const StoreButton = ({ href, icon, topLabel, bottomLabel, isComingSoon = false }) => (
     <motion.a
-        href={href}
+        href={isComingSoon ? undefined : href}
         target={isComingSoon ? undefined : "_blank"}
-        rel="noopener noreferrer"
-        whileHover={{ scale: 1.05, y: -4 }}
-        whileTap={{ scale: 0.95 }}
+        rel={isComingSoon ? undefined : "noopener noreferrer"}
+        whileHover={isComingSoon ? {} : { scale: 1.05, y: -4 }}
+        whileTap={isComingSoon ? {} : { scale: 0.95 }}
         className={`
             relative flex items-center gap-3 px-5 py-3 rounded-2xl min-w-[165px]
             bg-white/[0.04] backdrop-blur-md border border-white/10
-            hover:bg-white/[0.09] hover:border-white/20
-            shadow-[0_4px_24px_rgba(0,0,0,0.15)] hover:shadow-[0_8px_32px_rgba(255,255,255,0.04)]
+            shadow-[0_4px_24px_rgba(0,0,0,0.15)]
             transition-all duration-300 overflow-hidden group
-            ${isComingSoon ? 'cursor-default opacity-80' : 'cursor-pointer'}
+            ${isComingSoon ? 'cursor-not-allowed opacity-45' : 'cursor-pointer hover:bg-white/[0.09] hover:border-white/20 hover:shadow-[0_8px_32px_rgba(255,255,255,0.04)]'}
         `}
     >
         {/* Shimmer Sweep */}
-        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        {!isComingSoon && (
+            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        )}
 
         <div className="text-white group-hover:scale-110 transition-transform duration-300">
             {icon}
         </div>
 
         <div className="flex flex-col leading-tight select-none">
-            <span className="text-white/40 text-[9px] font-outfit uppercase tracking-widest">
+            <span className="text-white/65 text-[9px] font-outfit uppercase tracking-widest">
                 {topLabel}
             </span>
             <span className="text-white text-sm font-outfit font-semibold">
@@ -79,8 +80,8 @@ const StarIcon = () => (
 );
 
 const UsersIcon = () => (
-    <svg className="w-5 h-5 text-purple-400 filter drop-shadow-[0_0_4px_rgba(192,132,252,0.5)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+    <svg className="w-5 h-5 text-[#FF157D] filter drop-shadow-[0_0_6px_rgba(255,21,125,0.6)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
     </svg>
 );
 
@@ -141,14 +142,29 @@ const Hero = ({ lang }) => {
             >
                 {/* Badge */}
                 <motion.div variants={itemVariants} className="flex justify-center md:justify-start">
-                    <span className={`inline-flex items-center gap-2.5 px-4.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 text-white/80 text-xs shadow-[0_4px_30px_rgba(0,0,0,0.1)] backdrop-blur-md relative overflow-hidden group select-none ${isRtl ? 'font-mikhak-medium' : 'font-outfit font-medium'}`}>
+                    <span
+                        className={`inline-flex items-center gap-2.5 px-5 py-2 rounded-full 
+      bg-white/[0.08] border border-white/20 
+      text-white text-xs 
+      shadow-[0_0_20px_rgba(74,222,128,0.15),0_4px_30px_rgba(0,0,0,0.2)] 
+      backdrop-blur-md relative overflow-hidden group select-none
+      transition-all duration-300 hover:bg-white/[0.12] hover:border-white/30
+      hover:shadow-[0_0_30px_rgba(74,222,128,0.25),0_4px_30px_rgba(0,0,0,0.2)]
+      ${isRtl ? 'font-mikhak-medium' : 'font-outfit font-medium'}`}
+                    >
                         {/* Shimmer light sweep */}
-                        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                        <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/15 to-transparent pointer-events-none" />
+
+                        {/* Glow layer */}
+                        <div className="absolute inset-0 rounded-full bg-green-500/[0.06] pointer-events-none" />
+
+                        {/* Ping dot */}
+                        <span className="relative flex h-2.5 w-2.5">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-40"></span>
+                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.8)]"></span>
                         </span>
-                        <span className="tracking-wide">
+
+                        <span className="tracking-wide text-white/90">
                             {isRtl ? 'متاح الآن على App Store' : 'Now live on the App Store'}
                         </span>
                     </span>
@@ -171,14 +187,14 @@ const Hero = ({ lang }) => {
                 {/* Subtitle */}
                 <motion.p
                     variants={itemVariants}
-                    className={`text-lg text-white/80 leading-relaxed max-w-md mx-auto md:mx-0 ${isRtl ? 'font-mikhak-regular' : 'font-outfit font-light'}`}
+                    className={`text-lg text-white/95 leading-relaxed max-w-md mx-auto md:mx-0 ${isRtl ? 'font-mikhak-regular' : 'font-outfit font-light'}`}
                 >
                     {t.hero.subtitle}
                 </motion.p>
 
                 {/* Download Buttons */}
                 <motion.div variants={itemVariants} className="space-y-4">
-                    <p className={`text-xs font-semibold text-white/40 uppercase tracking-widest ${isRtl ? 'font-mikhak-medium' : 'font-outfit'}`}>
+                    <p className={`text-xs font-semibold text-white/75 uppercase tracking-widest ${isRtl ? 'font-mikhak-medium' : 'font-outfit'}`}>
                         {t.hero.download}
                     </p>
                     <div className="flex flex-wrap justify-center md:justify-start gap-4">
@@ -208,7 +224,7 @@ const Hero = ({ lang }) => {
                             <StarIcon />
                             <span className={`text-white text-lg font-bold ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}>4.9</span>
                         </div>
-                        <p className={`text-white/50 text-[10px] sm:text-xs font-semibold ${isRtl ? 'font-mikhak-regular' : 'font-outfit'}`}>
+                        <p className={`text-white/80 text-[10px] sm:text-xs font-semibold ${isRtl ? 'font-mikhak-regular' : 'font-outfit'}`}>
                             {isRtl ? 'تقييم المستخدمين' : 'User Rating'}
                         </p>
                         <div className="mt-2.5">
@@ -221,7 +237,7 @@ const Hero = ({ lang }) => {
                             <UsersIcon />
                             <span className={`text-white text-lg font-bold ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}>10K+</span>
                         </div>
-                        <p className={`text-white/50 text-[10px] sm:text-xs font-semibold ${isRtl ? 'font-mikhak-regular' : 'font-outfit'}`}>
+                        <p className={`text-white/80 text-[10px] sm:text-xs font-semibold ${isRtl ? 'font-mikhak-regular' : 'font-outfit'}`}>
                             {isRtl ? 'مستخدم نشط' : 'Active Users'}
                         </p>
                     </div>
@@ -274,7 +290,7 @@ const Hero = ({ lang }) => {
                     />
 
                     {/* Phone Frame */}
-                    <PhoneFrame imgSrc="/images/phone_1.png" />
+                    <PhoneFrame imgSrc="/images/Hero.jpeg" />
 
                     {/* Floating Card 1: Top/Side Booking Confirmed */}
                     <motion.div

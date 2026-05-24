@@ -45,22 +45,22 @@ const FeatureCard = ({ icon, title, description, index, isRtl }) => {
             className="group relative overflow-hidden bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 flex flex-col items-center text-center shadow-sm hover:shadow-[0_20px_45px_rgba(121,75,199,0.06)] hover:border-primary/10 transition-all duration-300 select-none cursor-pointer"
         >
             {/* Icon Wrapper with circle backdrop */}
-            <motion.div 
+            <motion.div
                 className="w-18 h-18 sm:w-20 sm:h-20 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center mb-5 group-hover:bg-primary/5 group-hover:border-primary/15 transition-all duration-300"
-                whileHover={{ 
-                    scale: 1.1, 
+                whileHover={{
+                    scale: 1.1,
                     rotate: 4,
                     transition: { duration: 0.2 }
                 }}
             >
                 {icon}
             </motion.div>
-            
+
             {/* Title */}
             <h3 className={`text-lg sm:text-xl font-bold text-slate-800 group-hover:text-primary transition-colors duration-300 mb-3 ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}>
                 {title}
             </h3>
-            
+
             {/* Description */}
             <p className={`text-slate-500 text-sm sm:text-base leading-relaxed ${isRtl ? 'font-mikhak-regular' : 'font-outfit font-light'}`}>
                 {description}
@@ -76,14 +76,14 @@ const AppMockup = ({ isRtl }) => (
     <motion.div
         variants={{
             hidden: { opacity: 0, scale: 0.9 },
-            visible: { 
-                opacity: 1, 
-                scale: 1, 
-                transition: { 
-                    duration: 0.8, 
-                    delay: 0.3, 
-                    type: 'spring', 
-                    stiffness: 80 
+            visible: {
+                opacity: 1,
+                scale: 1,
+                transition: {
+                    duration: 0.8,
+                    delay: 0.3,
+                    type: 'spring',
+                    stiffness: 80
                 }
             }
         }}
@@ -94,7 +94,7 @@ const AppMockup = ({ isRtl }) => (
         style={{ willChange: "transform, opacity" }}
     >
         {/* Glow effect */}
-        <motion.div 
+        <motion.div
             className="absolute -inset-4 bg-purple-500/10 rounded-full blur-2xl opacity-40 -z-10"
             style={{ willChange: "transform, opacity" }}
             animate={{
@@ -147,7 +147,7 @@ const AppMockup = ({ isRtl }) => (
                 </span>
             </motion.div>
 
-            <PhoneFrame imgSrc="/images/app_mockup.png" />
+            <PhoneFrame imgSrc="/images/payment.jpeg" />
         </motion.div>
     </motion.div>
 );
@@ -156,7 +156,7 @@ const FeaturesSection = ({ lang }) => {
     const t = translations[lang].features;
     const isRtl = lang === 'ar';
     const key = `features-${lang}`;
-    
+
     const features = [
         {
             icon: <img src={personalPlannerIcon} alt="Personal Planner" className="w-10 h-10 sm:w-12 sm:h-12 object-contain" />,
@@ -193,29 +193,29 @@ const FeaturesSection = ({ lang }) => {
 
     const titleVariants = {
         hidden: { opacity: 0, y: -30 },
-        visible: { 
-            opacity: 1, 
+        visible: {
+            opacity: 1,
             y: 0,
-            transition: { 
-                duration: 0.6, 
-                ease: "easeOut" 
+            transition: {
+                duration: 0.6,
+                ease: "easeOut"
             }
         }
     };
 
     return (
-        <section 
-            id="features-section" 
+        <section
+            id="features-section"
             className="relative py-24 bg-gradient-to-b from-[#F9F7FC] to-white overflow-hidden"
             key={key}
             dir={isRtl ? 'rtl' : 'ltr'}
         >
             {/* Background dot grid pattern */}
             <div className="absolute inset-0 bg-[radial-gradient(rgba(121,75,199,0.025)_1.5px,transparent_1.5px)] [background-size:24px_24px] pointer-events-none" />
-            
+
             {/* Background glows */}
             <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-                <motion.div 
+                <motion.div
                     className="absolute top-20 left-10 w-80 h-80 bg-primary/5 rounded-full filter blur-3xl"
                     style={{ willChange: "transform" }}
                     animate={{
@@ -228,7 +228,7 @@ const FeaturesSection = ({ lang }) => {
                         ease: "easeInOut"
                     }}
                 />
-                <motion.div 
+                <motion.div
                     className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/5 rounded-full filter blur-3xl"
                     style={{ willChange: "transform" }}
                     animate={{
@@ -252,7 +252,7 @@ const FeaturesSection = ({ lang }) => {
                     viewport={{ once: true }}
                     className="text-center mb-20"
                 >
-                    <motion.h2 
+                    <motion.h2
                         className={`text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-4 inline-block relative ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}
                     >
                         {isRtl ? (
@@ -266,7 +266,7 @@ const FeaturesSection = ({ lang }) => {
                         )}
                         <div className="absolute -bottom-3 left-1/4 right-1/4 h-[3px] bg-gradient-to-r from-primary to-secondary rounded-full" />
                     </motion.h2>
-                    <motion.p 
+                    <motion.p
                         className={`mt-6 text-base sm:text-lg text-slate-500 max-w-2xl mx-auto ${isRtl ? 'font-mikhak-regular' : 'font-outfit font-light'}`}
                     >
                         {t.subtitle}
@@ -275,7 +275,7 @@ const FeaturesSection = ({ lang }) => {
 
                 {/* Features Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                    <motion.div 
+                    <motion.div
                         className="grid grid-cols-1 sm:grid-cols-2 gap-6"
                         variants={sectionVariants}
                         initial="hidden"
@@ -293,8 +293,8 @@ const FeaturesSection = ({ lang }) => {
                             />
                         ))}
                     </motion.div>
-                    
-                    <motion.div 
+
+                    <motion.div
                         className="flex justify-center"
                         initial={{ opacity: 0, x: isRtl ? -60 : 60 }}
                         whileInView={{ opacity: 1, x: 0 }}

@@ -66,9 +66,9 @@ const MiddleBannerSection = ({ lang }) => {
     };
 
     const mockups = [
-        '/images/app_mockup.png',
-        '/images/app_mockup.png',
-        '/images/app_mockup.png',
+        '/images/Download1.jpeg',
+        '/images/Download2.jpeg',
+        '/images/Download3.jpeg',
     ];
 
     // Highlight specific key terms in the line1 text string

@@ -146,7 +146,7 @@ const OccasionsSection = ({ lang }) => {
                                     ease: "easeInOut"
                                 }}
                             />
- 
+
                             {/* Phone Mockup Wrapper with Floaters */}
                             <motion.div
                                 variants={{
@@ -215,8 +215,8 @@ const OccasionsSection = ({ lang }) => {
                                     >
                                         🎈
                                     </motion.div>
- 
-                                    <PhoneFrame imgSrc="/images/app_mockup.png" />
+
+                                    <PhoneFrame imgSrc="/images/Explore1.jpeg" />
                                 </motion.div>
                             </motion.div>
                         </div>
