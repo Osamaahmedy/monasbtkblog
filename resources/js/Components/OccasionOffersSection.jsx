@@ -152,11 +152,11 @@ const OccasionOffersSection = ({ lang }) => {
                                     transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                                 >
                                     {/* Icon Container */}
-                                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center mb-5 group-hover:bg-primary/5 group-hover:border-primary/15 transition-all duration-300 relative">
+                                    <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center mb-5 group-hover:bg-primary/5 group-hover:border-primary/15 transition-all duration-300 relative">
                                         <img 
                                             src={offerIcons[offerKey]} 
                                             alt="" 
-                                            className="h-10 w-10 sm:h-12 sm:w-12 object-contain transition-transform duration-500 group-hover:scale-110" 
+                                            className="h-20 w-20 sm:h-24 sm:w-24 object-contain transition-transform duration-500 group-hover:scale-110" 
                                         />
                                     </div>
                                     <span className={`text-sm sm:text-base font-bold text-slate-700 group-hover:text-primary transition-colors duration-300 ${isRtl ? 'font-mikhak-medium' : 'font-outfit'}`}>

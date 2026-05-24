@@ -81,7 +81,7 @@ export const translations = {
                 title: 'Secure Online Payments',
                 description: 'Pay easily with Mada, Visa, MasterCard, or Apple Pay.'
             }
-            },
+        },
         middleBanner: {
             line1: 'Arranging events is easier with Monasbtk',
             line2: '',
@@ -470,7 +470,7 @@ export const translations = {
             title: 'مميزاتنا',
             subtitle: 'اكتشف كيف يسهّل عليك تطبيق “مناسبتك” تنظيم أي حفلة بأسلوب ذكي وسهل:',
             specialOrganizer: {
-                title: 'منظم خاص',
+                title: 'منسق خاص',
                 description: 'فريق يساعدك في تنسيق مناسبتك بكل احتراف.'
             },
             allServices: {
@@ -485,7 +485,7 @@ export const translations = {
                 title: 'مدفوعات إلكترونية آمنة',
                 description: 'ادفع بسهولة عبر مدى، فيزا، ماستركارد، أو آبل باي.'
             }
-             },
+        },
         middleBanner: {
             line1: 'تنظيم المناسبات أسهل مع مناسبتك',
             line2: '',
