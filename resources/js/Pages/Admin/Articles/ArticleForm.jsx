@@ -1,6 +1,8 @@
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { useLanguage } from '@/hooks/useLanguage';
+import { translations } from '@/translations';
 
 // ── Quill toolbar modules ──────────────────────────────────────────────────────
 const TOOLBAR_EN = [
@@ -42,9 +44,16 @@ const inputCls = (error) =>
     }`;
 const labelCls = 'block text-sm font-mikhak-bold text-slate-700 mb-1.5';
 
+const getMinDateTime = () => {
+    const now = new Date();
+    return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+};
+
 // ── Image Upload with preview ──────────────────────────────────────────────────
 function ImageUpload({ value, onChange, currentImage, error }) {
     const [preview, setPreview] = useState(null);
+    const { lang } = useLanguage();
+    const t = translations[lang] || translations.en;
 
     const handleChange = (e) => {
         const file = e.target.files[0];
@@ -59,8 +68,8 @@ function ImageUpload({ value, onChange, currentImage, error }) {
     return (
         <div>
             <label className={labelCls}>
-                Featured Image {!currentImage && <span className="text-rose-500">*</span>}
-                {currentImage && <span className="text-slate-400 font-mikhak-regular ml-1">(leave empty to keep current)</span>}
+                {t.admin.articleForm.featuredImage} {!currentImage && <span className="text-rose-500">*</span>}
+                {currentImage && <span className="text-slate-400 font-mikhak-regular ml-1 text-xs">{t.admin.articleForm.leaveEmpty}</span>}
             </label>
             <label className={`relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed cursor-pointer transition-all overflow-hidden group ${
                 error ? 'border-rose-300 bg-rose-50/30' : 'border-slate-200 bg-slate-50 hover:border-indigo-300 hover:bg-indigo-50/30'
@@ -72,7 +81,7 @@ function ImageUpload({ value, onChange, currentImage, error }) {
                             <svg className="w-7 h-7 text-white mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                             </svg>
-                            <span className="text-white text-xs font-mikhak-bold">Change Image</span>
+                            <span className="text-white text-xs font-mikhak-bold">{t.admin.articleForm.changeImage}</span>
                         </div>
                     </>
                 ) : (
@@ -80,8 +89,8 @@ function ImageUpload({ value, onChange, currentImage, error }) {
                         <svg className="w-10 h-10 text-slate-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
-                        <span className="text-sm font-mikhak-bold text-slate-500">Click to upload image</span>
-                        <span className="text-xs text-slate-400 mt-1">PNG, JPG, WebP – max 2MB</span>
+                        <span className="text-sm font-mikhak-bold text-slate-500">{t.admin.articleForm.clickToUpload}</span>
+                        <span className="text-xs text-slate-400 mt-1">{t.admin.articleForm.imageRequirements}</span>
                     </div>
                 )}
                 <input type="file" accept="image/*" className="hidden" onChange={handleChange} />
@@ -96,24 +105,26 @@ function RichEditor({ lang, value, onChange, error, draftKey }) {
     const [draftSaved, setDraftSaved] = useState(false);
     const [height, setHeight] = useState(500);
     const quillRef = useRef(null);
+    const { lang: globalLang } = useLanguage();
+    const t = translations[globalLang] || translations.en;
 
     // Autosave
     useEffect(() => {
         if (!value) return;
-        const t = setTimeout(() => {
+        const tSave = setTimeout(() => {
             try { localStorage.setItem(draftKey, value); setDraftSaved(true); setTimeout(() => setDraftSaved(false), 2500); } catch {}
         }, 1200);
-        return () => clearTimeout(t);
+        return () => clearTimeout(tSave);
     }, [value, draftKey]);
 
     const restoreDraft = () => {
         const saved = localStorage.getItem(draftKey);
         if (saved) { onChange(saved); }
-        else alert('No saved draft found.');
+        else alert(globalLang === 'ar' ? 'لم يتم العثور على مسودة محفوظة.' : 'No saved draft found.');
     };
 
-    const copyText = () => navigator.clipboard.writeText(stripHtml(value || '')).then(() => alert('Text copied!'));
-    const clearEditor = () => { if (confirm('Clear all content?')) onChange(''); };
+    const copyText = () => navigator.clipboard.writeText(stripHtml(value || '')).then(() => alert(globalLang === 'ar' ? 'تم نسخ النص!' : 'Text copied!'));
+    const clearEditor = () => { if (confirm(globalLang === 'ar' ? 'هل تريد مسح كل المحتوى؟' : 'Clear all content?')) onChange(''); };
 
     const wc = wordCount(value);
     const cc = charCount(value);
@@ -127,17 +138,17 @@ function RichEditor({ lang, value, onChange, error, draftKey }) {
                     {draftSaved && (
                         <span className="inline-flex items-center gap-1 text-xs px-2 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-lg font-mikhak-bold">
                             <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
-                            Draft saved
+                            {t.admin.articleForm.draftSaved}
                         </span>
                     )}
                 </div>
                 <div className="flex flex-wrap items-center gap-1.5 text-xs">
                     <button type="button" onClick={restoreDraft} className="px-2.5 py-1.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-lg font-mikhak-bold border border-indigo-100 transition-colors">
-                        💾 Restore Draft
+                        {t.admin.articleForm.restoreDraft}
                     </button>
                     {/* Height */}
                     <div className="flex items-center bg-white border border-slate-200 rounded-lg overflow-hidden">
-                        <span className="px-2.5 py-1.5 text-slate-500 border-r border-slate-200 bg-slate-50">Height</span>
+                        <span className="px-2.5 py-1.5 text-slate-500 border-r border-slate-200 bg-slate-50">{t.admin.articleForm.heightLabel}</span>
                         {[350, 500, 700].map(h => (
                             <button key={h} type="button" onClick={() => setHeight(h)}
                                 className={`px-2.5 py-1.5 font-mikhak-bold transition-colors ${height === h ? 'bg-indigo-600 text-white' : 'text-slate-600 hover:bg-slate-100'}`}>
@@ -146,10 +157,10 @@ function RichEditor({ lang, value, onChange, error, draftKey }) {
                         ))}
                     </div>
                     <button type="button" onClick={copyText} className="px-2.5 py-1.5 bg-slate-50 hover:bg-slate-100 text-slate-600 rounded-lg border border-slate-200 font-mikhak-bold transition-colors">
-                        📋 Copy
+                        {t.admin.articleForm.copyBtn}
                     </button>
                     <button type="button" onClick={clearEditor} className="px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg border border-rose-100 font-mikhak-bold transition-colors">
-                        🗑 Clear
+                        {t.admin.articleForm.clearBtn}
                     </button>
                 </div>
             </div>
@@ -162,18 +173,18 @@ function RichEditor({ lang, value, onChange, error, draftKey }) {
                     value={value || ''}
                     onChange={onChange}
                     modules={{ toolbar: lang === 'ar' ? TOOLBAR_AR : TOOLBAR_EN }}
-                    placeholder={lang === 'ar' ? 'اكتب محتوى المقالة هنا...' : 'Write your article content here...'}
+                    placeholder={t.admin.articleForm.quillPlaceholder}
                 />
             </div>
 
             {/* Stats bar */}
             <div className="mt-2.5 flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs">
                 <div className="flex items-center gap-4 text-slate-500 font-mikhak-medium">
-                    <span>Words: <strong className="text-slate-800">{wc}</strong></span>
-                    <span>Chars: <strong className="text-slate-800">{cc}</strong></span>
+                    <span>{t.admin.articleForm.wordsLabel}: <strong className="text-slate-800">{wc}</strong></span>
+                    <span>{t.admin.articleForm.charsLabel}: <strong className="text-slate-800">{cc}</strong></span>
                 </div>
                 <span className="text-indigo-600 font-mikhak-bold">
-                    ⏱ ~{readTime} min read
+                    ⏱ ~{readTime} {t.admin.articleForm.minRead}
                 </span>
             </div>
 
@@ -185,6 +196,8 @@ function RichEditor({ lang, value, onChange, error, draftKey }) {
 // ── Main ArticleForm ───────────────────────────────────────────────────────────
 export default function ArticleForm({ data, setData, errors, setError, clearErrors, processing, onSubmit, categories, submitLabel = 'Publish Article', article = null }) {
     const [lang, setLang] = useState('en');
+    const { lang: globalLang } = useLanguage();
+    const t = translations[globalLang] || translations.en;
 
     // Switch to erroring language automatically
     useEffect(() => {
@@ -199,8 +212,8 @@ export default function ArticleForm({ data, setData, errors, setError, clearErro
         e.preventDefault();
         clearErrors();
         let bad = false;
-        if (isEmpty(data.content?.en)) { setError('content.en', 'English content is required'); bad = true; }
-        if (isEmpty(data.content?.ar)) { setError('content.ar', 'Arabic content is required'); bad = true; }
+        if (isEmpty(data.content?.en)) { setError('content.en', t.admin.articleForm.englishContentRequired); bad = true; }
+        if (isEmpty(data.content?.ar)) { setError('content.ar', t.admin.articleForm.arabicContentRequired); bad = true; }
         if (bad) return;
         onSubmit();
     };
@@ -306,7 +319,7 @@ export default function ArticleForm({ data, setData, errors, setError, clearErro
                         <div>
                             <label className={labelCls}>
                                 {lang === 'ar' ? 'وصف مختصر' : 'Short Description'}
-                                <span className="text-slate-400 font-mikhak-regular ml-1 text-xs">(optional)</span>
+                                <span className="text-slate-400 font-mikhak-regular ml-1 text-xs">{t.admin.articleForm.optional}</span>
                             </label>
                             <textarea
                                 dir={lang === 'ar' ? 'rtl' : 'ltr'}
@@ -352,26 +365,73 @@ export default function ArticleForm({ data, setData, errors, setError, clearErro
                         {/* Publish card */}
                         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                             <div className="px-4 py-3 border-b border-slate-100 bg-slate-50">
-                                <h3 className="text-sm font-mikhak-bold text-slate-700">Publish Settings</h3>
+                                <h3 className="text-sm font-mikhak-bold text-slate-700">{t.admin.articleForm.publishSettings}</h3>
                             </div>
                             <div className="p-4 space-y-3">
                                 {/* Status */}
                                 <div>
-                                    <label className="block text-xs font-mikhak-bold text-slate-600 mb-1.5">Status</label>
+                                    <label className="block text-xs font-mikhak-bold text-slate-600 mb-1.5">{t.admin.articleForm.statusLabel}</label>
                                     <select
                                         className={inputCls(false) + ' !py-2 !text-sm'}
                                         value={data.status || 'published'}
-                                        onChange={e => setData('status', e.target.value)}
+                                        onChange={e => {
+                                            setData('status', e.target.value);
+                                            if (e.target.value === 'draft') {
+                                                setData('published_at', null);
+                                            }
+                                        }}
                                     >
-                                        <option value="published">✅ Published</option>
-                                        <option value="draft">📝 Draft</option>
+                                        <option value="published">{t.admin.articleForm.publishedOption}</option>
+                                        <option value="draft">{t.admin.articleForm.draftOption}</option>
                                     </select>
                                 </div>
+
+                                {data.status === 'published' && (
+                                    <div className="space-y-3 pt-2 border-t border-slate-100 mt-2">
+                                        <div className="flex items-center gap-2">
+                                            <input
+                                                type="checkbox"
+                                                id="is_scheduled"
+                                                className="rounded text-indigo-600 focus:ring-indigo-500 border-slate-300 w-4 h-4 cursor-pointer"
+                                                checked={!!data.published_at}
+                                                onChange={e => {
+                                                    if (e.target.checked) {
+                                                        const now = new Date();
+                                                        const localISO = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+                                                        setData('published_at', localISO);
+                                                    } else {
+                                                        setData('published_at', null);
+                                                    }
+                                                }}
+                                            />
+                                            <label htmlFor="is_scheduled" className="text-xs font-mikhak-bold text-slate-600 cursor-pointer select-none">
+                                                {t.admin.articleForm.schedulePublish}
+                                             </label>
+                                         </div>
+
+                                         {data.published_at && (
+                                             <div className="space-y-1.5">
+                                                 <label className="block text-xs font-mikhak-bold text-slate-600">
+                                                     {t.admin.articleForm.publishDate}
+                                                 </label>
+                                                 <input
+                                                     type="datetime-local"
+                                                     className={inputCls(errors.published_at) + ' !py-1.5 !px-3 !text-xs'}
+                                                     value={data.published_at ? data.published_at.slice(0, 16) : ''}
+                                                     min={getMinDateTime()}
+                                                     onChange={e => setData('published_at', e.target.value)}
+                                                     required
+                                                 />
+                                                 {errors.published_at && <p className="text-rose-500 text-xs mt-1">{errors.published_at}</p>}
+                                             </div>
+                                         )}
+                                     </div>
+                                 )}
 
                                 {/* Category */}
                                 <div>
                                     <label className="block text-xs font-mikhak-bold text-slate-600 mb-1.5">
-                                        Category <span className="text-rose-500">*</span>
+                                        {t.admin.articleForm.categoryLabel} <span className="text-rose-500">*</span>
                                     </label>
                                     <select
                                         className={inputCls(errors.category_id) + ' !py-2 !text-sm'}
@@ -379,10 +439,10 @@ export default function ArticleForm({ data, setData, errors, setError, clearErro
                                         onChange={e => setData('category_id', e.target.value)}
                                         required
                                     >
-                                        <option value="">Select Category</option>
+                                        <option value="">{t.admin.articleForm.selectCategory}</option>
                                         {categories.map(cat => (
                                             <option key={cat.id} value={cat.id}>
-                                                {cat.title?.en} / {cat.title?.ar}
+                                                {cat.title?.[globalLang] || cat.title?.en}
                                             </option>
                                         ))}
                                     </select>
@@ -401,7 +461,7 @@ export default function ArticleForm({ data, setData, errors, setError, clearErro
                                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                                                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 12 0 12 0v4a8 8 0 00-8 8H0z" />
                                             </svg>
-                                            Saving...
+                                            {t.admin.articleForm.savingBtn}
                                         </>
                                     ) : submitLabel}
                                 </button>
@@ -411,7 +471,7 @@ export default function ArticleForm({ data, setData, errors, setError, clearErro
                         {/* Image card */}
                         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
                             <div className="px-4 py-3 border-b border-slate-100 bg-slate-50">
-                                <h3 className="text-sm font-mikhak-bold text-slate-700">Featured Image</h3>
+                                <h3 className="text-sm font-mikhak-bold text-slate-700">{t.admin.articleForm.featuredImage}</h3>
                             </div>
                             <div className="p-4">
                                 <ImageUpload
@@ -427,14 +487,14 @@ export default function ArticleForm({ data, setData, errors, setError, clearErro
                         <div className="bg-indigo-50 rounded-2xl border border-indigo-100 p-4">
                             <h3 className="text-xs font-mikhak-bold text-indigo-700 mb-2 flex items-center gap-1.5">
                                 <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" /></svg>
-                                Writing Tips
+                                {t.admin.articleForm.writingTips}
                             </h3>
                             <ul className="text-xs text-indigo-600 font-mikhak-regular space-y-1.5 leading-relaxed">
-                                <li>• Use H2/H3 headings for structure</li>
-                                <li>• Aim for 300+ words per article</li>
-                                <li>• Fill both EN and AR content</li>
-                                <li>• Drafts autosave every 1.2s</li>
-                                <li>• Use blockquotes for important text</li>
+                                <li>{t.admin.articleForm.tip1}</li>
+                                <li>{t.admin.articleForm.tip2}</li>
+                                <li>{t.admin.articleForm.tip3}</li>
+                                <li>{t.admin.articleForm.tip4}</li>
+                                <li>{t.admin.articleForm.tip5}</li>
                             </ul>
                         </div>
                     </div>

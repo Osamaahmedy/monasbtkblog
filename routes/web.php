@@ -15,9 +15,9 @@ use Inertia\Inertia;
 use App\Http\Controllers\Admin\CommentController as AdminCommentController;
 Route::get('/', function () {
     return Inertia::render('Home', [
-        'articles' => \App\Models\Article::select('id', 'title', 'slug', 'image', 'status', 'category_id', 'user_id', 'created_at', 'short_description')
+        'articles' => \App\Models\Article::select('id', 'title', 'slug', 'image', 'status', 'published_at', 'category_id', 'user_id', 'created_at', 'short_description')
             ->with('category:id,title', 'user:id,name')
-            ->where('status', 'published')
+            ->published()
             ->latest()
             ->take(6)
             ->get()
@@ -68,7 +68,7 @@ Route::middleware('auth')->group(function () {
 
 // Sitemap
 Route::get('/sitemap.xml', function () {
-    $articles = \App\Models\Article::where('status', 'published')
+    $articles = \App\Models\Article::published()
         ->select('slug', 'updated_at')
         ->latest('updated_at')
         ->get();

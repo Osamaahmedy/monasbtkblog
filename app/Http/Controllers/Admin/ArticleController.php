@@ -20,7 +20,7 @@ class ArticleController extends Controller
         $status = $request->get('status');
         $search = $request->get('search');
 
-        $articles = Article::select('id', 'title', 'slug', 'image', 'status', 'category_id', 'user_id', 'created_at')
+        $articles = Article::select('id', 'title', 'slug', 'image', 'status', 'published_at', 'category_id', 'user_id', 'created_at')
             ->with('category:id,title', 'user:id,name')
             ->when($status && $status !== 'all', fn($q) => $q->where('status', $status))
             ->when($search, fn($q) => $q->where(fn($q2) =>
@@ -53,14 +53,15 @@ class ArticleController extends Controller
         $request->merge(['slug' => Str::slug($request->input('title.en', ''))]);
 
         $request->validate([
-            'title.en'    => 'required|string|max:255',
-            'title.ar'    => 'required|string|max:255',
-            'slug'        => 'required|string|unique:articles,slug',
-            'category_id' => 'required|exists:categories,id',
-            'content.en'  => 'required',
-            'content.ar'  => 'required',
-            'image'       => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'status'      => 'required|in:published,draft',
+            'title.en'     => 'required|string|max:255',
+            'title.ar'     => 'required|string|max:255',
+            'slug'         => 'required|string|unique:articles,slug',
+            'category_id'  => 'required|exists:categories,id',
+            'content.en'   => 'required',
+            'content.ar'   => 'required',
+            'image'        => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'status'       => 'required|in:published,draft',
+            'published_at' => 'nullable|date|after_or_equal:today',
         ], [
             'slug.unique' => 'This English title is already used. Please choose a different title.',
         ]);
@@ -68,7 +69,6 @@ class ArticleController extends Controller
         $imagePath = $request->file('image')->store('articles', 'public');
 
         Article::create([
-            'user_id'           => auth()->id(),
             'category_id'       => $request->category_id,
             'title'             => $request->title,
             'slug'              => $request->slug,
@@ -76,6 +76,7 @@ class ArticleController extends Controller
             'content'           => $request->content,
             'image'             => $imagePath,
             'status'            => $request->status,
+            'published_at'      => $request->status === 'published' ? $request->published_at : null,
         ]);
 
         return redirect()->route('admin.articles.index')->with('success', 'Article created successfully.');
@@ -94,14 +95,15 @@ class ArticleController extends Controller
         $request->merge(['slug' => Str::slug($request->input('title.en', ''))]);
 
         $request->validate([
-            'title.en'    => 'required|string|max:255',
-            'title.ar'    => 'required|string|max:255',
-            'slug'        => 'required|string|unique:articles,slug,' . $article->id,
-            'category_id' => 'required|exists:categories,id',
-            'content.en'  => 'required',
-            'content.ar'  => 'required',
-            'image'       => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'status'      => 'required|in:published,draft',
+            'title.en'     => 'required|string|max:255',
+            'title.ar'     => 'required|string|max:255',
+            'slug'         => 'required|string|unique:articles,slug,' . $article->id,
+            'category_id'  => 'required|exists:categories,id',
+            'content.en'   => 'required',
+            'content.ar'   => 'required',
+            'image'        => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'status'       => 'required|in:published,draft',
+            'published_at' => 'nullable|date|after_or_equal:today',
         ], [
             'slug.unique' => 'This English title is already used. Please choose a different title.',
         ]);
@@ -113,6 +115,7 @@ class ArticleController extends Controller
             'short_description' => $request->short_description,
             'content'           => $request->content,
             'status'            => $request->status,
+            'published_at'      => $request->status === 'published' ? $request->published_at : null,
         ];
 
         if ($request->hasFile('image')) {

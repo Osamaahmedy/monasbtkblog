@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { route } from 'ziggy-js';
+import { LanguageProvider } from '@/hooks/useLanguage';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -15,7 +16,11 @@ createInertiaApp({
         const root = createRoot(el);
         // Make route global
         window.route = props.initialPage.props.ziggy?.location ? (...args) => route(...args) : route;
-        root.render(<App {...props} />);
+        root.render(
+            <LanguageProvider>
+                <App {...props} />
+            </LanguageProvider>
+        );
     },
     progress: {
         color: '#4B5563',

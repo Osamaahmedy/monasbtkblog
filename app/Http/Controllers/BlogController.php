@@ -14,9 +14,9 @@ class BlogController extends Controller
         $category = $request->get('category');
         $search   = $request->get('search');
 
-        $query = Article::select('id', 'title', 'slug', 'image', 'status', 'category_id', 'user_id', 'created_at', 'short_description')
+        $query = Article::select('id', 'title', 'slug', 'image', 'status', 'published_at', 'category_id', 'user_id', 'created_at', 'short_description')
             ->with('category:id,title', 'user:id,name')
-            ->where('status', 'published');
+            ->published();
 
         if ($category) {
             $query->where('category_id', $category);
@@ -38,13 +38,17 @@ class BlogController extends Controller
 
     public function show(Article $article)
     {
+        if (!$article->is_published) {
+            abort(404);
+        }
+
         $article->load(['category', 'user', 'comments' => function($q) {
             $q->where('status', 'approved')->latest();
         }]);
 
-        $relatedArticles = Article::where('category_id', $article->category_id)
+        $relatedArticles = Article::published()
+            ->where('category_id', $article->category_id)
             ->where('id', '!=', $article->id)
-            ->where('status', 'published')
             ->take(3)
             ->get();
 

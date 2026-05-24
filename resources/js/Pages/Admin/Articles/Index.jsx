@@ -2,18 +2,22 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link, useForm, router } from '@inertiajs/react';
 import Pagination from '@/Components/Pagination';
 import { useState } from 'react';
+import { useLanguage } from '@/hooks/useLanguage';
+import { translations } from '@/translations';
 
 const STATUS_CFG = {
-    published: { label: 'Published', cls: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
-    draft:     { label: 'Draft',     cls: 'bg-amber-50  text-amber-700  border-amber-200'  },
+    published: { cls: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+    draft:     { cls: 'bg-amber-50  text-amber-700  border-amber-200'  },
 };
 
 export default function Index({ articles, filters }) {
+    const { lang } = useLanguage();
+    const t = translations[lang] || translations.en;
     const { delete: destroy } = useForm();
     const [search, setSearch] = useState(filters?.search || '');
 
     const handleDelete = (id) => {
-        if (confirm('Delete this article? This cannot be undone.'))
+        if (confirm(t.admin.articles.confirmDelete))
             destroy(route('admin.articles.destroy', id));
     };
 
@@ -32,12 +36,12 @@ export default function Index({ articles, filters }) {
             header={
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                     <div>
-                        <h2 className="font-mikhak-bold text-2xl text-slate-800 leading-tight">Articles</h2>
+                        <h2 className="font-mikhak-bold text-2xl text-slate-800 leading-tight">{t.admin.articles.title}</h2>
                         <p className="text-sm text-slate-500 font-mikhak-regular mt-1">
-                            Manage your publications
+                            {t.admin.articles.manage}
                             {articles.total > 0 && (
-                                <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-mikhak-bold bg-indigo-100 text-indigo-700">
-                                    {articles.total} total
+                                <span className={`${lang === 'ar' ? 'mr-2' : 'ml-2'} inline-flex items-center px-2 py-0.5 rounded-full text-xs font-mikhak-bold bg-indigo-100 text-indigo-700`}>
+                                    {lang === 'ar' ? `${t.admin.categories.total} ${articles.total}` : `${articles.total} ${t.admin.categories.total}`}
                                 </span>
                             )}
                         </p>
@@ -46,15 +50,15 @@ export default function Index({ articles, filters }) {
                         href={route('admin.articles.create')}
                         className="inline-flex items-center px-5 py-2.5 bg-indigo-600 rounded-xl font-mikhak-bold text-sm text-white hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-500/20 transition-all shadow-sm"
                     >
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className={`w-4 h-4 ${lang === 'ar' ? 'ml-2' : 'mr-2'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
                         </svg>
-                        New Article
+                        {t.admin.articles.newArticle}
                     </Link>
                 </div>
             }
         >
-            <Head title="Articles Management" />
+            <Head title={t.admin.articles.title} />
 
             <div className="py-8">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -65,9 +69,9 @@ export default function Index({ articles, filters }) {
                             {/* Status filter tabs */}
                             <div className="flex gap-1.5">
                                 {[
-                                    { key: 'all',       label: 'All' },
-                                    { key: 'published', label: 'Published' },
-                                    { key: 'draft',     label: 'Draft' },
+                                    { key: 'all',       label: t.admin.articles.all },
+                                    { key: 'published', label: t.admin.articles.published },
+                                    { key: 'draft',     label: t.admin.articles.draft },
                                 ].map(tab => (
                                     <button
                                         key={tab.key}
@@ -87,19 +91,19 @@ export default function Index({ articles, filters }) {
                             <div className="flex items-center gap-2">
                                 <form onSubmit={handleSearch} className="flex items-center gap-2">
                                     <div className="relative">
-                                        <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg className={`absolute ${lang === 'ar' ? 'right-3' : 'left-3'} top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                         </svg>
                                         <input
                                             type="text"
                                             value={search}
                                             onChange={e => setSearch(e.target.value)}
-                                            placeholder="Search articles..."
-                                            className="pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mikhak-medium text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 w-48 transition-all"
+                                            placeholder={t.admin.articles.searchPlaceholder}
+                                            className={`py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mikhak-medium text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-400 w-48 transition-all ${lang === 'ar' ? 'pr-9 pl-4' : 'pl-9 pr-4'}`}
                                         />
                                     </div>
                                     <button type="submit" className="px-3 py-2 bg-slate-900 text-white text-sm font-mikhak-bold rounded-xl hover:bg-slate-800 transition-colors">
-                                        Search
+                                        {t.admin.articles.searchBtn}
                                     </button>
                                 </form>
                                 <select
@@ -107,25 +111,25 @@ export default function Index({ articles, filters }) {
                                     onChange={e => applyFilter('per_page', e.target.value)}
                                     className="bg-slate-50 border border-slate-200 text-slate-700 text-sm rounded-xl px-3 py-2 font-mikhak-medium focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
                                 >
-                                    <option value="5">5/page</option>
-                                    <option value="10">10/page</option>
-                                    <option value="25">25/page</option>
-                                    <option value="50">50/page</option>
+                                    <option value="5">5 {lang === 'ar' ? 'صفحات/' : '/page'}</option>
+                                    <option value="10">10 {lang === 'ar' ? 'صفحات/' : '/page'}</option>
+                                    <option value="25">25 {lang === 'ar' ? 'صفحة/' : '/page'}</option>
+                                    <option value="50">50 {lang === 'ar' ? 'صفحة/' : '/page'}</option>
                                 </select>
                             </div>
                         </div>
 
                         {/* Table */}
                         <div className="overflow-x-auto">
-                            <table className="w-full text-left">
+                            <table className="w-full text-left rtl:text-right">
                                 <thead>
                                     <tr className="bg-slate-50 border-b border-slate-100 text-slate-500 font-mikhak-bold text-xs uppercase tracking-wider">
-                                        <th className="px-5 py-3.5">Article</th>
-                                        <th className="px-5 py-3.5">Category</th>
-                                        <th className="px-5 py-3.5">Author</th>
-                                        <th className="px-5 py-3.5 text-center">Status</th>
-                                        <th className="px-5 py-3.5 text-center">Date</th>
-                                        <th className="px-5 py-3.5 text-right">Actions</th>
+                                        <th className="px-5 py-3.5">{t.admin.articles.colArticle}</th>
+                                        <th className="px-5 py-3.5">{t.admin.articles.colCategory}</th>
+                                        <th className="px-5 py-3.5">{t.admin.articles.colAuthor}</th>
+                                        <th className="px-5 py-3.5 text-center">{t.admin.articles.colStatus}</th>
+                                        <th className="px-5 py-3.5 text-center">{t.admin.articles.colDate}</th>
+                                        <th className="px-5 py-3.5 text-right rtl:text-left">{t.admin.articles.colActions}</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-100">
@@ -146,8 +150,12 @@ export default function Index({ articles, filters }) {
                                                         )}
                                                     </div>
                                                     <div className="min-w-0">
-                                                        <div className="text-sm font-mikhak-bold text-slate-900 line-clamp-1">{article.title?.en}</div>
-                                                        <div className="text-xs font-mikhak-regular text-slate-500 line-clamp-1 mt-0.5" dir="rtl">{article.title?.ar}</div>
+                                                        <div className="text-sm font-mikhak-bold text-slate-900 line-clamp-1">
+                                                            {lang === 'ar' ? article.title?.ar || article.title?.en : article.title?.en || article.title?.ar}
+                                                        </div>
+                                                        <div className="text-xs font-mikhak-regular text-slate-500 line-clamp-1 mt-0.5" dir={lang === 'ar' ? 'ltr' : 'rtl'}>
+                                                            {lang === 'ar' ? article.title?.en : article.title?.ar}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -155,7 +163,7 @@ export default function Index({ articles, filters }) {
                                             {/* Category */}
                                             <td className="px-5 py-4">
                                                 <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-mikhak-medium bg-slate-100 text-slate-700">
-                                                    {article.category?.title?.en || '—'}
+                                                    {(lang === 'ar' ? article.category?.title?.ar || article.category?.title?.en : article.category?.title?.en || article.category?.title?.ar) || '—'}
                                                 </span>
                                             </td>
 
@@ -169,25 +177,25 @@ export default function Index({ articles, filters }) {
                                                 <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-mikhak-bold border ${
                                                     STATUS_CFG[article.status]?.cls || 'bg-slate-100 text-slate-600 border-slate-200'
                                                 }`}>
-                                                    {STATUS_CFG[article.status]?.label || article.status}
+                                                    {article.status === 'published' ? t.admin.articles.published : t.admin.articles.draft}
                                                 </span>
                                             </td>
 
                                             {/* Date */}
                                             <td className="px-5 py-4 text-center text-xs text-slate-500 font-mikhak-regular">
-                                                {new Date(article.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                                                {new Date(article.created_at).toLocaleDateString(lang === 'ar' ? 'ar-EG' : 'en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                                             </td>
 
                                             {/* Actions */}
-                                            <td className="px-5 py-4 text-right">
-                                                <div className="flex items-center justify-end gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <td className="px-5 py-4 text-right rtl:text-left">
+                                                <div className="flex items-center justify-end rtl:justify-start gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
                                                     {article.status === 'published' && (
                                                         <a
                                                             href={route('blog.show', article.slug)}
                                                             target="_blank"
                                                             rel="noreferrer"
                                                             className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
-                                                            title="View Article"
+                                                            title={t.admin.articles.viewArticle}
                                                         >
                                                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -198,7 +206,7 @@ export default function Index({ articles, filters }) {
                                                     <Link
                                                         href={route('admin.articles.edit', article.id)}
                                                         className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
-                                                        title="Edit"
+                                                        title={t.admin.articles.editArticle}
                                                     >
                                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-5M16.5 3.5a2.121 2.121 0 113 3L7 19l-4 1 1-4L16.5 3.5z" />
@@ -207,7 +215,7 @@ export default function Index({ articles, filters }) {
                                                     <button
                                                         onClick={() => handleDelete(article.id)}
                                                         className="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"
-                                                        title="Delete"
+                                                        title={t.admin.articles.deleteArticle}
                                                     >
                                                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -226,12 +234,12 @@ export default function Index({ articles, filters }) {
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                                                     </svg>
                                                 </div>
-                                                <h3 className="text-sm font-mikhak-bold text-slate-900 mb-1">No articles found</h3>
+                                                <h3 className="text-sm font-mikhak-bold text-slate-900 mb-1">{t.admin.articles.noArticles}</h3>
                                                 <p className="text-sm text-slate-500 font-mikhak-regular mb-4">
-                                                    {filters?.search ? 'Try adjusting your search.' : 'Get started by creating a new article.'}
+                                                    {filters?.search ? t.admin.articles.adjustSearch : t.admin.articles.startByCreating}
                                                 </p>
                                                 <Link href={route('admin.articles.create')} className="text-indigo-600 hover:text-indigo-700 font-mikhak-bold text-sm">
-                                                    Create your first article →
+                                                    {t.admin.articles.createFirst}
                                                 </Link>
                                             </td>
                                         </tr>
@@ -244,7 +252,15 @@ export default function Index({ articles, filters }) {
                         {articles.total > 0 && (
                             <div className="px-5 py-4 border-t border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row items-center justify-between gap-3">
                                 <p className="text-xs text-slate-500 font-mikhak-regular">
-                                    Showing <span className="font-mikhak-bold text-slate-700">{articles.from}</span>–<span className="font-mikhak-bold text-slate-700">{articles.to}</span> of <span className="font-mikhak-bold text-slate-700">{articles.total}</span> articles
+                                    {lang === 'ar' ? (
+                                        <span>
+                                            عرض <span className="font-mikhak-bold text-slate-700">{articles.from}</span>–<span className="font-mikhak-bold text-slate-700">{articles.to}</span> من أصل <span className="font-mikhak-bold text-slate-700">{articles.total}</span> مقالات
+                                        </span>
+                                    ) : (
+                                        <span>
+                                            Showing <span className="font-mikhak-bold text-slate-700">{articles.from}</span>–<span className="font-mikhak-bold text-slate-700">{articles.to}</span> of <span className="font-mikhak-bold text-slate-700">{articles.total}</span> articles
+                                        </span>
+                                    )}
                                 </p>
                                 <Pagination links={articles.links} />
                             </div>
@@ -255,3 +271,4 @@ export default function Index({ articles, filters }) {
         </AuthenticatedLayout>
     );
 }
+

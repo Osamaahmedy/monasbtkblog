@@ -2,6 +2,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, useForm, usePage, router } from '@inertiajs/react';
 import { useState, useRef } from 'react';
 import { Transition } from '@headlessui/react';
+import { useLanguage } from '@/hooks/useLanguage';
+import { translations } from '@/translations';
 
 // ─── Tab icons ────────────────────────────────────────────────────────────────
 function IconUser() {
@@ -57,6 +59,8 @@ function FlashAlert({ flash }) {
 
 // ─── Tab 1: Profile Info ───────────────────────────────────────────────────────
 function ProfileTab({ mustVerifyEmail, status }) {
+    const { lang } = useLanguage();
+    const t = translations[lang] || translations.en;
     const user = usePage().props.auth.user;
     const { data, setData, patch, errors, processing, recentlySuccessful } = useForm({
         name: user.name,
@@ -66,26 +70,28 @@ function ProfileTab({ mustVerifyEmail, status }) {
     return (
         <form onSubmit={(e) => { e.preventDefault(); patch(route('profile.update')); }} className="space-y-5">
             <div>
-                <label className={labelCls}>Full Name</label>
+                <label className={labelCls}>{t.admin.profile.fullName}</label>
                 <input
                     type="text"
+                    dir={lang === 'ar' ? 'rtl' : 'ltr'}
                     className={inputCls(errors.name)}
                     value={data.name}
                     onChange={(e) => setData('name', e.target.value)}
-                    placeholder="Your name"
+                    placeholder={t.admin.profile.fullNamePlaceholder}
                     required
                 />
                 {errors.name && <p className="text-rose-500 text-xs mt-1 font-mikhak-medium">{errors.name}</p>}
             </div>
 
             <div>
-                <label className={labelCls}>Email Address</label>
+                <label className={labelCls}>{t.admin.profile.email}</label>
                 <input
                     type="email"
+                    dir="ltr"
                     className={inputCls(errors.email)}
                     value={data.email}
                     onChange={(e) => setData('email', e.target.value)}
-                    placeholder="you@example.com"
+                    placeholder={t.admin.profile.emailPlaceholder}
                     required
                 />
                 {errors.email && <p className="text-rose-500 text-xs mt-1 font-mikhak-medium">{errors.email}</p>}
@@ -93,7 +99,7 @@ function ProfileTab({ mustVerifyEmail, status }) {
 
             {mustVerifyEmail && user.email_verified_at === null && (
                 <div className="p-3 bg-amber-50 border border-amber-200 rounded-xl text-sm text-amber-700 font-mikhak-medium">
-                    Your email is unverified.
+                    {t.admin.profile.emailUnverified}
                 </div>
             )}
 
@@ -103,14 +109,14 @@ function ProfileTab({ mustVerifyEmail, status }) {
                     disabled={processing}
                     className="inline-flex items-center px-5 py-2.5 bg-indigo-600 rounded-xl font-mikhak-bold text-sm text-white hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-500/20 transition-all disabled:opacity-60"
                 >
-                    {processing ? 'Saving...' : 'Save Changes'}
+                    {processing ? t.admin.profile.saving : t.admin.profile.saveChanges}
                 </button>
                 <Transition show={recentlySuccessful} enter="transition ease-in-out" enterFrom="opacity-0" leave="transition ease-in-out" leaveTo="opacity-0">
                     <p className="text-sm text-emerald-600 font-mikhak-medium flex items-center gap-1">
                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                         </svg>
-                        Saved!
+                        {t.admin.profile.saved}
                     </p>
                 </Transition>
             </div>
@@ -120,6 +126,8 @@ function ProfileTab({ mustVerifyEmail, status }) {
 
 // ─── Tab 2: Password ───────────────────────────────────────────────────────────
 function PasswordTab() {
+    const { lang } = useLanguage();
+    const t = translations[lang] || translations.en;
     const passwordRef = useRef();
     const currentRef = useRef();
     const { data, setData, errors, put, reset, processing, recentlySuccessful } = useForm({
@@ -143,28 +151,28 @@ function PasswordTab() {
     return (
         <form onSubmit={submit} className="space-y-5">
             <div>
-                <label className={labelCls}>Current Password</label>
-                <input ref={currentRef} type="password" className={inputCls(errors.current_password)} value={data.current_password} onChange={(e) => setData('current_password', e.target.value)} autoComplete="current-password" />
+                <label className={labelCls}>{t.admin.profile.currentPassword}</label>
+                <input ref={currentRef} type="password" dir="ltr" className={inputCls(errors.current_password)} value={data.current_password} onChange={(e) => setData('current_password', e.target.value)} autoComplete="current-password" />
                 {errors.current_password && <p className="text-rose-500 text-xs mt-1 font-mikhak-medium">{errors.current_password}</p>}
             </div>
             <div>
-                <label className={labelCls}>New Password</label>
-                <input ref={passwordRef} type="password" className={inputCls(errors.password)} value={data.password} onChange={(e) => setData('password', e.target.value)} autoComplete="new-password" />
+                <label className={labelCls}>{t.admin.profile.newPassword}</label>
+                <input ref={passwordRef} type="password" dir="ltr" className={inputCls(errors.password)} value={data.password} onChange={(e) => setData('password', e.target.value)} autoComplete="new-password" />
                 {errors.password && <p className="text-rose-500 text-xs mt-1 font-mikhak-medium">{errors.password}</p>}
             </div>
             <div>
-                <label className={labelCls}>Confirm New Password</label>
-                <input type="password" className={inputCls(errors.password_confirmation)} value={data.password_confirmation} onChange={(e) => setData('password_confirmation', e.target.value)} autoComplete="new-password" />
+                <label className={labelCls}>{t.admin.profile.confirmPassword}</label>
+                <input type="password" dir="ltr" className={inputCls(errors.password_confirmation)} value={data.password_confirmation} onChange={(e) => setData('password_confirmation', e.target.value)} autoComplete="new-password" />
                 {errors.password_confirmation && <p className="text-rose-500 text-xs mt-1 font-mikhak-medium">{errors.password_confirmation}</p>}
             </div>
             <div className="flex items-center gap-4 pt-2">
                 <button type="submit" disabled={processing} className="inline-flex items-center px-5 py-2.5 bg-indigo-600 rounded-xl font-mikhak-bold text-sm text-white hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-500/20 transition-all disabled:opacity-60">
-                    {processing ? 'Updating...' : 'Update Password'}
+                    {processing ? t.admin.profile.updating : t.admin.profile.updatePassword}
                 </button>
                 <Transition show={recentlySuccessful} enter="transition ease-in-out" enterFrom="opacity-0" leave="transition ease-in-out" leaveTo="opacity-0">
                     <p className="text-sm text-emerald-600 font-mikhak-medium flex items-center gap-1">
                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
-                        Updated!
+                        {t.admin.profile.updated}
                     </p>
                 </Transition>
             </div>
@@ -174,6 +182,8 @@ function PasswordTab() {
 
 // ─── Tab 3: User Management (id=1 only) ───────────────────────────────────────
 function UsersTab({ users }) {
+    const { lang } = useLanguage();
+    const t = translations[lang] || translations.en;
     const [showCreate, setShowCreate] = useState(false);
     const { data, setData, post, errors, processing, reset } = useForm({
         name: '',
@@ -194,7 +204,10 @@ function UsersTab({ users }) {
     };
 
     const deleteUser = (user) => {
-        if (confirm(`Delete user "${user.name}"? This cannot be undone.`)) {
+        const confirmMsg = lang === 'ar'
+            ? `حذف المستخدم "${user.name}"؟ لا يمكن التراجع عن هذا الإجراء.`
+            : `Delete user "${user.name}"? This cannot be undone.`;
+        if (confirm(confirmMsg)) {
             router.delete(route('admin.users.destroy', user.id), { preserveScroll: true });
         }
     };
@@ -207,43 +220,43 @@ function UsersTab({ users }) {
                     onClick={() => setShowCreate(!showCreate)}
                     className="inline-flex items-center px-4 py-2 bg-indigo-600 rounded-xl font-mikhak-bold text-sm text-white hover:bg-indigo-700 transition-all"
                 >
-                    <svg className="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className={`w-4 h-4 ${lang === 'ar' ? 'ml-1.5' : 'mr-1.5'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={showCreate ? "M6 18L18 6M6 6l12 12" : "M12 4v16m8-8H4"} />
                     </svg>
-                    {showCreate ? 'Cancel' : 'New User'}
+                    {showCreate ? t.admin.profile.cancel : t.admin.profile.newUser}
                 </button>
             </div>
 
             {/* Create form */}
             {showCreate && (
                 <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6">
-                    <h4 className="text-sm font-mikhak-bold text-slate-800 mb-4">Create New Account</h4>
+                    <h4 className="text-sm font-mikhak-bold text-slate-800 mb-4">{t.admin.profile.createNewAccount}</h4>
                     <form onSubmit={submit} className="space-y-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label className={labelCls}>Name</label>
-                                <input type="text" className={inputCls(errors.name)} value={data.name} onChange={(e) => setData('name', e.target.value)} placeholder="Full name" required />
+                                <label className={labelCls}>{t.admin.profile.nameLabel}</label>
+                                <input type="text" dir={lang === 'ar' ? 'rtl' : 'ltr'} className={inputCls(errors.name)} value={data.name} onChange={(e) => setData('name', e.target.value)} placeholder={t.admin.profile.fullNamePlaceholder} required />
                                 {errors.name && <p className="text-rose-500 text-xs mt-1">{errors.name}</p>}
                             </div>
                             <div>
-                                <label className={labelCls}>Email</label>
-                                <input type="email" className={inputCls(errors.email)} value={data.email} onChange={(e) => setData('email', e.target.value)} placeholder="user@example.com" required />
+                                <label className={labelCls}>{t.admin.profile.emailLabel}</label>
+                                <input type="email" dir="ltr" className={inputCls(errors.email)} value={data.email} onChange={(e) => setData('email', e.target.value)} placeholder="user@example.com" required />
                                 {errors.email && <p className="text-rose-500 text-xs mt-1">{errors.email}</p>}
                             </div>
                             <div>
-                                <label className={labelCls}>Password</label>
-                                <input type="password" className={inputCls(errors.password)} value={data.password} onChange={(e) => setData('password', e.target.value)} required />
+                                <label className={labelCls}>{t.admin.profile.passwordLabel}</label>
+                                <input type="password" dir="ltr" className={inputCls(errors.password)} value={data.password} onChange={(e) => setData('password', e.target.value)} required />
                                 {errors.password && <p className="text-rose-500 text-xs mt-1">{errors.password}</p>}
                             </div>
                             <div>
-                                <label className={labelCls}>Confirm Password</label>
-                                <input type="password" className={inputCls(errors.password_confirmation)} value={data.password_confirmation} onChange={(e) => setData('password_confirmation', e.target.value)} required />
+                                <label className={labelCls}>{t.admin.profile.confirmPasswordLabel}</label>
+                                <input type="password" dir="ltr" className={inputCls(errors.password_confirmation)} value={data.password_confirmation} onChange={(e) => setData('password_confirmation', e.target.value)} required />
                                 {errors.password_confirmation && <p className="text-rose-500 text-xs mt-1">{errors.password_confirmation}</p>}
                             </div>
                         </div>
                         <div className="pt-1">
                             <button type="submit" disabled={processing} className="inline-flex items-center px-5 py-2.5 bg-indigo-600 rounded-xl font-mikhak-bold text-sm text-white hover:bg-indigo-700 transition-all disabled:opacity-60">
-                                {processing ? 'Creating...' : 'Create User'}
+                                {processing ? t.admin.profile.creating : t.admin.profile.createUser}
                             </button>
                         </div>
                     </form>
@@ -252,21 +265,21 @@ function UsersTab({ users }) {
 
             {/* Users table */}
             <div className="overflow-hidden rounded-2xl border border-slate-200">
-                <table className="w-full text-left text-sm">
+                <table className="w-full text-left rtl:text-right text-sm">
                     <thead className="bg-slate-50 border-b border-slate-200">
                         <tr className="text-slate-500 font-mikhak-bold text-xs uppercase tracking-wider">
-                            <th className="px-4 py-3">#</th>
-                            <th className="px-4 py-3">User</th>
-                            <th className="px-4 py-3 text-center">Status</th>
-                            <th className="px-4 py-3 text-right">Actions</th>
+                            <th className="px-4 py-3 text-left rtl:text-right">#</th>
+                            <th className="px-4 py-3 text-left rtl:text-right">{t.admin.profile.tableUser}</th>
+                            <th className="px-4 py-3 text-center">{t.admin.profile.tableStatus}</th>
+                            <th className="px-4 py-3 text-right rtl:text-left">{t.admin.profile.tableActions}</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100">
                         {users.map((u) => (
                             <tr key={u.id} className="hover:bg-slate-50/60 transition-colors group">
-                                <td className="px-4 py-3 text-slate-400 font-mikhak-medium text-xs">{u.id}</td>
-                                <td className="px-4 py-3">
-                                    <div className="flex items-center gap-3">
+                                <td className="px-4 py-3 text-slate-400 font-mikhak-medium text-xs text-left rtl:text-right">{u.id}</td>
+                                <td className="px-4 py-3 text-left rtl:text-right">
+                                    <div className="flex items-center gap-3 rtl:space-x-reverse">
                                         <div className="w-8 h-8 rounded-xl bg-indigo-100 flex items-center justify-center text-indigo-600 font-mikhak-bold text-sm flex-shrink-0">
                                             {u.name.charAt(0).toUpperCase()}
                                         </div>
@@ -275,7 +288,7 @@ function UsersTab({ users }) {
                                                 {u.name}
                                                 {u.id === 1 && (
                                                     <span className="inline-flex items-center px-1.5 py-0.5 rounded-md text-xs bg-amber-100 text-amber-700 font-mikhak-bold">
-                                                        Super Admin
+                                                        {t.admin.profile.superAdmin}
                                                     </span>
                                                 )}
                                             </div>
@@ -289,11 +302,11 @@ function UsersTab({ users }) {
                                             ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                                             : 'bg-slate-100 text-slate-500 border border-slate-200'
                                     }`}>
-                                        {u.is_active ? 'Active' : 'Inactive'}
+                                        {u.is_active ? t.admin.profile.active : t.admin.profile.inactive}
                                     </span>
                                 </td>
-                                <td className="px-4 py-3 text-right">
-                                    <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <td className="px-4 py-3 text-right rtl:text-left">
+                                    <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity rtl:space-x-reverse">
                                         {u.id !== 1 && (
                                             <>
                                                 <button
@@ -304,13 +317,13 @@ function UsersTab({ users }) {
                                                             : 'bg-white border-slate-200 text-slate-600 hover:bg-emerald-50 hover:border-emerald-200 hover:text-emerald-700'
                                                     }`}
                                                 >
-                                                    {u.is_active ? 'Deactivate' : 'Activate'}
+                                                    {u.is_active ? t.admin.profile.deactivate : t.admin.profile.activate}
                                                 </button>
                                                 <button
                                                     onClick={() => deleteUser(u)}
                                                     className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-mikhak-medium border bg-white border-slate-200 text-slate-600 hover:bg-rose-50 hover:border-rose-200 hover:text-rose-600 transition-colors"
                                                 >
-                                                    Delete
+                                                    {t.admin.profile.delete}
                                                 </button>
                                             </>
                                         )}
@@ -327,13 +340,15 @@ function UsersTab({ users }) {
 
 // ─── Main Page ─────────────────────────────────────────────────────────────────
 export default function Edit({ mustVerifyEmail, status, users }) {
+    const { lang } = useLanguage();
+    const t = translations[lang] || translations.en;
     const { auth, flash } = usePage().props;
     const isSuperAdmin = auth.user.id === 1;
 
     const tabs = [
-        { id: 'profile', label: 'Profile Info', icon: <IconUser /> },
-        { id: 'password', label: 'Password',    icon: <IconLock /> },
-        ...(isSuperAdmin ? [{ id: 'users', label: 'Manage Users', icon: <IconUsers /> }] : []),
+        { id: 'profile', label: t.admin.profile.profileInfoTab, icon: <IconUser /> },
+        { id: 'password', label: t.admin.profile.passwordTab, icon: <IconLock /> },
+        ...(isSuperAdmin ? [{ id: 'users', label: t.admin.profile.manageUsersTab, icon: <IconUsers /> }] : []),
     ];
 
     const [activeTab, setActiveTab] = useState('profile');
@@ -345,18 +360,18 @@ export default function Edit({ mustVerifyEmail, status, users }) {
         <AuthenticatedLayout
             header={
                 <div>
-                    <h2 className="font-mikhak-bold text-2xl text-slate-800 leading-tight">Account Settings</h2>
-                    <p className="text-sm text-slate-500 font-mikhak-regular mt-1">Manage your profile, security, and team</p>
+                    <h2 className="font-mikhak-bold text-2xl text-slate-800 leading-tight">{t.admin.profile.title}</h2>
+                    <p className="text-sm text-slate-500 font-mikhak-regular mt-1">{t.admin.profile.desc}</p>
                 </div>
             }
         >
-            <Head title="Account Settings" />
+            <Head title={t.admin.profile.title} />
 
             <div className="py-8">
                 <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
                     {/* Profile Card */}
-                    <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-6 flex items-center gap-5">
+                    <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-6 flex items-center gap-5 rtl:space-x-reverse">
                         <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-mikhak-bold text-xl flex-shrink-0 shadow-md">
                             {initials}
                         </div>
@@ -365,7 +380,7 @@ export default function Edit({ mustVerifyEmail, status, users }) {
                             <p className="text-sm text-slate-500 font-mikhak-regular">{auth.user.email}</p>
                             {isSuperAdmin && (
                                 <span className="inline-flex items-center mt-1 px-2 py-0.5 rounded-md text-xs bg-amber-100 text-amber-700 font-mikhak-bold">
-                                    ⭐ Super Admin
+                                    ⭐ {t.admin.profile.superAdmin}
                                 </span>
                             )}
                         </div>

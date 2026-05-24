@@ -49,13 +49,13 @@ export default function Show({ article, relatedArticles }) {
         en: {
             by: "By",
             read: "min read",
-            comments: "Responses",
-            leaveComment: "Write a response",
+            comments: "Comments",
+            leaveComment: "Write a comment",
             name: "Your name",
             comment: "What are your thoughts?",
-            submit: "Respond",
+            submit: "Post Comment",
             related: "More from Monasbtk",
-            noComments: "There are currently no responses for this story. Be the first to respond.",
+            noComments: "There are currently no comments for this article. Be the first to leave a comment.",
             home: "Home",
             blog: "Blog",
             submitting: "Publishing...",
@@ -66,20 +66,20 @@ export default function Show({ article, relatedArticles }) {
             published: "Published",
             readingTime: "Reading time",
             category: "Category",
-            respectful: "Be respectful. Your response will appear after approval.",
+            respectful: "Be respectful. Your comment will appear after approval.",
             authorBio: "Content creator at Monasbtk, sharing practical ideas, elegant inspiration, and thoughtful perspectives for your special occasions.",
             share: "Share Story",
         },
         ar: {
             by: "بقلم",
             read: "دقائق للقراءة",
-            comments: "الردود",
-            leaveComment: "اكتب رداً",
+            comments: "التعليقات",
+            leaveComment: "اكتب تعليقاً",
             name: "اسمك",
             comment: "ما هي أفكارك؟",
-            submit: "إرسال",
+            submit: "نشر",
             related: "المزيد من مناسبتك",
-            noComments: "لا توجد ردود حالياً على هذه القصة. كن أول من يرد.",
+            noComments: "لا توجد تعليقات حالياً على هذا المقال. كن أول من يعلق.",
             home: "الرئيسية",
             blog: "المدونة",
             submitting: "جاري النشر...",
@@ -90,7 +90,7 @@ export default function Show({ article, relatedArticles }) {
             published: "نُشر في",
             readingTime: "وقت القراءة",
             category: "التصنيف",
-            respectful: "يرجى كتابة رد محترم. سيظهر تعليقك بعد المراجعة.",
+            respectful: "يرجى كتابة تعليق محترم. سيظهر تعليقك بعد الموافقة.",
             authorBio: "كاتب محتوى في مناسبتك، يشارك أفكاراً عملية، وإلهاماً أنيقاً، ورؤى ملهمة تساعدك على صناعة مناسبات أجمل.",
             share: "مشاركة المقال",
         }
@@ -180,7 +180,7 @@ export default function Show({ article, relatedArticles }) {
                     right: 0;
                     z-index: 120;
                     height: 3.5px;
-                    background: #c0507a;
+                    background: #794BC7;
                     transform-origin: left;
                 }
 
@@ -191,7 +191,7 @@ export default function Show({ article, relatedArticles }) {
                     height: 68px;
                     background: rgba(253,249,251,0.85);
                     backdrop-filter: blur(20px);
-                    border-bottom: 1px solid rgba(220,150,170,0.13);
+                    border-bottom: 1px solid rgba(121,75,199,0.13);
                 }
 
                 .nav-inner {
@@ -213,7 +213,6 @@ export default function Show({ article, relatedArticles }) {
 
                 .nav-logo {
                     font-size: 21px;
-                    color: #2a1f30;
                     text-decoration: none;
                     flex-shrink: 0;
                 }
@@ -233,7 +232,7 @@ export default function Show({ article, relatedArticles }) {
                     transition: color 0.2s;
                 }
 
-                .crumb-link:hover { color: #c0507a; }
+                .crumb-link:hover { color: #794BC7; }
 
                 .nav-right {
                     display: flex;
@@ -248,24 +247,24 @@ export default function Show({ article, relatedArticles }) {
                     transition: color 0.2s;
                 }
 
-                .nav-back:hover { color: #c0507a; }
+                .nav-back:hover { color: #794BC7; }
 
                 .lang-btn {
                     height: 32px;
                     padding: 0 14px;
                     border-radius: 100px;
-                    border: 1px solid rgba(192,80,122,0.2);
-                    background: rgba(192,80,122,0.04);
+                    border: 1px solid rgba(121,75,199,0.2);
+                    background: rgba(121,75,199,0.04);
                     font-size: 11px;
                     font-weight: 700;
-                    color: #c0507a;
+                    color: #794BC7;
                     cursor: pointer;
                     transition: all 0.2s;
                 }
 
                 .lang-btn:hover {
-                    background: rgba(192,80,122,0.08);
-                    border-color: rgba(192,80,122,0.35);
+                    background: rgba(121,75,199,0.08);
+                    border-color: rgba(121,75,199,0.35);
                 }
 
                 .page-wrap {
@@ -280,7 +279,7 @@ export default function Show({ article, relatedArticles }) {
 
                 .hero-card {
                     background: #fff;
-                    border: 1px solid rgba(200,140,170,0.12);
+                    border: 1px solid rgba(121,75,199,0.12);
                     border-radius: 28px;
                     padding: 40px;
                 }
@@ -296,8 +295,8 @@ export default function Show({ article, relatedArticles }) {
                 .cat-tag {
                     font-size: 11px;
                     font-weight: 600;
-                    color: #c0507a;
-                    background: rgba(192,80,122,0.07);
+                    color: #794BC7;
+                    background: rgba(121,75,199,0.07);
                     padding: 5px 12px;
                     border-radius: 100px;
                 }
@@ -333,7 +332,7 @@ export default function Show({ article, relatedArticles }) {
                     gap: 20px;
                     flex-wrap: wrap;
                     padding-top: 20px;
-                    border-top: 1px solid rgba(200,140,170,0.12);
+                    border-top: 1px solid rgba(121,75,199,0.12);
                 }
 
                 .author-wrap {
@@ -347,7 +346,7 @@ export default function Show({ article, relatedArticles }) {
                     width: 44px;
                     height: 44px;
                     border-radius: 50%;
-                    background: linear-gradient(135deg, #e07aa8, #c0507a);
+                    background: linear-gradient(135deg, #FF157D, #794BC7);
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -433,7 +432,7 @@ export default function Show({ article, relatedArticles }) {
                 .side-card,
                 .related-card {
                     background: #fff;
-                    border: 1px solid rgba(200,140,170,0.12);
+                    border: 1px solid rgba(121,75,199,0.12);
                 }
 
                 .prose-card {
@@ -460,12 +459,12 @@ export default function Show({ article, relatedArticles }) {
                 .article-prose h3 { font-size: clamp(20px, 2.4vw, 25px); }
                 .article-prose h4 { font-size: clamp(17px, 2vw, 21px); }
                 .article-prose a {
-                    color: #c0507a;
+                    color: #794BC7;
                     text-decoration: none;
-                    border-bottom: 1px solid rgba(192,80,122,0.3);
+                    border-bottom: 1px solid rgba(121,75,199,0.3);
                     transition: border-color .15s;
                 }
-                .article-prose a:hover { border-color: #c0507a; }
+                .article-prose a:hover { border-color: #794BC7; }
                 .article-prose strong { color: #1e1520; font-weight: 700; }
                 .article-prose ul, .article-prose ol { padding-inline-start: 1.5rem; margin: 1.4em 0; }
                 .article-prose li { margin: 0.55em 0; }
@@ -473,16 +472,16 @@ export default function Show({ article, relatedArticles }) {
                     margin: 2.2em 0;
                     padding: 22px 26px;
                     border-radius: 20px;
-                    background: linear-gradient(135deg, #fdf4f8, #faf0f5);
+                    background: linear-gradient(135deg, #FAF5FF, #F3E8FF);
                     color: #6e5867;
-                    border-inline-start: 4px solid rgba(192,80,122,0.35);
+                    border-inline-start: 4px solid rgba(121,75,199,0.35);
                     font-style: italic;
                     font-size: 1.05em;
                 }
-                .article-prose img { width:100%; border-radius:20px; margin:2.2em 0; box-shadow:0 6px 28px rgba(192,80,122,0.06); }
-                .article-prose pre { overflow-x:auto; background:#faf7f9; border:1px solid rgba(200,140,170,0.14); padding:18px; border-radius:16px; margin:1.6em 0; }
+                .article-prose img { width:100%; border-radius:20px; margin:2.2em 0; box-shadow:0 6px 28px rgba(121,75,199,0.06); }
+                .article-prose pre { overflow-x:auto; background:#faf7f9; border:1px solid rgba(121,75,199,0.14); padding:18px; border-radius:16px; margin:1.6em 0; }
                 .article-prose code { font-size:13.5px; background:#f7f0f4; padding:2px 7px; border-radius:6px; }
-                .share-row { display:flex; align-items:center; gap:16px; padding:22px 0; border-top:1px solid rgba(200,140,170,0.12); margin-top:10px; }
+                .share-row { display:flex; align-items:center; gap:16px; padding:22px 0; border-top:1px solid rgba(121,75,199,0.12); margin-top:10px; }
                 .share-label { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#b0909a; }
 
                 .section-box {
@@ -504,7 +503,7 @@ export default function Show({ article, relatedArticles }) {
                     font-weight: 600;
                     background: #f5ecf2;
                     color: #6a5060;
-                    border: 1px solid rgba(200,140,170,0.18);
+                    border: 1px solid rgba(121,75,199,0.18);
                 }
 
                 .author-card {
@@ -522,7 +521,7 @@ export default function Show({ article, relatedArticles }) {
                     width: 68px;
                     height: 68px;
                     border-radius: 50%;
-                    background: linear-gradient(135deg, #e07aa8, #c0507a);
+                    background: linear-gradient(135deg, #FF157D, #794BC7);
                     color: #fff;
                     display: flex;
                     align-items: center;
@@ -564,7 +563,7 @@ export default function Show({ article, relatedArticles }) {
                     text-transform: uppercase;
                     color: #b0909a;
                     padding-bottom: 12px;
-                    border-bottom: 1px solid rgba(200,140,170,0.14);
+                    border-bottom: 1px solid rgba(121,75,199,0.14);
                     margin-bottom: 16px;
                 }
 
@@ -597,27 +596,27 @@ export default function Show({ article, relatedArticles }) {
                 }
 
                 .action-btn-primary {
-                    background: #c0507a;
+                    background: #794BC7;
                     color: #fff;
                 }
 
                 .action-btn-primary:hover {
-                    background: #aa4068;
+                    background: #6B00C9;
                     transform: translateY(-1px);
-                    box-shadow: 0 4px 16px rgba(192,80,122,0.15);
+                    box-shadow: 0 4px 16px rgba(121,75,199,0.15);
                 }
 
                 .action-btn-secondary {
                     margin-top: 10px;
                     color: #7a6070;
-                    border: 1px solid rgba(200,140,170,0.22);
-                    background: rgba(192,80,122,0.03);
+                    border: 1px solid rgba(121,75,199,0.22);
+                    background: rgba(121,75,199,0.03);
                 }
 
                 .action-btn-secondary:hover {
-                    color: #c0507a;
-                    border-color: rgba(192,80,122,0.35);
-                    background: rgba(192,80,122,0.05);
+                    color: #794BC7;
+                    border-color: rgba(121,75,199,0.35);
+                    background: rgba(121,75,199,0.05);
                 }
 
                 .section-header {
@@ -632,14 +631,14 @@ export default function Show({ article, relatedArticles }) {
                     font-weight: 700;
                     letter-spacing: 0.08em;
                     text-transform: uppercase;
-                    color: #c0507a;
+                    color: #794BC7;
                     flex-shrink: 0;
                 }
 
                 .section-rule {
                     flex: 1;
                     height: 1px;
-                    background: rgba(200,140,170,0.18);
+                    background: rgba(121,75,199,0.18);
                 }
 
                 .related-section,
@@ -664,8 +663,8 @@ export default function Show({ article, relatedArticles }) {
 
                 .related-card:hover {
                     transform: translateY(-3px);
-                    box-shadow: 0 10px 30px rgba(192,80,122,0.06);
-                    border-color: rgba(192,80,122,0.22);
+                    box-shadow: 0 10px 30px rgba(121,75,199,0.06);
+                    border-color: rgba(121,75,199,0.22);
                 }
 
                 .related-media {
@@ -734,7 +733,7 @@ export default function Show({ article, relatedArticles }) {
                 .input-clean,
                 .textarea-clean {
                     width: 100%;
-                    border: 1px solid rgba(200,140,170,0.15);
+                    border: 1px solid rgba(121,75,199,0.15);
                     background: #fff;
                     color: #2a1f30;
                     outline: none;
@@ -760,8 +759,8 @@ export default function Show({ article, relatedArticles }) {
 
                 .input-clean:focus,
                 .textarea-clean:focus {
-                    border-color: rgba(192,80,122,0.35);
-                    box-shadow: 0 0 0 3px rgba(192,80,122,0.08);
+                    border-color: rgba(121,75,199,0.35);
+                    box-shadow: 0 0 0 3px rgba(121,75,199,0.08);
                 }
 
                 .comment-form-footer {
@@ -784,7 +783,7 @@ export default function Show({ article, relatedArticles }) {
                     justify-content: center;
                     padding: 12px 24px;
                     border-radius: 100px;
-                    background: #c0507a;
+                    background: #794BC7;
                     color: #fff;
                     font-size: 13.5px;
                     font-weight: 600;
@@ -794,7 +793,7 @@ export default function Show({ article, relatedArticles }) {
                 }
 
                 .submit-btn:hover:not(:disabled) {
-                    background: #aa4068;
+                    background: #6B00C9;
                     transform: translateY(-1px);
                 }
 
@@ -806,7 +805,7 @@ export default function Show({ article, relatedArticles }) {
                 .error-text {
                     margin-top: 8px;
                     font-size: 12px;
-                    color: #b93e67;
+                    color: #EF4444;
                 }
 
                 .comment-list {
@@ -878,7 +877,7 @@ export default function Show({ article, relatedArticles }) {
             <nav className="nav">
                 <div className="nav-inner">
                     <div className="nav-left">
-                        <Link href="/" className={`nav-logo font-extrabold ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`}>
+                        <Link href="/" className={`nav-logo font-extrabold bg-gradient-to-r from-[#FF157D] to-[#794BC7] bg-clip-text text-transparent ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`}>
                             Monasbtk
                         </Link>
 
@@ -954,7 +953,7 @@ export default function Show({ article, relatedArticles }) {
 
                     {article.image && (
                         <motion.div
-                            className="cover border border-rose-100/20"
+                            className="cover border border-purple-100/20"
                             initial={{ opacity: 0, scale: 0.99 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.5, delay: 0.1 }}
@@ -991,9 +990,9 @@ export default function Show({ article, relatedArticles }) {
                             <div className="relative inline-block" ref={shareDropdownRef}>
                                 <button
                                     onClick={() => setShareOpen(!shareOpen)}
-                                    className={`inline-flex items-center gap-2 px-5 py-3 rounded-full border border-rose-200/50 bg-white/70 text-slate-700 font-bold hover:bg-rose-50/50 transition-all select-none cursor-pointer text-sm shadow-sm ${isAr ? 'flex-row-reverse font-mikhak-medium' : 'font-outfit'}`}
+                                    className={`inline-flex items-center gap-2 px-5 py-3 rounded-full border border-purple-200/50 bg-white/70 text-slate-700 font-bold hover:bg-purple-50/50 transition-all select-none cursor-pointer text-sm shadow-sm ${isAr ? 'flex-row-reverse font-mikhak-medium' : 'font-outfit'}`}
                                 >
-                                    <svg className="w-4 h-4 text-[#c0507a]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                                    <svg className="w-4 h-4 text-[#794BC7]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186l.09-.034a1.8 1.8 0 012.25 1.534l.002.138a1.8 1.8 0 01-1.39 1.764l-.952.184m0-3.586l-.089.034a1.8 1.8 0 00-2.25-1.534l-.002-.138a1.8 1.8 0 001.39-1.764l.952-.184M16.5 7.5a2.25 2.25 0 110 4.5 2.25 2.25 0 010-4.5zm0 9a2.25 2.25 0 110 4.5 2.25 2.25 0 010-4.5z" />
                                     </svg>
                                     <span>{t[lang].share}</span>
@@ -1009,13 +1008,13 @@ export default function Show({ article, relatedArticles }) {
                                             animate={{ opacity: 1, y: 0, scale: 1 }}
                                             exit={{ opacity: 0, y: 10, scale: 0.95 }}
                                             transition={{ duration: 0.15 }}
-                                            className={`absolute ${isAr ? 'left-0' : 'right-0'} mt-2 w-56 rounded-2xl bg-white border border-rose-100/60 shadow-xl z-50 p-2 space-y-1`}
+                                            className={`absolute ${isAr ? 'left-0' : 'right-0'} mt-2 w-56 rounded-2xl bg-white border border-purple-100/60 shadow-xl z-50 p-2 space-y-1`}
                                         >
                                             {/* 1. X */}
                                             <a
                                                 href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(article.title?.[lang] || '')}&url=${encodeURIComponent(pageUrl)}`}
                                                 target="_blank" rel="noreferrer"
-                                                className={`flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-slate-700 rounded-xl hover:bg-rose-50/50 hover:text-[#c0507a] transition-all cursor-pointer ${isAr ? 'flex-row-reverse font-mikhak-medium' : 'font-outfit'}`}
+                                                className={`flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-slate-700 rounded-xl hover:bg-purple-50/50 hover:text-[#794BC7] transition-all cursor-pointer ${isAr ? 'flex-row-reverse font-mikhak-medium' : 'font-outfit'}`}
                                             >
                                                 <svg className="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                                                 <span className="flex-1">X</span>
@@ -1025,7 +1024,7 @@ export default function Show({ article, relatedArticles }) {
                                             <a
                                                 href={`https://api.whatsapp.com/send?text=${encodeURIComponent((article.title?.[lang] || '') + ' ' + pageUrl)}`}
                                                 target="_blank" rel="noreferrer"
-                                                className={`flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-slate-700 rounded-xl hover:bg-rose-50/50 hover:text-[#c0507a] transition-all cursor-pointer ${isAr ? 'flex-row-reverse font-mikhak-medium' : 'font-outfit'}`}
+                                                className={`flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-slate-700 rounded-xl hover:bg-purple-50/50 hover:text-[#794BC7] transition-all cursor-pointer ${isAr ? 'flex-row-reverse font-mikhak-medium' : 'font-outfit'}`}
                                             >
                                                 <svg className="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.458L0 24zm6.59-20.015c-.218-.485-.45-.495-.658-.504-.172-.008-.371-.008-.57-.008-.201 0-.53.075-.808.379-.278.303-1.062 1.036-1.062 2.529 0 1.493 1.085 2.932 1.236 3.134.152.203 2.137 3.262 5.176 4.57.717.309 1.278.493 1.716.633.722.23 1.381.197 1.902.12.579-.085 1.785-.73 2.039-1.436.254-.705.254-1.309.178-1.436-.076-.127-.278-.203-.579-.354s-1.785-.88-2.062-.98c-.278-.1-.48-.152-.68.152-.2.304-.778 1.037-.954 1.239-.176.202-.353.228-.654.077-.302-.151-1.272-.469-2.423-1.495-.895-.798-1.5-1.784-1.676-2.086-.176-.303-.019-.467.132-.617.136-.134.303-.354.454-.531.151-.177.202-.303.303-.505.101-.202.051-.379-.026-.53-.076-.153-.658-1.585-.9-2.17z"/></svg>
                                                 <span className="flex-1">WhatsApp</span>
@@ -1034,7 +1033,7 @@ export default function Show({ article, relatedArticles }) {
                                             {/* 3. Instagram */}
                                             <button
                                                 onClick={handleInstagramShare}
-                                                className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-slate-700 rounded-xl hover:bg-rose-50/50 hover:text-[#c0507a] transition-all cursor-pointer text-left ${isAr ? 'flex-row-reverse font-mikhak-medium text-right' : 'font-outfit'}`}
+                                                className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-slate-700 rounded-xl hover:bg-purple-50/50 hover:text-[#794BC7] transition-all cursor-pointer text-left ${isAr ? 'flex-row-reverse font-mikhak-medium text-right' : 'font-outfit'}`}
                                             >
                                                 <svg className="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                                                 <span className="flex-1">Instagram</span>
@@ -1044,7 +1043,7 @@ export default function Show({ article, relatedArticles }) {
                                             <a
                                                 href={`https://threads.net/intent/post?text=${encodeURIComponent((article.title?.[lang] || '') + ' ' + pageUrl)}`}
                                                 target="_blank" rel="noreferrer"
-                                                className={`flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-slate-700 rounded-xl hover:bg-rose-50/50 hover:text-[#c0507a] transition-all cursor-pointer ${isAr ? 'flex-row-reverse font-mikhak-medium' : 'font-outfit'}`}
+                                                className={`flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-slate-700 rounded-xl hover:bg-purple-50/50 hover:text-[#794BC7] transition-all cursor-pointer ${isAr ? 'flex-row-reverse font-mikhak-medium' : 'font-outfit'}`}
                                             >
                                                 <svg className="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12c3.158 0 6.012-1.22 8.125-3.218l-1.425-1.425A9.957 9.957 0 0 1 12 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10c0 2.158-.698 3.51-1.636 4.364-.814.74-1.956.886-2.586.886-.786 0-1.782-.375-1.782-1.895V12c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5c1.47 0 2.76-.638 3.655-1.644C16.924 16.58 17.8 17 18.778 17c1.397 0 2.857-.698 3.75-2.07C23.473 13.565 24 12 24 12c0-6.627-5.373-12-12-12zm-3 12c0-1.654 1.346-3 3-3s3 1.346 3 3-1.346 3-3 3-3-1.346-3-3z"/></svg>
                                                 <span className="flex-1">Threads</span>
@@ -1054,18 +1053,18 @@ export default function Show({ article, relatedArticles }) {
                                             <a
                                                 href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`}
                                                 target="_blank" rel="noreferrer"
-                                                className={`flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-slate-700 rounded-xl hover:bg-rose-50/50 hover:text-[#c0507a] transition-all cursor-pointer ${isAr ? 'flex-row-reverse font-mikhak-medium' : 'font-outfit'}`}
+                                                className={`flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-slate-700 rounded-xl hover:bg-purple-50/50 hover:text-[#794BC7] transition-all cursor-pointer ${isAr ? 'flex-row-reverse font-mikhak-medium' : 'font-outfit'}`}
                                             >
                                                 <svg className="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                                                 <span className="flex-1">Facebook</span>
                                             </a>
 
-                                            <div className="h-px bg-rose-100/30 my-1" />
+                                            <div className="h-px bg-purple-100/30 my-1" />
 
                                             {/* Copy Link */}
                                             <button
                                                 onClick={handleCopy}
-                                                className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-slate-700 rounded-xl hover:bg-rose-50/50 hover:text-[#c0507a] transition-all cursor-pointer text-left ${isAr ? 'flex-row-reverse font-mikhak-medium text-right' : 'font-outfit'}`}
+                                                className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-slate-700 rounded-xl hover:bg-purple-50/50 hover:text-[#794BC7] transition-all cursor-pointer text-left ${isAr ? 'flex-row-reverse font-mikhak-medium text-right' : 'font-outfit'}`}
                                             >
                                                 <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
                                                 <span className="flex-1">{copied ? (isAr ? 'تم النسخ!' : 'Copied!') : (isAr ? 'نسخ الرابط' : 'Copy link')}</span>
@@ -1180,8 +1179,11 @@ export default function Show({ article, relatedArticles }) {
 
                 {/* ── RESPONSES SECTION ── */}
                 <section id="responses" className="comments-section pb-24">
-                    <div className="section-header">
-                        <span className={`section-label ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`}>
+                    <div className="section-header flex items-center gap-2">
+                        <svg className="w-5 h-5 text-[#794BC7] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 9.75a.625.625 0 11-1.25 0 .625.625 0 011.25 0zm4.5 0a.625.625 0 11-1.25 0 .625.625 0 011.25 0zm4.5 0a.625.625 0 11-1.25 0 .625.625 0 011.25 0zM12 3c-4.97 0-9 3.582-9 8c0 1.947.766 3.72 2.032 5.097L3 21l4.896-1.632A10.158 10.158 0 0012 20c4.97 0 9-3.582 9-8s-4.03-8-9-8z" />
+                        </svg>
+                        <span className={`section-label ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`} style={{ display: 'flex', alignItems: 'center' }}>
                             {t[lang].comments} ({article.comments?.length || 0})
                         </span>
                         <div className="section-rule" />
@@ -1195,7 +1197,7 @@ export default function Show({ article, relatedArticles }) {
                     >
                         <form onSubmit={submitComment}>
                             <div className="comment-head">
-                                <div className="comment-avatar font-bold select-none" style={{ background: data.author_name ? 'linear-gradient(135deg,#e07aa8,#c0507a)' : undefined, color: data.author_name ? '#fff' : undefined }}>
+                                <div className="comment-avatar font-bold select-none" style={{ background: data.author_name ? 'linear-gradient(135deg,#FF157D,#794BC7)' : undefined, color: data.author_name ? '#fff' : undefined }}>
                                     {data.author_name ? data.author_name.charAt(0).toUpperCase() : '✍️'}
                                 </div>
                                 <span className={`text-sm text-slate-500 font-bold ${isAr ? 'font-mikhak-medium' : 'font-outfit'}`}>{isAr ? 'شاركنا رأيك في المقال' : 'Share your thoughts on the story'}</span>
@@ -1225,9 +1227,19 @@ export default function Show({ article, relatedArticles }) {
                                 <button
                                     type="submit"
                                     disabled={processing || !data.content.trim() || !data.author_name.trim()}
-                                    className={`submit-btn select-none ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`}
+                                    className={`submit-btn select-none flex items-center justify-center gap-2 ${isAr ? 'font-mikhak-bold flex-row-reverse' : 'font-outfit'}`}
                                 >
-                                    {processing ? t[lang].submitting : t[lang].submit}
+                                    <span>{processing ? t[lang].submitting : t[lang].submit}</span>
+                                    {processing ? (
+                                        <svg className="animate-spin w-4 h-4 text-white" fill="none" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 12 0 12 0v4a8 8 0 00-8 8H0z" />
+                                        </svg>
+                                    ) : (
+                                        <svg className={`w-4 h-4 text-white transition-transform group-hover:translate-x-0.5 ${isAr ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                                        </svg>
+                                    )}
                                 </button>
                             </div>
 
