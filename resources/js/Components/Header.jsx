@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LanguageIcon, MenuIcon } from './Icons';
 import { translations } from '../translations';
-import monasbtkIcon from '../../icons/monasbtk_white_icon.png';
+import monasbtkIcon from '../../images/monasbtk_colored_logo.png';
 
 const Header = ({ lang, toggleLanguage }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);

@@ -1,6 +1,7 @@
 import { Head, Link } from '@inertiajs/react';
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import monasbtkIcon from '../../../images/monasbtk_colored_logo.png';
 
 // ── helpers ────────────────────────────────────────────────────────────────────
 const readTime = (article, lang) => {
@@ -221,8 +222,11 @@ export default function Index({ articles, categories, filters }) {
             {/* ── NAV ── */}
             <nav className="blog-nav">
                 <div className="blog-inner h-full flex items-center justify-between">
-                    <Link href="/" className={`text-xl font-extrabold bg-gradient-to-r from-[#FF157D] to-[#794BC7] bg-clip-text text-transparent ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`}>
-                        Monasbtk
+                    <Link href="/" className="flex items-center gap-2">
+                        <img src={monasbtkIcon} alt="Monasbtk Logo" className="h-8 w-8" />
+                        <span className={`text-xl font-extrabold bg-gradient-to-r from-[#FF157D] to-[#794BC7] bg-clip-text text-transparent ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`}>
+                            Monasbtk
+                        </span>
                     </Link>
                     <div className="flex items-center gap-6">
                         <Link href="/" className={`text-sm font-bold text-slate-600 hover:text-[#794BC7] transition-colors ${isAr ? 'font-mikhak-medium' : 'font-outfit'}`}>

@@ -1,6 +1,7 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
+import monasbtkIcon from '../../../images/monasbtk_colored_logo.png';
 
 export default function Show({ article, relatedArticles }) {
     const [lang, setLang] = useState(() => {
@@ -877,8 +878,11 @@ export default function Show({ article, relatedArticles }) {
             <nav className="nav">
                 <div className="nav-inner">
                     <div className="nav-left">
-                        <Link href="/" className={`nav-logo font-extrabold bg-gradient-to-r from-[#FF157D] to-[#794BC7] bg-clip-text text-transparent ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`}>
-                            Monasbtk
+                        <Link href="/" className="flex items-center gap-2">
+                            <img src={monasbtkIcon} alt="Monasbtk Logo" className="h-8 w-8" />
+                            <span className={`nav-logo font-extrabold bg-gradient-to-r from-[#FF157D] to-[#794BC7] bg-clip-text text-transparent ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`} style={{ margin: 0 }}>
+                                Monasbtk
+                            </span>
                         </Link>
 
                         <div className={`crumbs font-semibold ${isAr ? 'font-mikhak-medium' : 'font-outfit'}`}>
