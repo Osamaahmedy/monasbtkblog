@@ -108,10 +108,67 @@ function ImageUpload({ value, onChange, currentImage, error }) {
 // ── Rich Editor Section ────────────────────────────────────────────────────────
 function RichEditor({ lang, value, onChange, error, draftKey }) {
     const [draftSaved, setDraftSaved] = useState(false);
+    const [uploading, setUploading] = useState(false);
     const [height, setHeight] = useState(500);
     const quillRef = useRef(null);
     const { lang: globalLang } = useLanguage();
     const t = translations[globalLang] || translations.en;
+
+    // Custom image handler — uploads to server instead of embedding base64
+    const imageHandler = useCallback(() => {
+        const input = document.createElement('input');
+        input.setAttribute('type', 'file');
+        input.setAttribute('accept', 'image/*');
+        input.click();
+
+        input.onchange = async () => {
+            const file = input.files?.[0];
+            if (!file) return;
+
+            const quill = quillRef.current?.getEditor();
+            if (!quill) return;
+
+            setUploading(true);
+
+            try {
+                const formData = new FormData();
+                formData.append('image', file);
+
+                const response = await fetch(route('admin.articles.upload-image'), {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]')?.content,
+                        'Accept': 'application/json',
+                    },
+                    body: formData,
+                });
+
+                if (!response.ok) throw new Error('Upload failed');
+
+                const data = await response.json();
+                const range = quill.getSelection(true);
+                quill.insertEmbed(range.index, 'image', data.url);
+                quill.setSelection(range.index + 1);
+            } catch (err) {
+                alert(globalLang === 'ar'
+                    ? 'فشل رفع الصورة. تأكد من أن حجمها أقل من 5MB.'
+                    : 'Image upload failed. Make sure it is under 5MB.');
+                console.error('Image upload error:', err);
+            } finally {
+                setUploading(false);
+            }
+        };
+    }, [globalLang]);
+
+    // Quill modules with custom image handler
+    const modules = useRef({
+        toolbar: {
+            container: lang === 'ar' ? TOOLBAR_AR : TOOLBAR_EN,
+            handlers: {
+                image: imageHandler,
+            },
+        },
+    });
 
     // Autosave
     useEffect(() => {
@@ -140,6 +197,15 @@ function RichEditor({ lang, value, onChange, error, draftKey }) {
             {/* Controls row */}
             <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
                 <div className="flex items-center gap-1.5">
+                    {uploading && (
+                        <span className="inline-flex items-center gap-1 text-xs px-2 py-1 bg-amber-50 text-amber-700 border border-amber-200 rounded-lg font-mikhak-bold animate-pulse">
+                            <svg className="animate-spin w-3 h-3" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 12 0 12 0v4a8 8 0 00-8 8H0z" />
+                            </svg>
+                            {globalLang === 'ar' ? 'جاري رفع الصورة...' : 'Uploading image...'}
+                        </span>
+                    )}
                     {draftSaved && (
                         <span className="inline-flex items-center gap-1 text-xs px-2 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-lg font-mikhak-bold">
                             <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
@@ -187,7 +253,7 @@ function RichEditor({ lang, value, onChange, error, draftKey }) {
                         theme="snow"
                         value={value || ''}
                         onChange={onChange}
-                        modules={{ toolbar: lang === 'ar' ? TOOLBAR_AR : TOOLBAR_EN }}
+                        modules={modules.current}
                         placeholder={t.admin.articleForm.quillPlaceholder}
                     />
                 </Suspense>

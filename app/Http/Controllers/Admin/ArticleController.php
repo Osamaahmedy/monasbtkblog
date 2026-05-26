@@ -90,6 +90,23 @@ class ArticleController extends Controller
         ]);
     }
 
+    /**
+     * Upload an image from the Quill editor.
+     * Returns a URL instead of embedding base64 in content.
+     */
+    public function uploadImage(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
+        ]);
+
+        $path = $request->file('image')->store('articles/content', 'public');
+
+        return response()->json([
+            'url' => '/storage/' . $path,
+        ]);
+    }
+
     public function update(Request $request, Article $article)
     {
         $request->merge(['slug' => Str::slug($request->input('title.en', ''))]);

@@ -48,6 +48,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
   Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('categories', AdminCategoryController::class);
     Route::resource('articles', AdminArticleController::class);
+    Route::post('articles/upload-image', [AdminArticleController::class, 'uploadImage'])->name('articles.upload-image');
 
     Route::get('/comments', [AdminCommentController::class, 'index'])->name('comments.index');
     Route::patch('/comments/{comment}/status', [AdminCommentController::class, 'updateStatus'])->name('comments.update-status');
