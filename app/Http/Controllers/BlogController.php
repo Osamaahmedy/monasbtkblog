@@ -47,8 +47,10 @@ class BlogController extends Controller
         }]);
 
         $relatedArticles = Article::published()
+            ->select('id', 'title', 'slug', 'image', 'status', 'published_at', 'category_id', 'created_at')
             ->where('category_id', $article->category_id)
             ->where('id', '!=', $article->id)
+            ->latest()
             ->take(3)
             ->get();
 

@@ -2,6 +2,7 @@ import { Head, Link } from '@inertiajs/react';
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import monasbtkIcon from '../../../images/monasbtk_colored_logo.png';
+import LazyImage from '../../Components/LazyImage';
 
 // ── helpers ────────────────────────────────────────────────────────────────────
 const readTime = (article, lang) => {
@@ -58,8 +59,13 @@ function FeaturedCard({ article, lang, t, isAr }) {
             {/* Image */}
             <div className="aspect-[16/7] bg-gradient-to-br from-purple-100 via-pink-50 to-purple-50 overflow-hidden relative">
                 {article.image
-                    ? <img src={`/storage/${article.image}`} alt={article.title[lang]}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103" />
+                    ? <LazyImage
+                        src={`/storage/${article.image}`}
+                        alt={article.title[lang]}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
+                        wrapperClassName="w-full h-full"
+                        rootMargin={400}
+                      />
                     : <div className="w-full h-full bg-gradient-to-br from-purple-200 via-pink-100 to-purple-50" />
                 }
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
@@ -114,7 +120,13 @@ function ArticleCard({ article, lang, t, index, isAr }) {
                 {/* Thumbnail */}
                 <div className="flex-shrink-0 w-24 h-20 sm:w-32 sm:h-24 rounded-2xl overflow-hidden bg-purple-50 border border-purple-100/30">
                     {article.image
-                        ? <img src={`/storage/${article.image}`} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        ? <LazyImage
+                            src={`/storage/${article.image}`}
+                            alt=""
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            wrapperClassName="w-full h-full"
+                            rootMargin={300}
+                          />
                         : <div className="w-full h-full flex items-center justify-center opacity-30">
                             <svg className="w-8 h-8 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <rect x="3" y="3" width="18" height="18" rx="2" strokeWidth="1.5"/>
@@ -223,7 +235,7 @@ export default function Index({ articles, categories, filters }) {
             <nav className="blog-nav">
                 <div className="blog-inner h-full flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-2">
-                        <img src={monasbtkIcon} alt="Monasbtk Logo" className="h-8 w-8" />
+                        <img src={monasbtkIcon} alt="Monasbtk Logo" className="h-8 w-8" loading="eager" decoding="async" />
                         <span className={`text-xl font-extrabold bg-gradient-to-r from-[#FF157D] to-[#794BC7] bg-clip-text text-transparent ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`}>
                             Monasbtk
                         </span>

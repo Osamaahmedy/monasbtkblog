@@ -2,6 +2,7 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import monasbtkIcon from '../../../images/monasbtk_colored_logo.png';
+import LazyImage from '../../Components/LazyImage';
 
 export default function Show({ article, relatedArticles }) {
     const [lang, setLang] = useState(() => {
@@ -125,6 +126,17 @@ export default function Show({ article, relatedArticles }) {
 
     const pageUrl = typeof window !== 'undefined' ? window.location.href : '';
     const isAr = lang === 'ar';
+    const proseRef = useRef(null);
+
+    // Apply lazy loading to all images inside article prose content (from dangerouslySetInnerHTML)
+    useEffect(() => {
+        if (!proseRef.current) return;
+        const imgs = proseRef.current.querySelectorAll('img');
+        imgs.forEach((img) => {
+            img.setAttribute('loading', 'lazy');
+            img.setAttribute('decoding', 'async');
+        });
+    }, [lang, article.content]);
 
     const { scrollYProgress } = useScroll();
     const scaleX = useSpring(scrollYProgress, {
@@ -479,7 +491,7 @@ export default function Show({ article, relatedArticles }) {
                     font-style: italic;
                     font-size: 1.05em;
                 }
-                .article-prose img { width:100%; border-radius:20px; margin:2.2em 0; box-shadow:0 6px 28px rgba(121,75,199,0.06); }
+                .article-prose img { width:100%; border-radius:20px; margin:2.2em 0; box-shadow:0 6px 28px rgba(121,75,199,0.06); content-visibility:auto; contain-intrinsic-size:auto 400px; }
                 .article-prose pre { overflow-x:auto; background:#faf7f9; border:1px solid rgba(121,75,199,0.14); padding:18px; border-radius:16px; margin:1.6em 0; }
                 .article-prose code { font-size:13.5px; background:#f7f0f4; padding:2px 7px; border-radius:6px; }
                 .share-row { display:flex; align-items:center; gap:16px; padding:22px 0; border-top:1px solid rgba(121,75,199,0.12); margin-top:10px; }
@@ -879,7 +891,7 @@ export default function Show({ article, relatedArticles }) {
                 <div className="nav-inner">
                     <div className="nav-left">
                         <Link href="/" className="flex items-center gap-2">
-                            <img src={monasbtkIcon} alt="Monasbtk Logo" className="h-8 w-8" />
+                            <img src={monasbtkIcon} alt="Monasbtk Logo" className="h-8 w-8" loading="eager" decoding="async" />
                             <span className={`nav-logo font-extrabold bg-gradient-to-r from-[#FF157D] to-[#794BC7] bg-clip-text text-transparent ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`} style={{ margin: 0 }}>
                                 Monasbtk
                             </span>
@@ -962,7 +974,14 @@ export default function Show({ article, relatedArticles }) {
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.5, delay: 0.1 }}
                         >
-                            <img src={`/storage/${article.image}`} alt={article.title?.[lang]} />
+                        <LazyImage
+                            src={`/storage/${article.image}`}
+                            alt={article.title?.[lang]}
+                            className="w-full max-h-[540px] object-cover block"
+                            wrapperClassName="w-full"
+                            wrapperStyle={{ maxHeight: '540px' }}
+                            rootMargin={400}
+                        />
                             <div className="cover-overlay" />
                         </motion.div>
                     )}
@@ -978,6 +997,7 @@ export default function Show({ article, relatedArticles }) {
                             transition={{ duration: 0.45, delay: 0.15 }}
                         >
                             <div
+                                ref={proseRef}
                                 className={`article-prose ${isAr ? 'font-mikhak-regular' : 'font-outfit font-light'}`}
                                 style={{ textAlign: isAr ? 'right' : 'left' }}
                                 dangerouslySetInnerHTML={{ __html: article.content?.[lang] }}
@@ -1163,7 +1183,13 @@ export default function Show({ article, relatedArticles }) {
                                 >
                                     <div className="related-media">
                                         {rel.image ? (
-                                            <img src={`/storage/${rel.image}`} alt={rel.title?.[lang]} />
+                                            <LazyImage
+                                                src={`/storage/${rel.image}`}
+                                                alt={rel.title?.[lang]}
+                                                className="w-full h-full object-cover transition-transform duration-500"
+                                                wrapperClassName="w-full h-full"
+                                                rootMargin={300}
+                                            />
                                         ) : (
                                             <div style={{ width: '100%', height: '100%', background: '#f5ecf2' }} />
                                         )}

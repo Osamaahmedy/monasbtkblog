@@ -1,8 +1,15 @@
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import { lazy, Suspense } from 'react';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 import { translations } from '@/translations';
+
+// Lazy-load ReactQuill — it's the heaviest dependency (~260KB)
+// This prevents it from blocking the initial page render
+const ReactQuill = lazy(() => import('react-quill').then(mod => {
+    // Also load the CSS
+    import('react-quill/dist/quill.snow.css');
+    return mod;
+}));
 
 // ── Quill toolbar modules ──────────────────────────────────────────────────────
 const TOOLBAR_EN = [
@@ -165,16 +172,27 @@ function RichEditor({ lang, value, onChange, error, draftKey }) {
                 </div>
             </div>
 
-            {/* Quill */}
+            {/* Quill — wrapped in Suspense for lazy loading */}
             <div className={`quill-wrapper ${lang === 'ar' ? 'quill-rtl' : ''} ${error ? 'quill-error' : ''}`} style={{ '--qh': `${height}px` }}>
-                <ReactQuill
-                    ref={quillRef}
-                    theme="snow"
-                    value={value || ''}
-                    onChange={onChange}
-                    modules={{ toolbar: lang === 'ar' ? TOOLBAR_AR : TOOLBAR_EN }}
-                    placeholder={t.admin.articleForm.quillPlaceholder}
-                />
+                <Suspense fallback={
+                    <div style={{ height: `calc(${height}px + 42px)` }} className="rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 flex flex-col items-center justify-center gap-3 animate-pulse">
+                        <div className="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center">
+                            <svg className="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                        </div>
+                        <span className="text-xs text-slate-400 font-mikhak-medium">{t.admin.articleForm.quillPlaceholder || 'Loading editor...'}</span>
+                    </div>
+                }>
+                    <ReactQuill
+                        ref={quillRef}
+                        theme="snow"
+                        value={value || ''}
+                        onChange={onChange}
+                        modules={{ toolbar: lang === 'ar' ? TOOLBAR_AR : TOOLBAR_EN }}
+                        placeholder={t.admin.articleForm.quillPlaceholder}
+                    />
+                </Suspense>
             </div>
 
             {/* Stats bar */}
@@ -331,31 +349,35 @@ export default function ArticleForm({ data, setData, errors, setError, clearErro
                             />
                         </div>
 
-                        {/* Rich Text Editor */}
+                        {/* Rich Text Editor — Deferred mount: only initialize when tab first activated */}
                         <div>
                             <label className={labelCls}>
                                 {lang === 'ar' ? 'محتوى المقالة' : 'Article Content'} <span className="text-rose-500">*</span>
                             </label>
-                            {/* EN editor - always mounted, hidden when AR */}
-                            <div style={{ display: lang === 'en' ? 'block' : 'none' }}>
-                                <RichEditor
-                                    lang="en"
-                                    value={data.content?.en}
-                                    onChange={val => setData('content', { ...data.content, en: val })}
-                                    error={errors['content.en']}
-                                    draftKey={draftKeyEn}
-                                />
-                            </div>
-                            {/* AR editor - always mounted, hidden when EN */}
-                            <div style={{ display: lang === 'ar' ? 'block' : 'none' }}>
-                                <RichEditor
-                                    lang="ar"
-                                    value={data.content?.ar}
-                                    onChange={val => setData('content', { ...data.content, ar: val })}
-                                    error={errors['content.ar']}
-                                    draftKey={draftKeyAr}
-                                />
-                            </div>
+                            {/* EN editor - mount on first visit, then keep alive via display:none */}
+                            {(lang === 'en' || data.content?.en) && (
+                                <div style={{ display: lang === 'en' ? 'block' : 'none' }}>
+                                    <RichEditor
+                                        lang="en"
+                                        value={data.content?.en}
+                                        onChange={val => setData('content', { ...data.content, en: val })}
+                                        error={errors['content.en']}
+                                        draftKey={draftKeyEn}
+                                    />
+                                </div>
+                            )}
+                            {/* AR editor - mount on first visit, then keep alive via display:none */}
+                            {(lang === 'ar' || data.content?.ar) && (
+                                <div style={{ display: lang === 'ar' ? 'block' : 'none' }}>
+                                    <RichEditor
+                                        lang="ar"
+                                        value={data.content?.ar}
+                                        onChange={val => setData('content', { ...data.content, ar: val })}
+                                        error={errors['content.ar']}
+                                        draftKey={draftKeyAr}
+                                    />
+                                </div>
+                            )}
                         </div>
                     </div>
 
