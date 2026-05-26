@@ -5,11 +5,9 @@ import { translations } from '@/translations';
 
 // Lazy-load ReactQuill — it's the heaviest dependency (~260KB)
 // This prevents it from blocking the initial page render
-const ReactQuill = lazy(() => import('react-quill').then(mod => {
-    // Also load the CSS
-    import('react-quill/dist/quill.snow.css');
-    return mod;
-}));
+const ReactQuill = lazy(() => import('react-quill'));
+// Pre-load the CSS so it's ready when the editor mounts
+import('react-quill/dist/quill.snow.css');
 
 // ── Quill toolbar modules ──────────────────────────────────────────────────────
 const TOOLBAR_EN = [
