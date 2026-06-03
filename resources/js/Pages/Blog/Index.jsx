@@ -20,16 +20,20 @@ const initials = (name = '') => name.charAt(0).toUpperCase();
 
 // ── translations ───────────────────────────────────────────────────────────────
 const T = {
-    en: { home:'Home', blog:'Blog', all:'All', read:'min read', prev:'Previous', next:'Next',
-          empty:'No articles found.', search:'Search articles…', searchBtn:'Search',
-          featured:'Featured', latest:'Latest Articles', topics:'Topics', about:'About',
-          aboutText:'A curated editorial space for ideas, celebration guidance, and elegant inspiration.',
-          learnMore:'Learn more', articles:'articles', clearSearch:'Clear search' },
-    ar: { home:'الرئيسية', blog:'المدونة', all:'الكل', read:'د. قراءة', prev:'السابق', next:'التالي',
-          empty:'لا توجد مقالات.', search:'ابحث في المقالات…', searchBtn:'بحث',
-          featured:'مميز', latest:'أحدث المقالات', topics:'المواضيع', about:'عن مناسبتك',
-          aboutText:'مساحة تحريرية منتقاة للأفكار ونصائح المناسبات والإلهام الأنيق.',
-          learnMore:'تعرّف علينا', articles:'مقال', clearSearch:'مسح البحث' },
+    en: {
+        home: 'Home', blog: 'Blog', all: 'All', read: 'min read', prev: 'Previous', next: 'Next',
+        empty: 'No articles found.', search: 'Search articles…', searchBtn: 'Search',
+        featured: 'Featured', latest: 'Latest Articles', topics: 'Topics', about: 'About',
+        aboutText: 'A curated editorial space for ideas, celebration guidance, and elegant inspiration.',
+        learnMore: 'Learn more', articles: 'articles', clearSearch: 'Clear search'
+    },
+    ar: {
+        home: 'الرئيسية', blog: 'المدونة', all: 'الكل', read: 'د. قراءة', prev: 'السابق', next: 'التالي',
+        empty: 'لا توجد مقالات.', search: 'ابحث في المقالات…', searchBtn: 'بحث',
+        featured: 'مميز', latest: 'أحدث المقالات', topics: 'المواضيع', about: 'عن مناسبتك',
+        aboutText: 'مساحة تحريرية منتقاة للأفكار ونصائح المناسبات والإلهام الأنيق.',
+        learnMore: 'تعرّف علينا', articles: 'مقال', clearSearch: 'مسح البحث'
+    },
 };
 
 // ── Avatar ─────────────────────────────────────────────────────────────────────
@@ -65,12 +69,12 @@ function FeaturedCard({ article, lang, t, isAr }) {
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
                         wrapperClassName="w-full h-full"
                         rootMargin={400}
-                      />
+                    />
                     : <div className="w-full h-full bg-gradient-to-br from-purple-200 via-pink-100 to-purple-50" />
                 }
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
             </div>
-            
+
             {/* Content overlay */}
             <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 text-white">
                 <div className="flex flex-wrap gap-2 mb-3">
@@ -83,17 +87,17 @@ function FeaturedCard({ article, lang, t, isAr }) {
                         </span>
                     )}
                 </div>
-                
+
                 <h2 className={`text-xl sm:text-2.5xl md:text-3.5xl font-extrabold leading-snug mb-3 drop-shadow-sm group-hover:text-purple-200 transition-colors ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`}>
                     {article.title[lang]}
                 </h2>
-                
+
                 {article.short_description?.[lang] && (
                     <p className={`text-white/85 text-xs sm:text-sm line-clamp-2 mb-5 max-w-3xl ${isAr ? 'font-mikhak-regular' : 'font-outfit font-light'}`}>
                         {article.short_description[lang]}
                     </p>
                 )}
-                
+
                 <div className={`flex items-center gap-3 text-white/70 text-xs ${isAr ? 'font-mikhak-regular' : 'font-outfit'}`}>
                     <Avatar name={article.user?.name} size={22} />
                     <span className="font-semibold">{article.user?.name}</span>
@@ -110,9 +114,9 @@ function FeaturedCard({ article, lang, t, isAr }) {
 // ── Article card ───────────────────────────────────────────────────────────────
 function ArticleCard({ article, lang, t, index, isAr }) {
     return (
-        <motion.div 
-            initial={{ opacity: 0, y: 15 }} 
-            animate={{ opacity: 1, y: 0 }} 
+        <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05, duration: 0.35, ease: 'easeOut' }}
         >
             <Link href={route('blog.show', article.slug)}
@@ -126,14 +130,14 @@ function ArticleCard({ article, lang, t, index, isAr }) {
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             wrapperClassName="w-full h-full"
                             rootMargin={300}
-                          />
+                        />
                         : <div className="w-full h-full flex items-center justify-center opacity-30">
                             <svg className="w-8 h-8 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <rect x="3" y="3" width="18" height="18" rx="2" strokeWidth="1.5"/>
-                                <circle cx="8.5" cy="8.5" r="1.5" strokeWidth="1.5"/>
-                                <path d="M21 15l-5-5L5 21" strokeWidth="1.5"/>
+                                <rect x="3" y="3" width="18" height="18" rx="2" strokeWidth="1.5" />
+                                <circle cx="8.5" cy="8.5" r="1.5" strokeWidth="1.5" />
+                                <path d="M21 15l-5-5L5 21" strokeWidth="1.5" />
                             </svg>
-                          </div>
+                        </div>
                     }
                 </div>
                 {/* Body */}
@@ -148,17 +152,17 @@ function ArticleCard({ article, lang, t, index, isAr }) {
                             </>
                         )}
                     </div>
-                    
+
                     <h3 className={`text-base sm:text-lg font-bold leading-snug text-slate-800 group-hover:text-[#794BC7] transition-colors mb-2 line-clamp-2 ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`}>
                         {article.title[lang]}
                     </h3>
-                    
+
                     {article.short_description?.[lang] && (
                         <p className={`text-xs sm:text-sm text-slate-500 line-clamp-1 mb-2.5 ${isAr ? 'font-mikhak-regular' : 'font-outfit font-light'}`}>
                             {article.short_description[lang]}
                         </p>
                     )}
-                    
+
                     <div className={`flex items-center gap-2 text-xs text-slate-400 ${isAr ? 'font-mikhak-regular' : 'font-outfit'}`}>
                         <span>{fmtDate(article.created_at, lang)}</span>
                         <span>·</span>
@@ -245,11 +249,13 @@ export default function Index({ articles, categories, filters }) {
                             {t.home}
                         </Link>
                         <div className="flex rounded-full overflow-hidden border border-purple-100 bg-white/40">
-                            {['en','ar'].map(l => (
+                            {['en', 'ar'].map(l => (
                                 <button key={l} onClick={() => switchLang(l)}
-                                    style={{ padding:'5px 14px', fontSize:11, fontWeight:700, cursor:'pointer', border:'none',
+                                    style={{
+                                        padding: '5px 14px', fontSize: 11, fontWeight: 700, cursor: 'pointer', border: 'none',
                                         background: lang === l ? '#794BC7' : 'transparent',
-                                        color: lang === l ? '#fff' : '#794BC7', transition:'all .2s' }}>
+                                        color: lang === l ? '#fff' : '#794BC7', transition: 'all .2s'
+                                    }}>
                                     {l === 'en' ? 'EN' : 'عربي'}
                                 </button>
                             ))}
@@ -266,7 +272,7 @@ export default function Index({ articles, categories, filters }) {
                             <span className="w-2 h-2 rounded-full bg-[#794BC7] animate-pulse" />
                             {isAr ? 'مدونة مناسبتك التحريرية' : 'Monasbtk Editorial'}
                         </p>
-                        
+
                         <h1 className={`text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.12] tracking-tight text-[#1e1520] mb-6 ${isAr ? 'font-mikhak-bold' : 'font-outfit'}`}>
                             {isAr ? (
                                 <>
@@ -283,19 +289,19 @@ export default function Index({ articles, categories, filters }) {
                         <form onSubmit={handleSearch} className="flex gap-3 mt-8 max-w-lg">
                             <div className="relative flex-1">
                                 <svg className={`absolute ${isAr ? 'right-4' : 'left-4'} top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                 </svg>
-                                <input 
-                                    ref={searchRef} 
-                                    value={searchVal} 
+                                <input
+                                    ref={searchRef}
+                                    value={searchVal}
                                     onChange={e => setSearchVal(e.target.value)}
-                                    placeholder={t.search} 
+                                    placeholder={t.search}
                                     className={`w-full py-3.5 rounded-full border border-purple-200/60 bg-white/80 text-sm focus:border-[#794BC7]/40 focus:ring-1 focus:ring-[#794BC7]/20 outline-none text-[#2a1f30] shadow-sm transition-all
-                                        ${isAr ? 'pr-11 pl-4 font-mikhak-regular' : 'pl-11 pr-4 font-outfit'}`} 
+                                        ${isAr ? 'pr-11 pl-4 font-mikhak-regular' : 'pl-11 pr-4 font-outfit'}`}
                                 />
                             </div>
-                            <button 
-                                type="submit" 
+                            <button
+                                type="submit"
                                 className={`px-6 py-3.5 rounded-full bg-[#794BC7] text-white text-sm font-bold border-none cursor-pointer transition-all duration-300 hover:bg-[#6B00C9] hover:shadow-lg hover:shadow-purple-500/10 active:scale-95 whitespace-nowrap select-none ${isAr ? 'font-mikhak-medium' : 'font-outfit'}`}
                             >
                                 {t.searchBtn}
@@ -313,7 +319,7 @@ export default function Index({ articles, categories, filters }) {
             </div>
 
             {/* ── CATEGORY BAR ── */}
-            <div style={{ position:'sticky', top:68, zIndex:80, background:'rgba(253,249,251,.96)', backdropFilter:'blur(12px)', borderBottom:'1px solid rgba(121,75,199,.12)' }}>
+            <div style={{ position: 'sticky', top: 68, zIndex: 80, background: 'rgba(253,249,251,.96)', backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(121,75,199,.12)' }}>
                 <div className="blog-inner">
                     <div className="cat-scroll">
                         <Link href={route('blog.index', filters?.search ? { search: filters.search } : {})}
@@ -338,7 +344,7 @@ export default function Index({ articles, categories, filters }) {
 
                         {/* Articles list */}
                         <AnimatePresence mode="wait">
-                            <motion.div key={currentCat || 'all'} initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ duration:.2 }} className="space-y-2">
+                            <motion.div key={currentCat || 'all'} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: .2 }} className="space-y-2">
                                 {(showFeatured ? rest : articles.data).map((article, i) => (
                                     <ArticleCard key={article.id} article={article} lang={lang} t={t} index={i} isAr={isAr} />
                                 ))}
@@ -349,7 +355,7 @@ export default function Index({ articles, categories, filters }) {
                         {articles.data.length === 0 && (
                             <div className="text-center py-16">
                                 <div className="w-16 h-16 rounded-full bg-purple-50 border border-purple-100 flex items-center justify-center mx-auto mb-4">
-                                    <svg className="w-6 h-6 text-[#794BC7]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                    <svg className="w-6 h-6 text-[#794BC7]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" /><polyline points="14 2 14 8 20 8" /></svg>
                                 </div>
                                 <p className={`text-slate-500 mb-6 ${isAr ? 'font-mikhak-regular' : 'font-outfit'}`}>{t.empty}</p>
                                 <Link href={route('blog.index')} className={`inline-flex px-6 py-3 rounded-full bg-[#794BC7] text-white text-sm font-semibold hover:bg-[#6B00C9] transition-all ${isAr ? 'font-mikhak-medium' : 'font-outfit'}`}>{t.all}</Link>
@@ -361,24 +367,24 @@ export default function Index({ articles, categories, filters }) {
                             <div className={`flex items-center justify-center gap-4 pt-10 ${isAr ? 'font-mikhak-medium' : 'font-outfit'}`}>
                                 {articles.prev_page_url
                                     ? <Link href={articles.prev_page_url} className="page-btn page-on">
-                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ transform: isAr ? 'rotate(180deg)' : 'none' }}><path d="M15 18l-6-6 6-6"/></svg>
+                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ transform: isAr ? 'rotate(180deg)' : 'none' }}><path d="M15 18l-6-6 6-6" /></svg>
                                         <span>{t.prev}</span>
-                                      </Link>
+                                    </Link>
                                     : <span className="page-btn page-off">
-                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ transform: isAr ? 'rotate(180deg)' : 'none' }}><path d="M15 18l-6-6 6-6"/></svg>
+                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ transform: isAr ? 'rotate(180deg)' : 'none' }}><path d="M15 18l-6-6 6-6" /></svg>
                                         <span>{t.prev}</span>
-                                      </span>
+                                    </span>
                                 }
                                 <span className="text-sm font-semibold text-slate-400">{articles.current_page} / {articles.last_page}</span>
                                 {articles.next_page_url
                                     ? <Link href={articles.next_page_url} className="page-btn page-on">
                                         <span>{t.next}</span>
-                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ transform: isAr ? 'rotate(180deg)' : 'none' }}><path d="M9 18l6-6-6-6"/></svg>
-                                      </Link>
+                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ transform: isAr ? 'rotate(180deg)' : 'none' }}><path d="M9 18l6-6-6-6" /></svg>
+                                    </Link>
                                     : <span className="page-btn page-off">
                                         <span>{t.next}</span>
-                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ transform: isAr ? 'rotate(180deg)' : 'none' }}><path d="M9 18l6-6-6-6"/></svg>
-                                      </span>
+                                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ transform: isAr ? 'rotate(180deg)' : 'none' }}><path d="M9 18l6-6-6-6" /></svg>
+                                    </span>
                                 }
                             </div>
                         )}
@@ -411,7 +417,7 @@ export default function Index({ articles, categories, filters }) {
                                 </p>
                                 <Link href="/" className={`inline-flex items-center gap-1.5 text-sm font-bold text-[#794BC7] hover:text-[#6B00C9] transition-colors select-none ${isAr ? 'font-mikhak-medium' : 'font-outfit'}`}>
                                     <span>{t.learnMore}</span>
-                                    <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ transform: isAr ? 'rotate(180deg)' : 'none' }}><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                    <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" style={{ transform: isAr ? 'rotate(180deg)' : 'none' }}><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                                 </Link>
                             </div>
                         </div>
@@ -426,7 +432,7 @@ export default function Index({ articles, categories, filters }) {
 
                         {/* Footer links */}
                         <div className="flex flex-wrap gap-x-4 gap-y-2 mt-8 px-2">
-                            {[['/', isAr?'الرئيسية':'Home'],['/about',isAr?'عن مناسبتك':'About'],['/contact',isAr?'تواصل معنا':'Contact'],['/privacy-policy',isAr?'سياسة الخصوصية':'Privacy']].map(([href, label]) => (
+                            {[['/', isAr ? 'الرئيسية' : 'Home'], ['/about-us', isAr ? 'عن مناسبتك' : 'About'], ['/contact-us', isAr ? 'تواصل معنا' : 'Contact'], ['/privacy-policy', isAr ? 'سياسة الخصوصية' : 'Privacy']].map(([href, label]) => (
                                 <Link key={href} href={href} className={`text-xs font-semibold text-slate-400 hover:text-[#794BC7] transition-colors ${isAr ? 'font-mikhak-regular' : 'font-outfit'}`}>{label}</Link>
                             ))}
                         </div>
