@@ -43,7 +43,7 @@
     <link rel="apple-touch-icon" href="{{ Vite::asset('resources/images/monasbtk_colored_logo.png') }}">
 
     {{-- ===== Google Search Console Verification ===== --}}
-    <meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE">
+    <meta name="google-site-verification" content="VGHq44w9RrW9MIDWaBCVb5fKIrmU-wdiB_TQaGvhXx0" />
 
     {{-- ===== Structured Data / JSON-LD (Schema.org) ===== --}}
     <script type="application/ld+json">
