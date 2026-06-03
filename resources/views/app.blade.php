@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8FF16W6S3C"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-8FF16W6S3C');
+    </script>
+    
     {{-- ===== SEO Core Meta ===== --}}
     <title>@yield('title', 'monasbtk - مناسبتك')</title>
     <meta name="description" content="@yield('description', 'وصف موقعك هنا - اكتب وصفاً جذاباً لا يتجاوز 160 حرف')">
