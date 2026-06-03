@@ -106,5 +106,7 @@
     <!-- End Google Tag Manager (noscript) -->
 
     @inertia
+
+    <!-- زز -->
 </body>
 </html>
