@@ -38,7 +38,7 @@ class BlogController extends Controller
 
     public function show(Article $article)
     {
-        if (!$article->is_published) {
+        if (!$article->is_published && !auth()->check()) {
             abort(404);
         }
 

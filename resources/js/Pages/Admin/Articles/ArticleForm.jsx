@@ -54,6 +54,16 @@ const getMinDateTime = () => {
     return new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
 };
 
+const formatDateTimeLocal = (value) => {
+    if (!value) return '';
+    if (value.includes('Z') || value.match(/[+-]\d{2}:\d{2}$/)) {
+        const date = new Date(value);
+        if (isNaN(date.getTime())) return '';
+        return new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+    }
+    return value.slice(0, 16);
+};
+
 // ── Image Upload with preview ──────────────────────────────────────────────────
 function ImageUpload({ value, onChange, currentImage, error }) {
     const [preview, setPreview] = useState(null);
@@ -503,7 +513,7 @@ export default function ArticleForm({ data, setData, errors, setError, clearErro
                                                  <input
                                                      type="datetime-local"
                                                      className={inputCls(errors.published_at) + ' !py-1.5 !px-3 !text-xs'}
-                                                     value={data.published_at ? data.published_at.slice(0, 16) : ''}
+                                                     value={formatDateTimeLocal(data.published_at)}
                                                      min={getMinDateTime()}
                                                      onChange={e => setData('published_at', e.target.value)}
                                                      required
