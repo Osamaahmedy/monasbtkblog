@@ -5,6 +5,16 @@
 
     RewriteEngine On
 
+    # =======================================================
+    # 1. إجبار تحويل روابط الـ WWW إلى الروابط الأساسية بدون WWW
+    RewriteCond %{HTTP_HOST} ^www\.monasbtk\.com [NC]
+    RewriteRule ^(.*)$ https://monasbtk.com/$1 [L,R=301]
+
+    # 2. إجبار تفعيل بروتوكول الحماية HTTPS لجميع الزوار والبوتات
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://monasbtk.com/$1 [L,R=301]
+    # =======================================================
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

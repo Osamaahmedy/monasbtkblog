@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
 
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -29,7 +31,9 @@
     <meta name="author" content="monasbtk">
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
-    <link rel="canonical" href="@yield('canonical', url()->current())">
+    
+    {{-- إصلاح الرابط الرئيسي (Canonical) ليعتمد على رابط الـ APP_URL الصافي من ملف الـ .env --}}
+    <link rel="canonical" href="@yield('canonical', rtrim(config('app.url'), '/') . (request()->path() === '/' ? '' : '/' . ltrim(request()->path(), '/')))">
 
     {{-- ===== Theme Color ===== --}}
     <meta name="theme-color" content="#794BC7">
@@ -42,7 +46,9 @@
     <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:title" content="@yield('og_title', 'monasbtk - مناسبتك')">
     <meta property="og:description" content="@yield('og_description', 'وصف موقعك هنا')">
-    <meta property="og:url" content="@yield('og_url', url()->current())">
+    
+    {{-- إصلاح رابط الـ og:url تماشياً مع الكانوبيكال الثابت --}}
+    <meta property="og:url" content="@yield('og_url', rtrim(config('app.url'), '/') . (request()->path() === '/' ? '' : '/' . ltrim(request()->path(), '/')))">
     <meta property="og:image" content="@yield('og_image', Vite::asset('resources/images/monasbtk_colored_logo.png'))">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -64,19 +70,20 @@
     <meta name="google-site-verification" content="VGHq44w9RrW9MIDWaBCVb5fKIrmU-wdiB_TQaGvhXx0" />
 
     {{-- ===== Structured Data / JSON-LD (Schema.org) ===== --}}
+    {{-- تم إصلاح علامات التنصيص المزدوجة المتداخلة عند كلمة مناسبتك ليعمل الكود بشكل صحيح وبدون أخطاء جافا سكريبت --}}
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "monasbtk",
-        "url": "{{ config('app.url') }}",
-        "description": ""مناسبتك" هي شركة سعودية ناشئة تعتمد على التكنولوجيا، متخصصة في تقديم حلول ذكية لتنظيم المناسبات والفعاليات. نؤمن بأن التخطيط لمناسبة مميزة لا يجب أن يكون معقدًا، ولهذا صممنا تطبيق "مناسبتك" ليكون أداة سهلة وفعالة تساعد العملاء على توفير الوقت والجهد، والوصول إلى أفضل مزودي الخدمات بكل سلاسة. تأسست الشركة بداية عام 2024، ونسعى لإحداث نقلة نوعية في قطاع تنظيم المناسبات من خلال حلول مبتكرة وشاملة تواكب احتياجات السوق المحلي وتدعم رواد الأعمال في هذا المجال",
+        "url": "{{ rtrim(config('app.url'), '/') }}",
+        "description": "«مناسبتك» هي شركة سعودية ناشئة تعتمد على التكنولوجيا، متخصصة في تقديم حلول ذكية لتنظيم المناسبات والفعاليات. نؤمن بأن التخطيط لمناسبة مميزة لا يجب أن يكون معقدًا، ولهذا صممنا تطبيق «مناسبتك» ليكون أداة سهلة وفعالة تساعد العملاء على توفير الوقت والجهد، والوصول إلى أفضل مزودي الخدمات بكل سلاسة. تأسست الشركة بداية عام 2024، ونسعى لإحداث نقلة نوعية في قطاع تنظيم المناسبات من خلال حلول مبتكرة وشاملة تواكب احتياجات السوق المحلي وتدعم رواد الأعمال في هذا المجال",
         "inLanguage": "ar",
         "potentialAction": {
             "@type": "SearchAction",
             "target": {
                 "@type": "EntryPoint",
-                "urlTemplate": "{{ config('app.url') }}/search?q={search_term_string}"
+                "urlTemplate": "{{ rtrim(config('app.url'), '/') }}/search?q={search_term_string}"
             },
             "query-input": "required name=search_term_string"
         }

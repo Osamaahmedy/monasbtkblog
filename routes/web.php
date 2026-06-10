@@ -23,6 +23,11 @@ Route::get('/', function () {
             ->get()
     ]);
 });
+Route::get('/clear-my-cache', function() {
+    \Artisan::call('view:clear');
+    return "Views Cache Cleared!";
+});
+
 
 Route::get('/contact-us', [PageController::class, 'contactUs'])->name('pages.contact');
 Route::post('/contact/send', [ReviewController::class, 'sendContact'])->name('contact.send');
