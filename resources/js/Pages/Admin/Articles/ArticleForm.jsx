@@ -128,7 +128,7 @@ const formatDateTimeLocal = (value) => {
 };
 
 // ── Image Upload with preview ──────────────────────────────────────────────────
-function ImageUpload({ value, onChange, currentImage, error }) {
+function ImageUpload({ value, onChange, currentImage, error, setError, clearErrors }) {
     const [preview, setPreview] = useState(null);
     const { lang } = useLanguage();
     const t = translations[lang] || translations.en;
@@ -136,6 +136,33 @@ function ImageUpload({ value, onChange, currentImage, error }) {
     const handleChange = (e) => {
         const file = e.target.files[0];
         if (file) {
+            // Validate File Type
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+            if (!allowedTypes.includes(file.type)) {
+                const errMsg = lang === 'ar' 
+                    ? 'صيغة الصورة غير صالحة. الصيغ المسموحة هي: jpeg, png, jpg, webp.' 
+                    : 'Invalid image format. Allowed formats are: jpeg, png, jpg, webp.';
+                if (setError) setError('image', errMsg);
+                onChange(null);
+                setPreview(null);
+                e.target.value = '';
+                return;
+            }
+
+            // Validate File Size (2MB)
+            const maxSize = 2 * 1024 * 1024;
+            if (file.size > maxSize) {
+                const errMsg = lang === 'ar' 
+                    ? 'حجم الصورة كبير جداً. الحد الأقصى المسموح به هو 2 ميجابايت.' 
+                    : 'The image size is too large. Maximum allowed size is 2MB.';
+                if (setError) setError('image', errMsg);
+                onChange(null);
+                setPreview(null);
+                e.target.value = '';
+                return;
+            }
+
+            if (clearErrors) clearErrors('image');
             onChange(file);
             setPreview(URL.createObjectURL(file));
         }
@@ -171,7 +198,7 @@ function ImageUpload({ value, onChange, currentImage, error }) {
                         <span className="text-xs text-slate-400 mt-1">{t.admin.articleForm.imageRequirements}</span>
                     </div>
                 )}
-                <input type="file" accept="image/*" className="hidden" onChange={handleChange} />
+                <input type="file" accept="image/jpeg, image/png, image/jpg, image/webp" className="hidden" onChange={handleChange} />
             </label>
             {error && <p className="text-rose-500 text-xs mt-1 font-mikhak-medium">{error}</p>}
         </div>
@@ -179,7 +206,7 @@ function ImageUpload({ value, onChange, currentImage, error }) {
 }
 
 // ── OG Image Upload with preview ───────────────────────────────────────────────
-function OgImageUpload({ value, onChange, currentImage, error }) {
+function OgImageUpload({ value, onChange, currentImage, error, setError, clearErrors }) {
     const [preview, setPreview] = useState(null);
     const { lang } = useLanguage();
     const t = translations[lang] || translations.en;
@@ -187,6 +214,33 @@ function OgImageUpload({ value, onChange, currentImage, error }) {
     const handleChange = (e) => {
         const file = e.target.files[0];
         if (file) {
+            // Validate File Type
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+            if (!allowedTypes.includes(file.type)) {
+                const errMsg = lang === 'ar' 
+                    ? 'صيغة صورة المشاركة غير صالحة. الصيغ المسموحة هي: jpeg, png, jpg, webp.' 
+                    : 'Invalid OG image format. Allowed formats are: jpeg, png, jpg, webp.';
+                if (setError) setError('og_image', errMsg);
+                onChange(null);
+                setPreview(null);
+                e.target.value = '';
+                return;
+            }
+
+            // Validate File Size (2MB)
+            const maxSize = 2 * 1024 * 1024;
+            if (file.size > maxSize) {
+                const errMsg = lang === 'ar' 
+                    ? 'حجم صورة المشاركة كبير جداً. الحد الأقصى المسموح به هو 2 ميجابايت.' 
+                    : 'The OG image size is too large. Maximum allowed size is 2MB.';
+                if (setError) setError('og_image', errMsg);
+                onChange(null);
+                setPreview(null);
+                e.target.value = '';
+                return;
+            }
+
+            if (clearErrors) clearErrors('og_image');
             onChange(file);
             setPreview(URL.createObjectURL(file));
         }
@@ -218,7 +272,7 @@ function OgImageUpload({ value, onChange, currentImage, error }) {
                         <span className="text-[10px] text-slate-400 mt-0.5">{lang === 'ar' ? 'نسبة عرض إلى ارتفاع مفضلة 1.91:1 (مثال: 1200x630)' : 'Preferred 1.91:1 aspect ratio (e.g. 1200x630)'}</span>
                     </div>
                 )}
-                <input type="file" accept="image/*" className="hidden" onChange={handleChange} />
+                <input type="file" accept="image/jpeg, image/png, image/jpg, image/webp" className="hidden" onChange={handleChange} />
             </label>
             {error && <p className="text-rose-500 text-xs mt-1 font-mikhak-medium">{error}</p>}
         </div>
@@ -707,6 +761,8 @@ export default function ArticleForm({ data, setData, errors, setError, clearErro
                                                 onChange={file => setData('og_image', file)}
                                                 currentImage={article?.og_image}
                                                 error={errors.og_image}
+                                                setError={setError}
+                                                clearErrors={clearErrors}
                                             />
                                         </div>
                                     </div>
@@ -835,6 +891,8 @@ export default function ArticleForm({ data, setData, errors, setError, clearErro
                                     onChange={file => setData('image', file)}
                                     currentImage={article?.image}
                                     error={errors.image}
+                                    setError={setError}
+                                    clearErrors={clearErrors}
                                 />
                             </div>
                         </div>
