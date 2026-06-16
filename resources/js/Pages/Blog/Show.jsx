@@ -128,6 +128,10 @@ export default function Show({ article, relatedArticles }) {
     const isAr = lang === 'ar';
     const proseRef = useRef(null);
 
+    const ogImagePath = article.og_image || article.image;
+    const ogImageUrl = ogImagePath ? (typeof window !== 'undefined' ? `${window.location.origin}/storage/${ogImagePath}` : `/storage/${ogImagePath}`) : '';
+    const featuredImageAlt = article.image_alt?.[lang] || article.title?.[lang] || '';
+
     // Apply lazy loading to all images inside article prose content (from dangerouslySetInnerHTML)
     useEffect(() => {
         if (!proseRef.current) return;
@@ -158,23 +162,37 @@ export default function Show({ article, relatedArticles }) {
 
     return (
         <div dir={isAr ? 'rtl' : 'ltr'} className="blog-show-root" style={{ background: '#fdf9fb', color: '#2a1f30' }}>
-            <Head title={article.title?.[lang]}>
-                <meta name="description" content={article.short_description?.[lang] || article.title?.[lang]} />
-                <meta property="og:title" content={article.title?.[lang]} />
-                <meta property="og:description" content={article.short_description?.[lang] || article.title?.[lang]} />
+            <Head title={article.meta_title?.[lang] || article.title?.[lang]}>
+                <meta name="description" content={article.meta_description?.[lang] || article.short_description?.[lang] || article.title?.[lang]} />
+                <link rel="canonical" href={route('blog.show', article.slug)} />
                 <meta property="og:type" content="article" />
-                {article.image && <meta property="og:image" content={`/storage/${article.image}`} />}
+                <meta property="og:title" content={article.meta_title?.[lang] || article.title?.[lang]} />
+                <meta property="og:description" content={article.meta_description?.[lang] || article.short_description?.[lang] || article.title?.[lang]} />
+                <meta property="og:url" content={route('blog.show', article.slug)} />
+                {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+                <meta property="og:image:alt" content={featuredImageAlt} />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={article.meta_title?.[lang] || article.title?.[lang]} />
+                <meta name="twitter:description" content={article.meta_description?.[lang] || article.short_description?.[lang] || article.title?.[lang]} />
+                {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
                 <script type="application/ld+json">{JSON.stringify({
                     "@context": "https://schema.org",
                     "@type": "Article",
-                    "headline": article.title?.[lang],
-                    "description": article.short_description?.[lang] || "",
-                    "image": article.image ? `/storage/${article.image}` : undefined,
+                    "headline": article.meta_title?.[lang] || article.title?.[lang],
+                    "description": article.meta_description?.[lang] || article.short_description?.[lang] || "",
+                    "image": ogImageUrl || undefined,
                     "author": { "@type": "Person", "name": article.user?.name },
                     "datePublished": article.created_at,
                     "dateModified": article.updated_at || article.created_at,
-                    "publisher": { "@type": "Organization", "name": "Monasbtk" },
-                    "mainEntityOfPage": { "@type": "WebPage", "@id": pageUrl }
+                    "publisher": {
+                        "@type": "Organization",
+                        "name": "Monasbtk",
+                        "logo": {
+                            "@type": "ImageObject",
+                            "url": typeof window !== 'undefined' ? `${window.location.origin}/images/monasbtk_colored_logo.png` : ''
+                        }
+                    },
+                    "mainEntityOfPage": { "@type": "WebPage", "@id": route('blog.show', article.slug) }
                 })}</script>
             </Head>
 
@@ -974,14 +992,14 @@ export default function Show({ article, relatedArticles }) {
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.5, delay: 0.1 }}
                         >
-                        <LazyImage
-                            src={`/storage/${article.image}`}
-                            alt={article.title?.[lang]}
-                            className="w-full max-h-[540px] object-cover block"
-                            wrapperClassName="w-full"
-                            wrapperStyle={{ maxHeight: '540px' }}
-                            rootMargin={400}
-                        />
+                            <LazyImage
+                                src={`/storage/${article.image}`}
+                                alt={featuredImageAlt}
+                                className="w-full max-h-[540px] object-cover block"
+                                wrapperClassName="w-full"
+                                wrapperStyle={{ maxHeight: '540px' }}
+                                rootMargin={400}
+                            />
                             <div className="cover-overlay" />
                         </motion.div>
                     )}
@@ -1040,7 +1058,7 @@ export default function Show({ article, relatedArticles }) {
                                                 target="_blank" rel="noreferrer"
                                                 className={`flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-slate-700 rounded-xl hover:bg-purple-50/50 hover:text-[#794BC7] transition-all cursor-pointer ${isAr ? 'flex-row-reverse font-mikhak-medium' : 'font-outfit'}`}
                                             >
-                                                <svg className="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                                <svg className="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
                                                 <span className="flex-1">X</span>
                                             </a>
 
@@ -1050,7 +1068,7 @@ export default function Show({ article, relatedArticles }) {
                                                 target="_blank" rel="noreferrer"
                                                 className={`flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-slate-700 rounded-xl hover:bg-purple-50/50 hover:text-[#794BC7] transition-all cursor-pointer ${isAr ? 'flex-row-reverse font-mikhak-medium' : 'font-outfit'}`}
                                             >
-                                                <svg className="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.458L0 24zm6.59-20.015c-.218-.485-.45-.495-.658-.504-.172-.008-.371-.008-.57-.008-.201 0-.53.075-.808.379-.278.303-1.062 1.036-1.062 2.529 0 1.493 1.085 2.932 1.236 3.134.152.203 2.137 3.262 5.176 4.57.717.309 1.278.493 1.716.633.722.23 1.381.197 1.902.12.579-.085 1.785-.73 2.039-1.436.254-.705.254-1.309.178-1.436-.076-.127-.278-.203-.579-.354s-1.785-.88-2.062-.98c-.278-.1-.48-.152-.68.152-.2.304-.778 1.037-.954 1.239-.176.202-.353.228-.654.077-.302-.151-1.272-.469-2.423-1.495-.895-.798-1.5-1.784-1.676-2.086-.176-.303-.019-.467.132-.617.136-.134.303-.354.454-.531.151-.177.202-.303.303-.505.101-.202.051-.379-.026-.53-.076-.153-.658-1.585-.9-2.17z"/></svg>
+                                                <svg className="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.458L0 24zm6.59-20.015c-.218-.485-.45-.495-.658-.504-.172-.008-.371-.008-.57-.008-.201 0-.53.075-.808.379-.278.303-1.062 1.036-1.062 2.529 0 1.493 1.085 2.932 1.236 3.134.152.203 2.137 3.262 5.176 4.57.717.309 1.278.493 1.716.633.722.23 1.381.197 1.902.12.579-.085 1.785-.73 2.039-1.436.254-.705.254-1.309.178-1.436-.076-.127-.278-.203-.579-.354s-1.785-.88-2.062-.98c-.278-.1-.48-.152-.68.152-.2.304-.778 1.037-.954 1.239-.176.202-.353.228-.654.077-.302-.151-1.272-.469-2.423-1.495-.895-.798-1.5-1.784-1.676-2.086-.176-.303-.019-.467.132-.617.136-.134.303-.354.454-.531.151-.177.202-.303.303-.505.101-.202.051-.379-.026-.53-.076-.153-.658-1.585-.9-2.17z" /></svg>
                                                 <span className="flex-1">WhatsApp</span>
                                             </a>
 
@@ -1059,7 +1077,7 @@ export default function Show({ article, relatedArticles }) {
                                                 onClick={handleInstagramShare}
                                                 className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-slate-700 rounded-xl hover:bg-purple-50/50 hover:text-[#794BC7] transition-all cursor-pointer text-left ${isAr ? 'flex-row-reverse font-mikhak-medium text-right' : 'font-outfit'}`}
                                             >
-                                                <svg className="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                                                <svg className="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg>
                                                 <span className="flex-1">Instagram</span>
                                             </button>
 
@@ -1069,7 +1087,7 @@ export default function Show({ article, relatedArticles }) {
                                                 target="_blank" rel="noreferrer"
                                                 className={`flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-slate-700 rounded-xl hover:bg-purple-50/50 hover:text-[#794BC7] transition-all cursor-pointer ${isAr ? 'flex-row-reverse font-mikhak-medium' : 'font-outfit'}`}
                                             >
-                                                <svg className="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12c3.158 0 6.012-1.22 8.125-3.218l-1.425-1.425A9.957 9.957 0 0 1 12 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10c0 2.158-.698 3.51-1.636 4.364-.814.74-1.956.886-2.586.886-.786 0-1.782-.375-1.782-1.895V12c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5c1.47 0 2.76-.638 3.655-1.644C16.924 16.58 17.8 17 18.778 17c1.397 0 2.857-.698 3.75-2.07C23.473 13.565 24 12 24 12c0-6.627-5.373-12-12-12zm-3 12c0-1.654 1.346-3 3-3s3 1.346 3 3-1.346 3-3 3-3-1.346-3-3z"/></svg>
+                                                <svg className="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12c3.158 0 6.012-1.22 8.125-3.218l-1.425-1.425A9.957 9.957 0 0 1 12 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10c0 2.158-.698 3.51-1.636 4.364-.814.74-1.956.886-2.586.886-.786 0-1.782-.375-1.782-1.895V12c0-2.757-2.243-5-5-5s-5 2.243-5 5 2.243 5 5 5c1.47 0 2.76-.638 3.655-1.644C16.924 16.58 17.8 17 18.778 17c1.397 0 2.857-.698 3.75-2.07C23.473 13.565 24 12 24 12c0-6.627-5.373-12-12-12zm-3 12c0-1.654 1.346-3 3-3s3 1.346 3 3-1.346 3-3 3-3-1.346-3-3z" /></svg>
                                                 <span className="flex-1">Threads</span>
                                             </a>
 
@@ -1079,7 +1097,7 @@ export default function Show({ article, relatedArticles }) {
                                                 target="_blank" rel="noreferrer"
                                                 className={`flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-slate-700 rounded-xl hover:bg-purple-50/50 hover:text-[#794BC7] transition-all cursor-pointer ${isAr ? 'flex-row-reverse font-mikhak-medium' : 'font-outfit'}`}
                                             >
-                                                <svg className="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                                                <svg className="w-4 h-4 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
                                                 <span className="flex-1">Facebook</span>
                                             </a>
 
@@ -1090,7 +1108,7 @@ export default function Show({ article, relatedArticles }) {
                                                 onClick={handleCopy}
                                                 className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-slate-700 rounded-xl hover:bg-purple-50/50 hover:text-[#794BC7] transition-all cursor-pointer text-left ${isAr ? 'flex-row-reverse font-mikhak-medium text-right' : 'font-outfit'}`}
                                             >
-                                                <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                                                <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" /></svg>
                                                 <span className="flex-1">{copied ? (isAr ? 'تم النسخ!' : 'Copied!') : (isAr ? 'نسخ الرابط' : 'Copy link')}</span>
                                             </button>
                                         </motion.div>

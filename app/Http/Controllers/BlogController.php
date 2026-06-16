@@ -36,7 +36,7 @@ class BlogController extends Controller
         ]);
     }
 
-    public function show(Article $article)
+    public function show(Request $request, Article $article)
     {
         if (!$article->is_published && !auth()->check()) {
             abort(404);
@@ -54,9 +54,30 @@ class BlogController extends Controller
             ->take(3)
             ->get();
 
+        // Detect language
+        $lang = $request->cookie('monasbtk_lang');
+        if (!$lang || !in_array($lang, ['ar', 'en'])) {
+            $acceptLang = $request->header('Accept-Language');
+            $lang = (strpos($acceptLang, 'ar') !== false) ? 'ar' : 'en';
+        }
+
+        // Get metadata values with fallback
+        $metaTitle = ($article->meta_title[$lang] ?? null) ?: ($article->title[$lang] ?? ($article->title['en'] ?? 'monasbtk - مناسبتك'));
+        $metaDescription = ($article->meta_description[$lang] ?? null) ?: ($article->short_description[$lang] ?? ($article->title[$lang] ?? ($article->title['en'] ?? '')));
+        
+        $ogImage = $article->og_image ?: $article->image;
+        $ogImageUrl = $ogImage ? url('storage/' . $ogImage) : null;
+        $canonicalUrl = route('blog.show', $article->slug);
+
         return Inertia::render('Blog/Show', [
             'article' => $article,
             'relatedArticles' => $relatedArticles
+        ])->withViewData([
+            'meta_title' => $metaTitle,
+            'meta_description' => $metaDescription,
+            'og_image' => $ogImageUrl,
+            'canonical' => $canonicalUrl,
+            'og_type' => 'article',
         ]);
     }
 }

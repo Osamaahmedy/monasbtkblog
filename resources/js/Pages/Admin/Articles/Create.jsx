@@ -16,6 +16,11 @@ export default function Create({ categories }) {
         short_description: { en: '', ar: '' },
         content: { en: '', ar: '' },
         image: null,
+        slug: '',
+        meta_title: { en: '', ar: '' },
+        meta_description: { en: '', ar: '' },
+        image_alt: { en: '', ar: '' },
+        og_image: null,
     });
 
     const handleSubmit = () => {

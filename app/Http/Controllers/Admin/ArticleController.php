@@ -50,23 +50,39 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
-        $request->merge(['slug' => Str::slug($request->input('title.en', ''))]);
+        $request->merge([
+            'slug' => $request->filled('slug')
+                ? Str::slug($request->input('slug'))
+                : Str::slug($request->input('title.en', ''))
+        ]);
 
         $request->validate([
-            'title.en'     => 'required|string|max:255',
-            'title.ar'     => 'required|string|max:255',
-            'slug'         => 'required|string|unique:articles,slug',
-            'category_id'  => 'required|exists:categories,id',
-            'content.en'   => 'required',
-            'content.ar'   => 'required',
-            'image'        => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'status'       => 'required|in:published,draft',
-            'published_at' => 'nullable|date|after_or_equal:today',
+            'title.en'             => 'required|string|max:255',
+            'title.ar'             => 'required|string|max:255',
+            'slug'                 => 'required|string|unique:articles,slug',
+            'category_id'          => 'required|exists:categories,id',
+            'content.en'           => 'required',
+            'content.ar'           => 'required',
+            'image'                => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'status'               => 'required|in:published,draft',
+            'published_at'         => 'nullable|date|after_or_equal:today',
+            'meta_title.en'        => 'nullable|string|max:255',
+            'meta_title.ar'        => 'nullable|string|max:255',
+            'meta_description.en' => 'nullable|string|max:500',
+            'meta_description.ar' => 'nullable|string|max:500',
+            'image_alt.en'         => 'nullable|string|max:255',
+            'image_alt.ar'         => 'nullable|string|max:255',
+            'og_image'             => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ], [
-            'slug.unique' => 'This English title is already used. Please choose a different title.',
+            'slug.unique' => 'This link (slug) is already used. Please choose a different link.',
         ]);
 
         $imagePath = $request->file('image')->store('articles', 'public');
+        
+        $ogImagePath = null;
+        if ($request->hasFile('og_image')) {
+            $ogImagePath = $request->file('og_image')->store('articles/og', 'public');
+        }
 
         Article::create([
             'category_id'       => $request->category_id,
@@ -77,6 +93,10 @@ class ArticleController extends Controller
             'image'             => $imagePath,
             'status'            => $request->status,
             'published_at'      => $request->status === 'published' ? $request->published_at : null,
+            'meta_title'        => $request->meta_title,
+            'meta_description'  => $request->meta_description,
+            'image_alt'         => $request->image_alt,
+            'og_image'          => $ogImagePath,
         ]);
 
         return redirect()->route('admin.articles.index')->with('success', 'Article created successfully.');
@@ -109,20 +129,31 @@ class ArticleController extends Controller
 
     public function update(Request $request, Article $article)
     {
-        $request->merge(['slug' => Str::slug($request->input('title.en', ''))]);
+        $request->merge([
+            'slug' => $request->filled('slug')
+                ? Str::slug($request->input('slug'))
+                : Str::slug($request->input('title.en', ''))
+        ]);
 
         $request->validate([
-            'title.en'     => 'required|string|max:255',
-            'title.ar'     => 'required|string|max:255',
-            'slug'         => 'required|string|unique:articles,slug,' . $article->id,
-            'category_id'  => 'required|exists:categories,id',
-            'content.en'   => 'required',
-            'content.ar'   => 'required',
-            'image'        => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'status'       => 'required|in:published,draft',
-            'published_at' => 'nullable|date|after_or_equal:today',
+            'title.en'             => 'required|string|max:255',
+            'title.ar'             => 'required|string|max:255',
+            'slug'                 => 'required|string|unique:articles,slug,' . $article->id,
+            'category_id'          => 'required|exists:categories,id',
+            'content.en'           => 'required',
+            'content.ar'           => 'required',
+            'image'                => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'status'               => 'required|in:published,draft',
+            'published_at'         => 'nullable|date|after_or_equal:today',
+            'meta_title.en'        => 'nullable|string|max:255',
+            'meta_title.ar'        => 'nullable|string|max:255',
+            'meta_description.en' => 'nullable|string|max:500',
+            'meta_description.ar' => 'nullable|string|max:500',
+            'image_alt.en'         => 'nullable|string|max:255',
+            'image_alt.ar'         => 'nullable|string|max:255',
+            'og_image'             => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ], [
-            'slug.unique' => 'This English title is already used. Please choose a different title.',
+            'slug.unique' => 'This link (slug) is already used. Please choose a different link.',
         ]);
 
         $data = [
@@ -133,10 +164,21 @@ class ArticleController extends Controller
             'content'           => $request->content,
             'status'            => $request->status,
             'published_at'      => $request->status === 'published' ? $request->published_at : null,
+            'meta_title'        => $request->meta_title,
+            'meta_description'  => $request->meta_description,
+            'image_alt'         => $request->image_alt,
         ];
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('articles', 'public');
+        }
+
+        if ($request->hasFile('og_image')) {
+            $data['og_image'] = $request->file('og_image')->store('articles/og', 'public');
+            // Delete old og_image if it exists
+            if ($article->og_image) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($article->og_image);
+            }
         }
 
         $article->update($data);

@@ -25,15 +25,14 @@
     </script>
     
     {{-- ===== SEO Core Meta ===== --}}
-    <title>@yield('title', 'monasbtk - مناسبتك')</title>
-    <meta name="description" content="@yield('description', 'وصف موقعك هنا - اكتب وصفاً جذاباً لا يتجاوز 160 حرف')">
-    <meta name="keywords" content="@yield('keywords', 'كلمة1, كلمة2, كلمة3')">
+    <title>{{ $meta_title ?? 'monasbtk - مناسبتك' }}</title>
+    <meta name="description" content="{{ $meta_description ?? ' مناسبتك منصة متكاملة لحجز وتنظيم المناسبات بسهولة. اكتشف أفضل مزودي الخدمات، القاعات، اليخوت، الضيافة، الديكورات والفعاليات في مكان واحد ' }}">
+    <meta name="keywords" content="مناسبتك, حجز مناسبات, تنظيم مناسبات, قاعات, يخوت, ضيافة, ديكورات, فعاليات">
     <meta name="author" content="monasbtk">
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
     
-    {{-- إصلاح الرابط الرئيسي (Canonical) ليعتمد على رابط الـ APP_URL الصافي من ملف الـ .env --}}
-    <link rel="canonical" href="@yield('canonical', rtrim(config('app.url'), '/') . (request()->path() === '/' ? '' : '/' . ltrim(request()->path(), '/')))">
+    <link rel="canonical" href="{{ $canonical ?? (rtrim(config('app.url'), '/') . (request()->path() === '/' ? '' : '/' . ltrim(request()->path(), '/'))) }}">
 
     {{-- ===== Theme Color ===== --}}
     <meta name="theme-color" content="#794BC7">
@@ -43,13 +42,12 @@
     <meta name="msapplication-TileColor" content="#794BC7">
 
     {{-- ===== Open Graph (Facebook / WhatsApp / LinkedIn) ===== --}}
-    <meta property="og:type" content="@yield('og_type', 'website')">
-    <meta property="og:title" content="@yield('og_title', 'monasbtk - مناسبتك')">
-    <meta property="og:description" content="@yield('og_description', 'وصف موقعك هنا')">
+    <meta property="og:type" content="{{ $og_type ?? 'website' }}">
+    <meta property="og:title" content="{{ $meta_title ?? 'monasbtk - مناسبتك' }}">
+    <meta property="og:description" content="{{ $meta_description ?? ' مناسبتك منصة متكاملة لحجز وتنظيم المناسبات بسهولة. اكتشف أفضل مزودي الخدمات، القاعات، اليخوت، الضيافة، الديكورات والفعاليات في مكان واحد ' }}">
     
-    {{-- إصلاح رابط الـ og:url تماشياً مع الكانوبيكال الثابت --}}
-    <meta property="og:url" content="@yield('og_url', rtrim(config('app.url'), '/') . (request()->path() === '/' ? '' : '/' . ltrim(request()->path(), '/')))">
-    <meta property="og:image" content="@yield('og_image', Vite::asset('resources/images/monasbtk_colored_logo.png'))">
+    <meta property="og:url" content="{{ $canonical ?? (rtrim(config('app.url'), '/') . (request()->path() === '/' ? '' : '/' . ltrim(request()->path(), '/'))) }}">
+    <meta property="og:image" content="{{ $og_image ?? Vite::asset('resources/images/monasbtk_colored_logo.png') }}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="monasbtk">
@@ -57,9 +55,9 @@
 
     {{-- ===== Twitter Card ===== --}}
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="@yield('twitter_title', 'monasbtk - مناسبتك')">
-    <meta name="twitter:description" content="@yield('twitter_description', 'وصف موقعك هنا')">
-    <meta name="twitter:image" content="@yield('twitter_image', Vite::asset('resources/images/monasbtk_colored_logo.png'))">
+    <meta name="twitter:title" content="{{ $meta_title ?? 'monasbtk - مناسبتك' }}">
+    <meta name="twitter:description" content="{{ $meta_description ?? ' مناسبتك منصة متكاملة لحجز وتنظيم المناسبات بسهولة. اكتشف أفضل مزودي الخدمات، القاعات، اليخوت، الضيافة، الديكورات والفعاليات في مكان واحد ' }}">
+    <meta name="twitter:image" content="{{ $og_image ?? Vite::asset('resources/images/monasbtk_colored_logo.png') }}">
     {{-- <meta name="twitter:site" content="@your_twitter_handle"> --}}
 
     {{-- ===== Favicon ===== --}}

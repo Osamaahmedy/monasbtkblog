@@ -19,6 +19,10 @@ class Article extends Model
         'content',
         'status',
         'published_at',
+        'meta_title',
+        'meta_description',
+        'image_alt',
+        'og_image',
     ];
 
     protected $casts = [
@@ -26,6 +30,9 @@ class Article extends Model
         'short_description' => 'array',
         'content' => 'array',
         'published_at' => 'datetime',
+        'meta_title' => 'array',
+        'meta_description' => 'array',
+        'image_alt' => 'array',
     ];
 
     protected static function booted()

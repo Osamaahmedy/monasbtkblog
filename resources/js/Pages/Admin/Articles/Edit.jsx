@@ -23,6 +23,11 @@ export default function Edit({ article, categories }) {
         short_description: normalize(article.short_description),
         content: normalize(article.content),
         image: null,
+        slug: article.slug || '',
+        meta_title: normalize(article.meta_title),
+        meta_description: normalize(article.meta_description),
+        image_alt: normalize(article.image_alt),
+        og_image: null,
     });
 
     const handleSubmit = () => {

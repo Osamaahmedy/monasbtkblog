@@ -43,6 +43,69 @@ const wordCount = (html) => { const t = stripHtml(html); return t ? t.split(/\s+
 const charCount = (html) => stripHtml(html).length;
 const isEmpty = (html) => stripHtml(html).length === 0;
 
+const cleanChatGptFormatting = (html, editorLang) => {
+    if (!html) return '';
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const hasArabic = (text) => /[\u0600-\u06FF]/.test(text);
+
+    // 1. Clean list items (<li>)
+    const listItems = doc.querySelectorAll('li');
+    listItems.forEach(li => {
+        let text = li.innerHTML;
+        // Strip leading ChatGPT list markers inside <li> (e.g., •, *, -, 1., 2., etc.)
+        text = text.replace(/^(\s*(&bull;|&#8226;|&#9679;|&#9642;|&#9702;|•|\*|-|✔|✓|\d+\.)\s*)+/g, '');
+        li.innerHTML = text;
+
+        if (editorLang === 'ar') {
+            if (hasArabic(li.textContent) || !li.textContent.trim()) {
+                li.classList.add('ql-direction-rtl');
+                li.classList.add('ql-align-right');
+            }
+        } else {
+            if (hasArabic(li.textContent)) {
+                li.classList.add('ql-direction-rtl');
+                li.classList.add('ql-align-right');
+            } else {
+                li.classList.remove('ql-direction-rtl', 'ql-align-right');
+            }
+        }
+    });
+
+    // 2. Clean paragraphs and headers
+    const blocks = doc.querySelectorAll('p, h1, h2, h3, h4, h5, h6, blockquote');
+    blocks.forEach(block => {
+        let text = block.innerHTML;
+        // Convert **bold** to <strong>
+        text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        // Convert *italic* to <em>
+        text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+        text = text.replace(/_(.*?)_/g, '<em>$1</em>');
+        // Strip out leading markdown headings tags
+        text = text.replace(/^#+\s+/g, '');
+        block.innerHTML = text;
+
+        if (editorLang === 'ar') {
+            if (hasArabic(block.textContent) || !block.textContent.trim() || /[a-zA-Z]/.test(block.textContent) === false) {
+                block.classList.add('ql-direction-rtl');
+                block.classList.add('ql-align-right');
+            } else {
+                block.classList.remove('ql-direction-rtl', 'ql-align-right');
+            }
+        } else {
+            if (hasArabic(block.textContent)) {
+                block.classList.add('ql-direction-rtl');
+                block.classList.add('ql-align-right');
+            } else {
+                block.classList.remove('ql-direction-rtl', 'ql-align-right');
+            }
+        }
+    });
+
+    return doc.body.innerHTML;
+};
+
 const inputCls = (error) =>
     `mt-1 block w-full bg-slate-50 border focus:bg-white focus:ring-4 rounded-xl px-4 py-3 text-sm text-slate-700 shadow-sm transition-all font-mikhak-medium placeholder-slate-400 ${
         error ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-500/10' : 'border-slate-200 focus:border-indigo-500 focus:ring-indigo-500/10'
@@ -106,6 +169,53 @@ function ImageUpload({ value, onChange, currentImage, error }) {
                         </svg>
                         <span className="text-sm font-mikhak-bold text-slate-500">{t.admin.articleForm.clickToUpload}</span>
                         <span className="text-xs text-slate-400 mt-1">{t.admin.articleForm.imageRequirements}</span>
+                    </div>
+                )}
+                <input type="file" accept="image/*" className="hidden" onChange={handleChange} />
+            </label>
+            {error && <p className="text-rose-500 text-xs mt-1 font-mikhak-medium">{error}</p>}
+        </div>
+    );
+}
+
+// ── OG Image Upload with preview ───────────────────────────────────────────────
+function OgImageUpload({ value, onChange, currentImage, error }) {
+    const [preview, setPreview] = useState(null);
+    const { lang } = useLanguage();
+    const t = translations[lang] || translations.en;
+
+    const handleChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            onChange(file);
+            setPreview(URL.createObjectURL(file));
+        }
+    };
+
+    const displayImg = preview || (currentImage ? `/storage/${currentImage}` : null);
+
+    return (
+        <div>
+            <label className={`relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed cursor-pointer transition-all overflow-hidden group ${
+                error ? 'border-rose-300 bg-rose-50/30' : 'border-slate-200 bg-slate-50 hover:border-indigo-300 hover:bg-indigo-50/30'
+            }`} style={{ minHeight: '8rem' }}>
+                {displayImg ? (
+                    <>
+                        <img src={displayImg} alt="OG Preview" className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-70 transition-opacity" />
+                        <div className="relative z-10 flex flex-col items-center py-4 bg-black/40 w-full h-full justify-center">
+                            <svg className="w-6 h-6 text-white mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                            </svg>
+                            <span className="text-white text-xs font-mikhak-bold">{t.admin.articleForm.changeImage || 'Change Image'}</span>
+                        </div>
+                    </>
+                ) : (
+                    <div className="py-4 flex flex-col items-center text-center px-4">
+                        <svg className="w-8 h-8 text-slate-300 mb-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span className="text-xs font-mikhak-bold text-slate-500">{t.admin.articleForm.clickToUpload || 'Click to upload'}</span>
+                        <span className="text-[10px] text-slate-400 mt-0.5">{lang === 'ar' ? 'نسبة عرض إلى ارتفاع مفضلة 1.91:1 (مثال: 1200x630)' : 'Preferred 1.91:1 aspect ratio (e.g. 1200x630)'}</span>
                     </div>
                 )}
                 <input type="file" accept="image/*" className="hidden" onChange={handleChange} />
@@ -198,6 +308,15 @@ function RichEditor({ lang, value, onChange, error, draftKey }) {
     const copyText = () => navigator.clipboard.writeText(stripHtml(value || '')).then(() => alert(globalLang === 'ar' ? 'تم نسخ النص!' : 'Text copied!'));
     const clearEditor = () => { if (confirm(globalLang === 'ar' ? 'هل تريد مسح كل المحتوى؟' : 'Clear all content?')) onChange(''); };
 
+    const handleAutoFix = () => {
+        const cleaned = cleanChatGptFormatting(value, lang);
+        onChange(cleaned);
+        alert(globalLang === 'ar' 
+            ? 'تمت إعادة ضبط تنسيق نصوص الذكاء الاصطناعي بنجاح! تم تصحيح الاتجاهات وحذف الرموز المكررة.' 
+            : 'AI text formatting fixed successfully! Direction alignment corrected and duplicate markers removed.'
+        );
+    };
+
     const wc = wordCount(value);
     const cc = charCount(value);
     const readTime = Math.max(1, Math.ceil(wc / 200));
@@ -237,6 +356,10 @@ function RichEditor({ lang, value, onChange, error, draftKey }) {
                             </button>
                         ))}
                     </div>
+                    <button type="button" onClick={handleAutoFix} className="px-2.5 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-800 rounded-lg border border-amber-200 font-mikhak-bold transition-colors flex items-center gap-1">
+                        <span>✨</span>
+                        <span>{globalLang === 'ar' ? 'ضبط نصوص الذكاء الاصطناعي' : 'Fix AI Text'}</span>
+                    </button>
                     <button type="button" onClick={copyText} className="px-2.5 py-1.5 bg-slate-50 hover:bg-slate-100 text-slate-600 rounded-lg border border-slate-200 font-mikhak-bold transition-colors">
                         {t.admin.articleForm.copyBtn}
                     </button>
@@ -288,6 +411,7 @@ function RichEditor({ lang, value, onChange, error, draftKey }) {
 // ── Main ArticleForm ───────────────────────────────────────────────────────────
 export default function ArticleForm({ data, setData, errors, setError, clearErrors, processing, onSubmit, categories, submitLabel = 'Publish Article', article = null }) {
     const [lang, setLang] = useState('en');
+    const [showSeo, setShowSeo] = useState(false);
     const { lang: globalLang } = useLanguage();
     const t = translations[globalLang] || translations.en;
 
@@ -450,6 +574,142 @@ export default function ArticleForm({ data, setData, errors, setError, clearErro
                                         error={errors['content.ar']}
                                         draftKey={draftKeyAr}
                                     />
+                                </div>
+                            )}
+                        </div>
+
+                        {/* SEO Settings Card */}
+                        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden mt-6">
+                            <button
+                                type="button"
+                                onClick={() => setShowSeo(!showSeo)}
+                                className="w-full px-6 py-4 flex items-center justify-between bg-slate-50 border-b border-slate-100 hover:bg-slate-100/50 transition-colors"
+                            >
+                                <div className="flex items-center gap-2.5">
+                                    <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                    </svg>
+                                    <span className="font-mikhak-bold text-slate-800 text-base">
+                                        {globalLang === 'ar' ? 'إعدادات تحسين محركات البحث (SEO)' : 'SEO Settings'}
+                                    </span>
+                                </div>
+                                <svg className={`w-5 h-5 text-slate-400 transition-transform duration-200 ${showSeo ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                            
+                            {showSeo && (
+                                <div className="p-6 space-y-6">
+                                    {/* Custom Slug */}
+                                    <div>
+                                        <label className={labelCls}>
+                                            {globalLang === 'ar' ? 'رابط المقال المخصص (Custom Slug)' : 'Custom Article Slug'}
+                                            <span className="text-slate-400 font-mikhak-regular ml-1 text-xs">({globalLang === 'ar' ? 'اختياري - يترك فارغاً للتوليد التلقائي' : 'Optional - leave empty for auto-generation'})</span>
+                                        </label>
+                                        <div className="flex rounded-xl shadow-sm mt-1">
+                                            <span className="inline-flex items-center px-3 rounded-l-xl border border-r-0 border-slate-200 bg-slate-50 text-slate-400 text-xs select-none">
+                                                /blog/
+                                            </span>
+                                            <input
+                                                type="text"
+                                                className={inputCls(errors.slug) + ' !mt-0 !rounded-l-none'}
+                                                placeholder="custom-article-slug"
+                                                value={data.slug || ''}
+                                                onChange={e => setData('slug', e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '-'))}
+                                            />
+                                        </div>
+                                        {errors.slug && <p className="text-rose-500 text-xs mt-1 font-mikhak-medium">{errors.slug}</p>}
+                                        <p className="text-xs text-slate-400 mt-1.5 font-mikhak-regular">
+                                            {globalLang === 'ar' ? 'الرابط الفريد الذي يظهر في المتصفح. استخدم الحروف الإنجليزية الصغيرة والأرقام والشرطات فقط.' : 'The unique URL segment for this article. Use only lowercase letters, numbers, and hyphens.'}
+                                        </p>
+                                    </div>
+
+                                    {/* Language-dependent SEO fields (Meta Title, Meta Description, Image Alt) */}
+                                    <div className="bg-slate-50/50 rounded-2xl border border-slate-100 p-4 space-y-4">
+                                        <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-2">
+                                            <span className="text-xs font-mikhak-bold text-slate-500">
+                                                {globalLang === 'ar' ? `تعديل حقول SEO للغة: ${lang === 'ar' ? 'العربية' : 'English'}` : `Edit SEO fields for language: ${lang === 'ar' ? 'Arabic' : 'English'}`}
+                                            </span>
+                                            <span className="text-[10px] bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-full font-mikhak-bold">
+                                                {globalLang === 'ar' ? 'مرتبط بتبويب اللغة المفتوح بالأعلى' : 'Linked to the active language tab above'}
+                                            </span>
+                                        </div>
+
+                                        {/* Meta Title */}
+                                        <div>
+                                            <label className={labelCls}>
+                                                {lang === 'ar' ? 'عنوان الميتا (Meta Title)' : 'Meta Title'}
+                                                <span className="text-slate-400 font-mikhak-regular ml-1 text-xs">({globalLang === 'ar' ? 'اختياري - يفضل بين 50-60 حرفاً' : 'Optional - recommended 50-60 chars'})</span>
+                                            </label>
+                                            <input
+                                                type="text"
+                                                dir={lang === 'ar' ? 'rtl' : 'ltr'}
+                                                className={inputCls(errors[`meta_title.${lang}`])}
+                                                placeholder={lang === 'ar' ? 'عنوان مخصص لمحركات البحث...' : 'Custom title for search engines...'}
+                                                value={data.meta_title?.[lang] || ''}
+                                                onChange={e => setData('meta_title', { ...data.meta_title, [lang]: e.target.value })}
+                                                maxLength={100}
+                                            />
+                                            <div className="flex justify-between items-center mt-1 text-[11px] text-slate-400">
+                                                <span>{errors[`meta_title.${lang}`] && <span className="text-rose-500 font-mikhak-medium">{errors[`meta_title.${lang}`]}</span>}</span>
+                                                <span>{(data.meta_title?.[lang] || '').length}/100</span>
+                                            </div>
+                                        </div>
+
+                                        {/* Meta Description */}
+                                        <div>
+                                            <label className={labelCls}>
+                                                {lang === 'ar' ? 'وصف الميتا (Meta Description)' : 'Meta Description'}
+                                                <span className="text-slate-400 font-mikhak-regular ml-1 text-xs">({globalLang === 'ar' ? 'اختياري - يفضل بين 120-160 حرفاً' : 'Optional - recommended 120-160 chars'})</span>
+                                            </label>
+                                            <textarea
+                                                dir={lang === 'ar' ? 'rtl' : 'ltr'}
+                                                rows={3}
+                                                className={inputCls(errors[`meta_description.${lang}`]) + ' resize-none'}
+                                                placeholder={lang === 'ar' ? 'وصف موجز وجذاب يظهر في نتائج بحث جوجل...' : 'A brief description that appears in Google search results...'}
+                                                value={data.meta_description?.[lang] || ''}
+                                                onChange={e => setData('meta_description', { ...data.meta_description, [lang]: e.target.value })}
+                                                maxLength={255}
+                                            />
+                                            <div className="flex justify-between items-center mt-1 text-[11px] text-slate-400">
+                                                <span>{errors[`meta_description.${lang}`] && <span className="text-rose-500 font-mikhak-medium">{errors[`meta_description.${lang}`]}</span>}</span>
+                                                <span>{(data.meta_description?.[lang] || '').length}/255</span>
+                                            </div>
+                                        </div>
+
+                                        {/* Image Alt Text */}
+                                        <div>
+                                            <label className={labelCls}>
+                                                {lang === 'ar' ? 'النص البديل للصورة البارزة (Alt Text)' : 'Featured Image Alt Text'}
+                                                <span className="text-slate-400 font-mikhak-regular ml-1 text-xs">({globalLang === 'ar' ? 'اختياري - لتحسين إمكانية الوصول وبحث الصور' : 'Optional - for accessibility & image search'})</span>
+                                            </label>
+                                            <input
+                                                type="text"
+                                                dir={lang === 'ar' ? 'rtl' : 'ltr'}
+                                                className={inputCls(errors[`image_alt.${lang}`])}
+                                                placeholder={lang === 'ar' ? 'صف ما يوجد في الصورة البارزة...' : 'Describe what is in the featured image...'}
+                                                value={data.image_alt?.[lang] || ''}
+                                                onChange={e => setData('image_alt', { ...data.image_alt, [lang]: e.target.value })}
+                                            />
+                                            {errors[`image_alt.${lang}`] && <p className="text-rose-500 text-xs mt-1 font-mikhak-medium">{errors[`image_alt.${lang}`]}</p>}
+                                        </div>
+                                    </div>
+
+                                    {/* Custom OG Image Upload */}
+                                    <div className="border-t border-slate-100 pt-5">
+                                        <label className={labelCls}>
+                                            {globalLang === 'ar' ? 'صورة Open Graph المخصصة (OG Image)' : 'Custom Open Graph Image'}
+                                            <span className="text-slate-400 font-mikhak-regular ml-1 text-xs">({globalLang === 'ar' ? 'مستحسن لمشاركات الواتساب والتواصل الاجتماعي - يترك فارغاً لاستخدام الصورة البارزة' : 'Recommended for social shares - defaults to featured image'})</span>
+                                        </label>
+                                        <div className="mt-2 max-w-md">
+                                            <OgImageUpload
+                                                value={data.og_image}
+                                                onChange={file => setData('og_image', file)}
+                                                currentImage={article?.og_image}
+                                                error={errors.og_image}
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
                             )}
                         </div>
