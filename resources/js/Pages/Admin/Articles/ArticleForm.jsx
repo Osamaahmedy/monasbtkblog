@@ -469,6 +469,60 @@ export default function ArticleForm({ data, setData, errors, setError, clearErro
     const { lang: globalLang } = useLanguage();
     const t = translations[globalLang] || translations.en;
 
+    // Autosave & Restore logic for the entire form
+    const storageKey = article ? `article_form_draft_edit_${article.id}` : 'article_form_draft_new';
+    const [hasRestoredDraft, setHasRestoredDraft] = useState(false);
+    const restoredRef = useRef(false);
+
+    // 1. Restore draft on mount
+    useEffect(() => {
+        try {
+            const saved = localStorage.getItem(storageKey);
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                // Loop through keys and restore
+                Object.keys(parsed).forEach(key => {
+                    if (key !== 'image' && key !== 'og_image') {
+                        setData(key, parsed[key]);
+                    }
+                });
+                setHasRestoredDraft(true);
+            }
+        } catch (err) {
+            console.error("Failed to restore draft", err);
+        } finally {
+            // Set ref to true in a setTimeout to let React update state first
+            setTimeout(() => {
+                restoredRef.current = true;
+            }, 100);
+        }
+    }, []);
+
+    // 2. Save draft when data changes (skip when initial loading/restoring is in progress)
+    useEffect(() => {
+        if (!restoredRef.current) return;
+        const delayDebounce = setTimeout(() => {
+            try {
+                const copy = { ...data };
+                delete copy.image;
+                delete copy.og_image;
+                localStorage.setItem(storageKey, JSON.stringify(copy));
+            } catch (e) {
+                console.error("Failed to save draft", e);
+            }
+        }, 1000); // 1-second debounce
+
+        return () => clearTimeout(delayDebounce);
+    }, [data]);
+
+    const handleDiscardDraft = () => {
+        if (confirm(globalLang === 'ar' ? 'هل أنت متأكد من رغبتك في حذف المسودة والبدء من جديد؟' : 'Are you sure you want to discard the draft and start fresh?')) {
+            localStorage.removeItem(storageKey);
+            setHasRestoredDraft(false);
+            window.location.reload();
+        }
+    };
+
     // Switch to erroring language automatically
     useEffect(() => {
         const keys = Object.keys(errors);
@@ -541,6 +595,32 @@ export default function ArticleForm({ data, setData, errors, setError, clearErro
             `}</style>
 
             <form onSubmit={handleSubmit}>
+                {hasRestoredDraft && (
+                    <div className="mb-6 bg-amber-50/70 border border-amber-200 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 animate-fade-in">
+                        <div className="flex items-center gap-3">
+                            <span className="flex items-center justify-center w-10 h-10 rounded-xl bg-amber-100 text-amber-800 text-lg">
+                                ⚠️
+                            </span>
+                            <div className={globalLang === 'ar' ? 'text-right' : 'text-left'}>
+                                <h4 className="text-sm font-mikhak-bold text-amber-800">
+                                    {globalLang === 'ar' ? 'تم استعادة تعديلات غير محفوظة' : 'Unsaved changes restored'}
+                                </h4>
+                                <p className="text-xs text-amber-600 font-mikhak-regular mt-0.5">
+                                    {globalLang === 'ar' 
+                                        ? 'تم تحميل آخر التعديلات تلقائياً من ذاكرة المتصفح المؤقتة.' 
+                                        : 'The last updates were automatically loaded from your browser memory.'}
+                                </p>
+                            </div>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={handleDiscardDraft}
+                            className="px-4 py-2 bg-amber-100 hover:bg-amber-200 text-amber-900 rounded-xl text-xs font-mikhak-bold transition-colors shadow-sm"
+                        >
+                            {globalLang === 'ar' ? 'حذف المسودة والبدء من جديد' : 'Discard draft & reset'}
+                        </button>
+                    </div>
+                )}
                 <div className="flex flex-col xl:flex-row gap-6">
 
                     {/* ── Main Content Column ── */}

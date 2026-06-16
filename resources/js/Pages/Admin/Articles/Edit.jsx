@@ -36,6 +36,7 @@ export default function Edit({ article, categories }) {
             onSuccess: () => {
                 localStorage.removeItem(`article_draft_${article.id}_en`);
                 localStorage.removeItem(`article_draft_${article.id}_ar`);
+                localStorage.removeItem(`article_form_draft_edit_${article.id}`);
             },
         });
     };

@@ -29,6 +29,7 @@ export default function Create({ categories }) {
             onSuccess: () => {
                 localStorage.removeItem('article_new_draft_en');
                 localStorage.removeItem('article_new_draft_ar');
+                localStorage.removeItem('article_form_draft_new');
             },
         });
     };

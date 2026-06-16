@@ -81,7 +81,7 @@ class ArticleController extends Controller
         
         $ogImagePath = null;
         if ($request->hasFile('og_image')) {
-            $ogImagePath = $request->file('og_image')->store('articles/og', 'public');
+            $ogImagePath = $this->storeOgImage($request->file('og_image'));
         }
 
         Article::create([
@@ -174,11 +174,7 @@ class ArticleController extends Controller
         }
 
         if ($request->hasFile('og_image')) {
-            $data['og_image'] = $request->file('og_image')->store('articles/og', 'public');
-            // Delete old og_image if it exists
-            if ($article->og_image) {
-                \Illuminate\Support\Facades\Storage::disk('public')->delete($article->og_image);
-            }
+            $data['og_image'] = $this->storeOgImage($request->file('og_image'), $article->og_image);
         }
 
         $article->update($data);
@@ -191,5 +187,44 @@ class ArticleController extends Controller
         $article->delete();
 
         return redirect()->route('admin.articles.index')->with('success', 'Article deleted successfully.');
+    }
+
+    private function storeOgImage($file, $oldImage = null)
+    {
+        $extension = strtolower($file->getClientOriginalExtension());
+        $relativeFolder = 'articles/og';
+        $destFolder = storage_path('app/public/' . $relativeFolder);
+        
+        // Ensure folder exists
+        if (!file_exists($destFolder)) {
+            mkdir($destFolder, 0755, true);
+        }
+
+        $ogImagePath = null;
+        
+        if ($extension === 'webp' && function_exists('imagecreatefromwebp')) {
+            $image = @imagecreatefromwebp($file->getRealPath());
+            if ($image) {
+                $filename = uniqid() . '.jpg';
+                $destPath = $destFolder . '/' . $filename;
+                // Convert and save as JPEG with 90% quality
+                if (imagejpeg($image, $destPath, 90)) {
+                    $ogImagePath = $relativeFolder . '/' . $filename;
+                }
+                imagedestroy($image);
+            }
+        }
+        
+        // If conversion was not done (different format or failed webp gd conversion), store directly
+        if (!$ogImagePath) {
+            $ogImagePath = $file->store($relativeFolder, 'public');
+        }
+
+        // Clean up old image if present
+        if ($oldImage) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($oldImage);
+        }
+
+        return $ogImagePath;
     }
 }
