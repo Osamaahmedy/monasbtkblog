@@ -55,11 +55,7 @@ class BlogController extends Controller
             ->get();
 
         // Detect language
-        $lang = $request->cookie('monasbtk_lang');
-        if (!$lang || !in_array($lang, ['ar', 'en'])) {
-            $acceptLang = $request->header('Accept-Language');
-            $lang = (strpos($acceptLang, 'ar') !== false) ? 'ar' : 'en';
-        }
+        $lang = app()->getLocale();
 
         // Get metadata values with fallback
         $metaTitle = ($article->meta_title[$lang] ?? null) ?: ($article->title[$lang] ?? ($article->title['en'] ?? 'monasbtk - مناسبتك'));

@@ -15,6 +15,8 @@ export function LanguageProvider({ children }) {
         // Set root document attributes
         document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
         document.documentElement.lang = lang;
+        // Set cookie for server-side detection
+        document.cookie = `monasbtk_lang=${lang};path=/;max-age=31536000;SameSite=Lax`;
     }, [lang]);
 
     const toggleLanguage = () => {

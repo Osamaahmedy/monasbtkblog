@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,14 +25,14 @@
     </script>
     
     {{-- ===== SEO Core Meta ===== --}}
-    <title>{{ $meta_title ?? 'monasbtk - مناسبتك' }}</title>
-    <meta name="description" content="{{ $meta_description ?? ' مناسبتك منصة متكاملة لحجز وتنظيم المناسبات بسهولة. اكتشف أفضل مزودي الخدمات، القاعات، اليخوت، الضيافة، الديكورات والفعاليات في مكان واحد ' }}">
-    <meta name="keywords" content="مناسبتك, حجز مناسبات, تنظيم مناسبات, قاعات, يخوت, ضيافة, ديكورات, فعاليات">
+    <title>{{ $meta_title ?? (app()->getLocale() === 'ar' ? 'مناسبتك - منصة تنظيم وحجز المناسبات والفعاليات' : 'Monasbtk - Event Planning & Booking Platform') }}</title>
+    <meta name="description" content="{{ $meta_description ?? (app()->getLocale() === 'ar' ? 'مناسبتك منصة متكاملة لحجز وتنظيم المناسبات بسهولة. اكتشف أفضل مزودي الخدمات، القاعات، اليخوت، الضيافة، الديكورات والفعاليات في مكان واحد' : 'Monasbtk is an integrated platform for booking and organizing events easily. Discover the best service providers, halls, yachts, hospitality, decor, and events in one place.') }}">
+    <meta name="keywords" content="{{ app()->getLocale() === 'ar' ? 'مناسبتك, حجز مناسبات, تنظيم مناسبات, قاعات, يخوت, ضيافة, ديكورات, فعاليات' : 'Monasbtk, events, occasions, celebrations, party planning, Saudi Arabia' }}">
     <meta name="author" content="monasbtk">
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
     
-    <link rel="canonical" href="{{ $canonical ?? (rtrim(config('app.url'), '/') . (request()->path() === '/' ? '' : '/' . ltrim(request()->path(), '/'))) }}">
+    <link rel="canonical" href="{{ $canonical ?? url()->current() }}">
 
     {{-- ===== Theme Color ===== --}}
     <meta name="theme-color" content="#794BC7">
@@ -43,26 +43,26 @@
 
     {{-- ===== Open Graph (Facebook / WhatsApp / LinkedIn) ===== --}}
     <meta property="og:type" content="{{ $og_type ?? 'website' }}">
-    <meta property="og:title" content="{{ $meta_title ?? 'monasbtk - مناسبتك' }}">
-    <meta property="og:description" content="{{ $meta_description ?? ' مناسبتك منصة متكاملة لحجز وتنظيم المناسبات بسهولة. اكتشف أفضل مزودي الخدمات، القاعات، اليخوت، الضيافة، الديكورات والفعاليات في مكان واحد ' }}">
+    <meta property="og:title" content="{{ $meta_title ?? (app()->getLocale() === 'ar' ? 'مناسبتك - منصة تنظيم وحجز المناسبات والفعاليات' : 'Monasbtk - Event Planning & Booking Platform') }}">
+    <meta property="og:description" content="{{ $meta_description ?? (app()->getLocale() === 'ar' ? 'مناسبتك منصة متكاملة لحجز وتنظيم المناسبات بسهولة. اكتشف أفضل مزودي الخدمات، القاعات، اليخوت، الضيافة، الديكورات والفعاليات في مكان واحد' : 'Monasbtk is an integrated platform for booking and organizing events easily. Discover the best service providers, halls, yachts, hospitality, decor, and events in one place.') }}">
     
-    <meta property="og:url" content="{{ $canonical ?? (rtrim(config('app.url'), '/') . (request()->path() === '/' ? '' : '/' . ltrim(request()->path(), '/'))) }}">
+    <meta property="og:url" content="{{ $canonical ?? url()->current() }}">
     <meta property="og:image" content="{{ $og_image ?? Vite::asset('resources/images/monasbtk_colored_logo.png') }}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:site_name" content="monasbtk">
-    <meta property="og:locale" content="ar_SA">
+    <meta property="og:locale" content="{{ app()->getLocale() === 'ar' ? 'ar_SA' : 'en_US' }}">
 
     {{-- ===== Twitter Card ===== --}}
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ $meta_title ?? 'monasbtk - مناسبتك' }}">
-    <meta name="twitter:description" content="{{ $meta_description ?? ' مناسبتك منصة متكاملة لحجز وتنظيم المناسبات بسهولة. اكتشف أفضل مزودي الخدمات، القاعات، اليخوت، الضيافة، الديكورات والفعاليات في مكان واحد ' }}">
+    <meta name="twitter:title" content="{{ $meta_title ?? (app()->getLocale() === 'ar' ? 'مناسبتك - منصة تنظيم وحجز المناسبات والفعاليات' : 'Monasbtk - Event Planning & Booking Platform') }}">
+    <meta name="twitter:description" content="{{ $meta_description ?? (app()->getLocale() === 'ar' ? 'مناسبتك منصة متكاملة لحجز وتنظيم المناسبات بسهولة. اكتشف أفضل مزودي الخدمات، القاعات، اليخوت، الضيافة، الديكورات والفعاليات في مكان واحد' : 'Monasbtk is an integrated platform for booking and organizing events easily. Discover the best service providers, halls, yachts, hospitality, decor, and events in one place.') }}">
     <meta name="twitter:image" content="{{ $og_image ?? Vite::asset('resources/images/monasbtk_colored_logo.png') }}">
     {{-- <meta name="twitter:site" content="@your_twitter_handle"> --}}
 
     {{-- ===== Favicon ===== --}}
-    <link rel="icon" href="{{ Vite::asset('resources/images/monasbtk_colored_logo.png') }}" type="image/png">
-    <link rel="apple-touch-icon" href="{{ Vite::asset('resources/images/monasbtk_colored_logo.png') }}">
+    <link rel="icon" href="/images/monasbtk_colored_logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="/images/monasbtk_colored_logo.png">
 
     {{-- ===== Google Search Console Verification ===== --}}
     <meta name="google-site-verification" content="VGHq44w9RrW9MIDWaBCVb5fKIrmU-wdiB_TQaGvhXx0" />
@@ -74,14 +74,14 @@
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "monasbtk",
-        "url": "{{ rtrim(config('app.url'), '/') }}",
+        "url": "{{ url('/') }}",
         "description": "«مناسبتك» هي شركة سعودية ناشئة تعتمد على التكنولوجيا، متخصصة في تقديم حلول ذكية لتنظيم المناسبات والفعاليات. نؤمن بأن التخطيط لمناسبة مميزة لا يجب أن يكون معقدًا، ولهذا صممنا تطبيق «مناسبتك» ليكون أداة سهلة وفعالة تساعد العملاء على توفير الوقت والجهد، والوصول إلى أفضل مزودي الخدمات بكل سلاسة. تأسست الشركة بداية عام 2024، ونسعى لإحداث نقلة نوعية في قطاع تنظيم المناسبات من خلال حلول مبتكرة وشاملة تواكب احتياجات السوق المحلي وتدعم رواد الأعمال في هذا المجال",
         "inLanguage": "ar",
         "potentialAction": {
             "@type": "SearchAction",
             "target": {
                 "@type": "EntryPoint",
-                "urlTemplate": "{{ rtrim(config('app.url'), '/') }}/search?q={search_term_string}"
+                "urlTemplate": "{{ url('/') }}/search?q={search_term_string}"
             },
             "query-input": "required name=search_term_string"
         }
