@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
 
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -13,7 +13,7 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-TPNBWN4J');</script>
     <!-- End Google Tag Manager -->
-    
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8FF16W6S3C"></script>
     <script>
@@ -23,7 +23,9 @@
 
         gtag('config', 'G-8FF16W6S3C');
     </script>
-    
+
+    <script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"5d314d87cd6df5d609c082d2fc16ef1c"})});</script>
+
     {{-- ===== SEO Core Meta ===== --}}
     <title>{{ $meta_title ?? (app()->getLocale() === 'ar' ? 'مناسبتك - منصة تنظيم وحجز المناسبات والفعاليات' : 'Monasbtk - Event Planning & Booking Platform') }}</title>
     <meta name="description" content="{{ $meta_description ?? (app()->getLocale() === 'ar' ? 'مناسبتك منصة متكاملة لحجز وتنظيم المناسبات بسهولة. اكتشف أفضل مزودي الخدمات، القاعات، اليخوت، الضيافة، الديكورات والفعاليات في مكان واحد' : 'Monasbtk is an integrated platform for booking and organizing events easily. Discover the best service providers, halls, yachts, hospitality, decor, and events in one place.') }}">
@@ -31,7 +33,7 @@
     <meta name="author" content="monasbtk">
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
-    
+
     <link rel="canonical" href="{{ $canonical ?? url()->current() }}">
 
     {{-- ===== Theme Color ===== --}}
@@ -45,7 +47,7 @@
     <meta property="og:type" content="{{ $og_type ?? 'website' }}">
     <meta property="og:title" content="{{ $meta_title ?? (app()->getLocale() === 'ar' ? 'مناسبتك - منصة تنظيم وحجز المناسبات والفعاليات' : 'Monasbtk - Event Planning & Booking Platform') }}">
     <meta property="og:description" content="{{ $meta_description ?? (app()->getLocale() === 'ar' ? 'مناسبتك منصة متكاملة لحجز وتنظيم المناسبات بسهولة. اكتشف أفضل مزودي الخدمات، القاعات، اليخوت، الضيافة، الديكورات والفعاليات في مكان واحد' : 'Monasbtk is an integrated platform for booking and organizing events easily. Discover the best service providers, halls, yachts, hospitality, decor, and events in one place.') }}">
-    
+
     <meta property="og:url" content="{{ $canonical ?? url()->current() }}">
     <meta property="og:image" content="{{ $og_image ?? Vite::asset('resources/images/monasbtk_colored_logo.png') }}">
     <meta property="og:image:width" content="1200">
