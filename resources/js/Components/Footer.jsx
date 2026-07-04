@@ -3,12 +3,7 @@ import { motion } from 'framer-motion';
 import { translations } from '../translations';
 import monasbtkMainLogo from '../../images/monasbtk_main_logo.png';
 
-// Social icons
-import linkedinLogo from '../../icons/linkedin_logo.png';
-import instagramLogo from '../../icons/instagram_logo.png';
-import whatsappLogo from '../../icons/whatsapp_logo.png';
-import xLogo from '../../icons/x_logo.png';
-
+// ---------- App store icons ----------
 const AppleIcon = () => (
   <svg viewBox="0 0 814 1000" className="w-6 h-6 fill-white flex-shrink-0" xmlns="http://www.w3.org/2000/svg">
     <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-37.5-155.5-127.4C46.7 790.7 0 663 0 541.8c0-207.5 135.4-317.3 269-317.3 70.1 0 128.4 46.4 172.5 46.4 42.8 0 109.6-49 192.5-49 31 0 108.2 2.6 168.5 80.1zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z" />
@@ -71,17 +66,81 @@ const StoreButton = ({ href, icon, topLabel, bottomLabel, isComingSoon = false }
   </motion.a>
 );
 
+// ---------- Social icons (inline SVG, crisp at any size, colorable) ----------
+const LinkedinIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+  </svg>
+);
+
+const InstagramIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8" xmlns="http://www.w3.org/2000/svg">
+    <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" />
+    <circle cx="12" cy="12" r="4.6" />
+    <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none" />
+  </svg>
+);
+
+const WhatsappIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12.04 2c-5.5 0-9.96 4.46-9.96 9.96 0 1.76.46 3.44 1.33 4.94L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.5 0 9.96-4.46 9.96-9.96C21.99 6.46 17.54 2 12.04 2zm0 18.2c-1.5 0-2.97-.4-4.25-1.16l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.37c0-4.54 3.7-8.24 8.3-8.24 4.6 0 8.3 3.7 8.3 8.24 0 4.54-3.7 8.24-8.3 8.24zm4.55-6.17c-.25-.12-1.47-.72-1.7-.81-.23-.08-.4-.12-.56.13-.17.25-.65.81-.8.98-.15.17-.29.19-.54.06-.25-.12-1.06-.39-2.02-1.24-.75-.66-1.25-1.48-1.4-1.73-.14-.25-.02-.38.11-.5.11-.11.25-.29.37-.44.12-.15.16-.25.24-.42.08-.17.04-.31-.02-.44-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42-.14-.01-.31-.01-.48-.01a.92.92 0 0 0-.67.31c-.23.25-.87.85-.87 2.08s.9 2.41 1.02 2.58c.12.17 1.77 2.7 4.29 3.79.6.26 1.07.42 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.16-.48-.28z" />
+  </svg>
+);
+
+const XIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18.9 2H22l-7.6 8.68L23.4 22h-6.9l-5.4-6.85L4.9 22H1.8l8.13-9.28L1 2h7.1l4.9 6.26L18.9 2zm-1.2 18.17h1.9L7.4 3.75H5.36L17.7 20.17z" />
+  </svg>
+);
+
+const PinterestIcon = () => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.08 3.15 9.42 7.6 11.17-.1-.95-.2-2.4.04-3.44.22-.94 1.42-6 1.42-6s-.36-.73-.36-1.8c0-1.68.98-2.94 2.19-2.94 1.03 0 1.53.78 1.53 1.71 0 1.04-.66 2.6-1 4.04-.29 1.21.6 2.2 1.8 2.2 2.16 0 3.82-2.28 3.82-5.56 0-2.9-2.09-4.94-5.06-4.94-3.45 0-5.47 2.58-5.47 5.25 0 1.04.4 2.15.9 2.76.1.12.11.23.08.35-.09.36-.28 1.12-.32 1.28-.05.2-.17.25-.38.15-1.42-.66-2.31-2.73-2.31-4.4 0-3.58 2.6-6.87 7.5-6.87 3.94 0 7 2.81 7 6.56 0 3.91-2.47 7.06-5.9 7.06-1.15 0-2.24-.6-2.6-1.31l-.71 2.7c-.26.99-.96 2.24-1.43 3 .1.03.2.04.31.06A12 12 0 1 0 12 0z" />
+  </svg>
+);
+
+const SOCIAL_LINKS = [
+  {
+    key: 'linkedin',
+    href: 'https://www.linkedin.com/company/monasbatech/',
+    icon: LinkedinIcon,
+    label: 'LinkedIn',
+    hover: 'hover:bg-[#0A66C2] hover:text-white',
+  },
+  {
+    key: 'instagram',
+    href: 'https://www.instagram.com/monasbtk.app?igsh=OThvZDR4YzF1bmJp&utm_source=qr',
+    icon: InstagramIcon,
+    label: 'Instagram',
+    hover: 'hover:bg-gradient-to-tr hover:from-[#FEDA75] hover:via-[#D62976] hover:to-[#4F5BD5] hover:text-white',
+  },
+  {
+    key: 'whatsapp',
+    href: 'https://wa.me/966542728123',
+    icon: WhatsappIcon,
+    label: 'WhatsApp',
+    hover: 'hover:bg-[#25D366] hover:text-white',
+  },
+  {
+    key: 'twitter',
+    href: 'https://x.com/monasbtkapp?s=21&t=u1kZpmzFndvZZJvLgvtGAA',
+    icon: XIcon,
+    label: 'X',
+    hover: 'hover:bg-black hover:text-white',
+  },
+  {
+    key: 'pinterest',
+    href: 'https://pin.it/1X8J05ZAt',
+    icon: PinterestIcon,
+    label: 'Pinterest',
+    hover: 'hover:bg-[#E60023] hover:text-white',
+  },
+];
+
 const Footer = ({ lang }) => {
   const t = translations[lang].footer;
   const isRTL = lang === 'ar';
   const currentYear = new Date().getFullYear();
-
-  const socialIcons = {
-    linkedin: linkedinLogo,
-    instagram: instagramLogo,
-    whatsapp: whatsappLogo,
-    twitter: xLogo,
-  };
 
   return (
     <footer dir={isRTL ? 'rtl' : 'ltr'} className="bg-gradient-to-b from-primary via-[#6B00C9] to-[#4F0AA3] text-white">
@@ -164,21 +223,19 @@ const Footer = ({ lang }) => {
             </p>
 
             <div className="flex flex-wrap gap-3">
-              {[
-                { href: 'https://www.linkedin.com/company/monasbatech/', icon: socialIcons.linkedin, label: 'LinkedIn' },
-                { href: 'https://www.instagram.com/monasbtkapp?igsh=OThvZDR4YzF1bmJp&utm_source=qr', icon: socialIcons.instagram, label: 'Instagram' },
-                { href: 'https://wa.me/966542728123', icon: socialIcons.whatsapp, label: 'WhatsApp' },
-                { href: 'https://x.com/monasbtkapp?s=21&t=u1kZpmzFndvZZJvLgvtGAA', icon: socialIcons.twitter, label: 'X' },
-              ].map((social) => (
+              {SOCIAL_LINKS.map(({ key, href, icon: Icon, label, hover }) => (
                 <motion.a
-                  key={social.label}
-                  href={social.href}
-                  whileHover={{ scale: 1.08 }}
+                  key={key}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.94 }}
-                  className="bg-white/10 hover:bg-white/18 p-2.5 rounded-full transition-colors shadow-md"
-                  aria-label={social.label}
+                  className={`relative flex items-center justify-center w-10 h-10 rounded-full bg-white/10 border border-white/10 text-white/90 transition-all duration-300 shadow-md ${hover}`}
+                  aria-label={label}
+                  title={label}
                 >
-                  <img src={social.icon} alt={social.label} className="w-6 h-6" />
+                  <Icon />
                 </motion.a>
               ))}
             </div>

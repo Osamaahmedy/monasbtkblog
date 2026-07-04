@@ -143,10 +143,10 @@ const Hero = ({ lang }) => {
                 {/* Badge */}
                 <motion.div variants={itemVariants} className="flex justify-center md:justify-start">
                     <span
-                        className={`inline-flex items-center gap-2.5 px-5 py-2 rounded-full 
-      bg-white/[0.08] border border-white/20 
-      text-white text-xs 
-      shadow-[0_0_20px_rgba(74,222,128,0.15),0_4px_30px_rgba(0,0,0,0.2)] 
+                        className={`inline-flex items-center gap-2.5 px-5 py-2 rounded-full
+      bg-white/[0.08] border border-white/20
+      text-white text-xs
+      shadow-[0_0_20px_rgba(74,222,128,0.15),0_4px_30px_rgba(0,0,0,0.2)]
       backdrop-blur-md relative overflow-hidden group select-none
       transition-all duration-300 hover:bg-white/[0.12] hover:border-white/30
       hover:shadow-[0_0_30px_rgba(74,222,128,0.25),0_4px_30px_rgba(0,0,0,0.2)]
@@ -235,7 +235,7 @@ const Hero = ({ lang }) => {
                     <div className="flex flex-col items-center md:items-start p-4 rounded-2xl bg-white/[0.03] border border-white/5 backdrop-blur-sm hover:bg-white/[0.06] transition-colors duration-300">
                         <div className="flex items-center gap-1.5 mb-1">
                             <UsersIcon />
-                            <span className={`text-white text-lg font-bold ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}>10K+</span>
+                            <span className={`text-white text-lg font-bold ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}>1K+</span>
                         </div>
                         <p className={`text-white/80 text-[10px] sm:text-xs font-semibold ${isRtl ? 'font-mikhak-regular' : 'font-outfit'}`}>
                             {isRtl ? 'مستخدم نشط' : 'Active Users'}
@@ -274,14 +274,12 @@ const Hero = ({ lang }) => {
                     className="relative"
                     style={{ willChange: "transform" }}
                 >
-                    {/* Outer glow ring */}
                     <motion.div
                         className="absolute -inset-8 rounded-full blur-3xl -z-10 bg-[#9B59B6]/30"
                         style={{ willChange: "transform, opacity" }}
                         animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.4, 0.2] }}
                         transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
                     />
-                    {/* Inner accent glow */}
                     <motion.div
                         className="absolute -inset-2 rounded-full blur-xl -z-10 bg-purple-400/20"
                         style={{ willChange: "transform, opacity" }}
@@ -289,10 +287,8 @@ const Hero = ({ lang }) => {
                         transition={{ repeat: Infinity, duration: 3, ease: "easeInOut", delay: 1 }}
                     />
 
-                    {/* Phone Frame */}
                     <PhoneFrame imgSrc="/images/Hero.jpeg" />
 
-                    {/* Floating Card 1: Top/Side Booking Confirmed */}
                     <motion.div
                         animate={{ y: [0, -10, 0], x: [0, 4, 0] }}
                         transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}

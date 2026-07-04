@@ -179,7 +179,7 @@ const DownloadAppSection = ({ lang }) => {
             >
               {[
                 { value: '4.9', label: isRtl ? 'تقييم التطبيق' : 'User Rating', icon: <StarIcon /> },
-                { value: '10K+', label: isRtl ? 'مستخدم نشط' : 'Active Users', icon: <UsersIcon /> },
+                { value: '1K+', label: isRtl ? 'مستخدم نشط' : 'Active Users', icon: <UsersIcon /> },
               ].map((stat) => (
                 <div key={stat.label} className="text-left select-none">
                   <div className="flex items-center gap-2 mb-1">
