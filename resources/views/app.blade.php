@@ -23,8 +23,10 @@
 
         gtag('config', 'G-8FF16W6S3C');
     </script>
-
     <script>function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"5d314d87cd6df5d609c082d2fc16ef1c"})});</script>
+
+
+
 
     {{-- ===== SEO Core Meta ===== --}}
     <title>{{ $meta_title ?? (app()->getLocale() === 'ar' ? 'مناسبتك - منصة تنظيم وحجز المناسبات والفعاليات' : 'Monasbtk - Event Planning & Booking Platform') }}</title>
