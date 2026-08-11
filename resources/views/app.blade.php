@@ -27,7 +27,6 @@
 
 
 
-
     {{-- ===== SEO Core Meta ===== --}}
     <title>{{ $meta_title ?? (app()->getLocale() === 'ar' ? 'مناسبتك - منصة تنظيم وحجز المناسبات والفعاليات' : 'Monasbtk - Event Planning & Booking Platform') }}</title>
     <meta name="description" content="{{ $meta_description ?? (app()->getLocale() === 'ar' ? 'مناسبتك منصة متكاملة لحجز وتنظيم المناسبات بسهولة. اكتشف أفضل مزودي الخدمات، القاعات، اليخوت، الضيافة، الديكورات والفعاليات في مكان واحد' : 'Monasbtk is an integrated platform for booking and organizing events easily. Discover the best service providers, halls, yachts, hospitality, decor, and events in one place.') }}">

@@ -193,13 +193,14 @@ const Footer = ({ lang }) => {
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 10 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.2 }}
+              viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.7, delay: 0.1 }}
               className="w-full md:w-1/3 flex justify-center"
             >
               <img
                 src={monasbtkMainLogo}
                 alt="Monasbtk Logo"
+                loading="lazy"
                 className="h-28 sm:h-32 md:h-36 lg:h-40 w-auto drop-shadow-2xl"
               />
             </motion.div>
@@ -213,7 +214,7 @@ const Footer = ({ lang }) => {
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5 }}
             className="backdrop-blur-sm bg-white/6 border border-white/10 rounded-2xl p-6 shadow-lg"
           >

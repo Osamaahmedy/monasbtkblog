@@ -81,12 +81,12 @@ const FAQSection = ({ lang }) => {
                 {/* Trigger Button */}
                 <button
                   onClick={() => toggleOpen(index)}
-                  className={`w-full py-5 px-6 sm:px-8 flex items-center justify-between text-left cursor-pointer focus:outline-none select-none ${isRtl ? 'flex-row-reverse' : ''}`}
+                  className="w-full py-5 px-6 sm:px-8 flex items-center justify-between cursor-pointer focus:outline-none select-none"
                 >
                   <h3 className={`text-base sm:text-lg font-bold text-slate-800 transition-colors duration-300 ${openIndex === index ? 'text-primary' : 'text-slate-700'} ${isRtl ? 'text-right font-mikhak-medium' : 'text-left font-outfit'}`}>
                     {item.question}
                   </h3>
-                  <div className={`flex-shrink-0 ${isRtl ? 'mr-6' : 'ml-6'}`}>
+                  <div className="flex-shrink-0 mx-3">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 
                       ${openIndex === index ? 'bg-primary text-white scale-110 shadow-md shadow-primary/25' : 'bg-slate-50 text-slate-500'}`}
                     >

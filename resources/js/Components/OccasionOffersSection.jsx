@@ -102,7 +102,7 @@ const OccasionOffersSection = ({ lang }) => {
 
                 {/* Glassmorphic sliding Tabs */}
                 <motion.div 
-                    className="flex flex-wrap justify-center gap-2 sm:gap-3 p-1.5 bg-slate-100/50 backdrop-blur-sm rounded-3xl max-w-3xl mx-auto border border-slate-200/30"
+                    className="flex overflow-x-auto no-scrollbar sm:flex-wrap justify-start sm:justify-center gap-2 sm:gap-3 p-1.5 bg-slate-100/60 backdrop-blur-sm rounded-3xl max-w-full sm:max-w-3xl mx-auto border border-slate-200/40 select-none"
                     initial={{ opacity: 0, y: 20 }}
                     animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
@@ -111,7 +111,7 @@ const OccasionOffersSection = ({ lang }) => {
                         <button
                             key={tabKey}
                             onClick={() => setActiveTab(tabKey)}
-                            className={`relative px-4 sm:px-5 py-2.5 rounded-full text-sm sm:text-base font-bold transition-all duration-300 select-none cursor-pointer
+                            className={`relative px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm md:text-base font-bold transition-all duration-300 select-none cursor-pointer whitespace-nowrap shrink-0
                                 ${activeTab === tabKey ? 'text-white' : 'text-slate-600 hover:text-slate-900'}
                                 ${isRtl ? 'font-mikhak-medium' : 'font-outfit'}
                             `}
@@ -130,7 +130,7 @@ const OccasionOffersSection = ({ lang }) => {
 
                 {/* Offers Grid */}
                 <motion.div 
-                    className="mt-16"
+                    className="mt-12 sm:mt-16"
                     initial={{ opacity: 0, y: 20 }}
                     animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ duration: 0.6, delay: 0.4 }}
@@ -142,24 +142,25 @@ const OccasionOffersSection = ({ lang }) => {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -15 }}
                             transition={{ duration: 0.3 }}
-                            className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 sm:gap-6"
+                            className="grid grid-cols-2 gap-3 sm:gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
                         >
                             {occasionOffersData[activeTab].map((offerKey) => (
                                 <motion.div
                                     key={offerKey}
-                                    className="group relative overflow-hidden bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-[0_20px_45px_rgba(121,75,199,0.06)] hover:border-primary/10 transition-all duration-300 cursor-pointer select-none"
+                                    className="group relative overflow-hidden bg-white border border-slate-100 rounded-3xl p-4 sm:p-6 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-[0_20px_45px_rgba(121,75,199,0.06)] hover:border-primary/10 transition-all duration-300 cursor-pointer select-none"
                                     whileHover={{ y: -6 }}
                                     transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                                 >
                                     {/* Icon Container */}
-                                    <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center mb-5 group-hover:bg-primary/5 group-hover:border-primary/15 transition-all duration-300 relative">
+                                    <div className="w-20 h-20 sm:w-28 sm:h-28 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center mb-4 sm:mb-5 group-hover:bg-primary/5 group-hover:border-primary/15 transition-all duration-300 relative">
                                         <img 
                                             src={offerIcons[offerKey]} 
-                                            alt="" 
-                                            className="h-20 w-20 sm:h-24 sm:w-24 object-contain transition-transform duration-500 group-hover:scale-110" 
+                                            alt={t.services[offerKey]} 
+                                            loading="lazy"
+                                            className="h-14 w-14 sm:h-20 sm:w-20 object-contain transition-transform duration-500 group-hover:scale-110" 
                                         />
                                     </div>
-                                    <span className={`text-sm sm:text-base font-bold text-slate-700 group-hover:text-primary transition-colors duration-300 ${isRtl ? 'font-mikhak-medium' : 'font-outfit'}`}>
+                                    <span className={`text-xs sm:text-sm md:text-base font-bold text-slate-700 group-hover:text-primary transition-colors duration-300 ${isRtl ? 'font-mikhak-medium' : 'font-outfit'}`}>
                                         {t.services[offerKey]}
                                     </span>
 

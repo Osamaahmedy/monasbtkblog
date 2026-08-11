@@ -41,3 +41,41 @@ html, body {
     font-style: normal;
 }
 
+/* Utilities for mobile responsiveness and performance */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+@keyframes slow-pulse-glow {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    50% {
+        transform: scale(1.15);
+        opacity: 0.5;
+    }
+}
+
+@keyframes slow-float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.animate-slow-glow {
+    animation: slow-pulse-glow 6s ease-in-out infinite;
+    will-change: transform, opacity;
+}
+
+.animate-slow-float {
+    animation: slow-float 5s ease-in-out infinite;
+    will-change: transform;
+}

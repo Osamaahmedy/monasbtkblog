@@ -94,26 +94,10 @@ const AppMockup = ({ isRtl }) => (
         style={{ willChange: "transform, opacity" }}
     >
         {/* Glow effect */}
-        <motion.div
-            className="absolute -inset-4 bg-purple-500/10 rounded-full blur-2xl opacity-40 -z-10"
-            style={{ willChange: "transform, opacity" }}
-            animate={{
-                scale: [1, 1.15, 1],
-                opacity: [0.3, 0.5, 0.3]
-            }}
-            transition={{
-                repeat: Infinity,
-                duration: 4,
-                ease: "easeInOut"
-            }}
-        />
+        <div className="absolute -inset-4 bg-purple-500/10 rounded-full blur-2xl opacity-40 -z-10 animate-slow-glow" />
 
         <motion.div
-            animate={{
-                y: [0, -12, 0],
-                x: [0, 4, 0],
-                rotate: isRtl ? [-4, -2, -4] : [4, 6, 4]
-            }}
+            animate={{ y: [0, -8, 0] }}
             transition={{
                 repeat: Infinity,
                 duration: 6,
@@ -127,9 +111,9 @@ const AppMockup = ({ isRtl }) => (
                 animate={{ y: [0, -6, 0] }}
                 transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
                 style={{ willChange: "transform" }}
-                className={`absolute top-16 ${isRtl ? '-left-6' : '-right-6'} px-4 py-2.5 rounded-2xl bg-white shadow-[0_8px_24px_rgba(0,0,0,0.06)] border border-purple-100 flex items-center gap-2 z-20 cursor-pointer select-none`}
+                className={`absolute top-12 sm:top-16 ${isRtl ? '-left-2 sm:-left-6' : '-right-2 sm:-right-6'} px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl bg-white shadow-lg border border-purple-100 flex items-center gap-2 z-20 cursor-pointer select-none scale-90 sm:scale-100`}
             >
-                <span className="text-lg">🔒</span>
+                <span className="text-base sm:text-lg">🔒</span>
                 <span className={`text-xs font-bold text-slate-700 ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}>
                     {isRtl ? 'دفع آمن ١٠٠٪' : '100% Secure Payment'}
                 </span>
@@ -139,9 +123,9 @@ const AppMockup = ({ isRtl }) => (
                 animate={{ y: [0, 6, 0] }}
                 transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
                 style={{ willChange: "transform" }}
-                className={`absolute bottom-24 ${isRtl ? '-right-6' : '-left-6'} px-4 py-2.5 rounded-2xl bg-white shadow-[0_8px_24px_rgba(0,0,0,0.06)] border border-pink-100 flex items-center gap-2 z-20 cursor-pointer select-none`}
+                className={`absolute bottom-20 sm:bottom-24 ${isRtl ? '-right-2 sm:-right-6' : '-left-2 sm:-left-6'} px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl bg-white shadow-lg border border-pink-100 flex items-center gap-2 z-20 cursor-pointer select-none scale-90 sm:scale-100`}
             >
-                <span className="text-lg">⚡</span>
+                <span className="text-base sm:text-lg">⚡</span>
                 <span className={`text-xs font-bold text-slate-700 ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}>
                     {isRtl ? 'سرعة بالطلب' : 'Instant Booking'}
                 </span>
@@ -159,7 +143,7 @@ const FeaturesSection = ({ lang }) => {
 
     const features = [
         {
-            icon: <img src={personalPlannerIcon} alt="Personal Planner" className="w-10 h-10 sm:w-12 sm:h-12 object-contain" />,
+            icon: <img src={personalPlannerIcon} alt="Personal Planner" loading="lazy" className="w-10 h-10 sm:w-12 sm:h-12 object-contain" />,
             title: t.specialOrganizer.title,
             description: t.specialOrganizer.description
         },

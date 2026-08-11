@@ -110,7 +110,7 @@ const ReviewSection = ({ lang }) => {
             <motion.div
               initial={{ opacity: 0, x: isRTL ? 50 : -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: false }}
+              viewport={{ once: true }}
               transition={{ duration: 0.8 }}
               className={`${isRTL ? 'lg:order-2 text-right' : 'lg:order-1 text-left'}`}
             >
@@ -119,7 +119,7 @@ const ReviewSection = ({ lang }) => {
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: false }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.8 }}
                   className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-gradient-to-r from-primary/10 to-secondary/10 blur-xl -z-10"
                 />
@@ -127,7 +127,7 @@ const ReviewSection = ({ lang }) => {
                 <motion.h2 
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.6 }}
                   className="text-4xl font-mikhak-bold text-gray-900 mb-4 inline-block relative"
                 >
@@ -138,7 +138,7 @@ const ReviewSection = ({ lang }) => {
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                   className="text-lg text-gray-600 mt-6 font-mikhak-regular"
                 >
@@ -149,7 +149,7 @@ const ReviewSection = ({ lang }) => {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: false }}
+                  viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: 0.3 }}
                   className="mt-10 hidden lg:block"
                 >
@@ -171,14 +171,14 @@ const ReviewSection = ({ lang }) => {
             <motion.div
               initial={{ opacity: 0, x: isRTL ? -50 : 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: false }}
+              viewport={{ once: true }}
               transition={{ duration: 0.8 }}
               className={`${isRTL ? 'lg:order-1' : 'lg:order-2'}`}
             >
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="bg-white rounded-2xl shadow-xl p-8 relative"
               >

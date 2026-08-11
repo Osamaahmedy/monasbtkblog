@@ -251,55 +251,36 @@ const Hero = ({ lang }) => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="md:w-1/2 flex justify-center relative select-none w-full"
+                className="md:w-1/2 flex justify-center relative select-none w-full px-2 sm:px-0"
                 style={{ willChange: "transform, opacity" }}
             >
                 {/* Glowing Background Glows */}
-                <motion.div
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full blur-3xl -z-10 bg-purple-600/30"
-                    style={{ willChange: "transform, opacity" }}
-                    animate={{ scale: [1, 1.25, 1], opacity: [0.3, 0.5, 0.3] }}
-                    transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-                />
-                <motion.div
-                    className="absolute top-1/3 left-1/3 w-64 h-64 rounded-full blur-2xl -z-10 bg-pink-500/20"
-                    style={{ willChange: "transform, opacity" }}
-                    animate={{ scale: [1.1, 0.9, 1.1], opacity: [0.2, 0.4, 0.2] }}
-                    transition={{ repeat: Infinity, duration: 4, ease: "easeInOut", delay: 1 }}
-                />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 rounded-full blur-3xl -z-10 bg-purple-600/30 animate-slow-glow" />
+                <div className="absolute top-1/3 left-1/3 w-64 h-64 rounded-full blur-2xl -z-10 bg-pink-500/20 animate-slow-glow" style={{ animationDelay: '1s' }} />
 
                 <motion.div
-                    animate={{ y: [0, -15, 0], rotate: [0, 1, 0] }}
+                    animate={{ y: [0, -12, 0] }}
                     transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
                     className="relative"
                     style={{ willChange: "transform" }}
                 >
-                    <motion.div
-                        className="absolute -inset-8 rounded-full blur-3xl -z-10 bg-[#9B59B6]/30"
-                        style={{ willChange: "transform, opacity" }}
-                        animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.4, 0.2] }}
-                        transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                    />
-                    <motion.div
-                        className="absolute -inset-2 rounded-full blur-xl -z-10 bg-purple-400/20"
-                        style={{ willChange: "transform, opacity" }}
-                        animate={{ scale: [1, 1.05, 1], opacity: [0.1, 0.25, 0.1] }}
-                        transition={{ repeat: Infinity, duration: 3, ease: "easeInOut", delay: 1 }}
-                    />
+                    <div className="absolute -inset-8 rounded-full blur-3xl -z-10 bg-[#9B59B6]/25 animate-slow-glow" />
+                    <div className="absolute -inset-2 rounded-full blur-xl -z-10 bg-purple-400/15 animate-slow-glow" />
 
                     <PhoneFrame imgSrc="/images/Hero.jpeg" />
 
+                    {/* Floating Card 1: Upcoming Event */}
                     <motion.div
-                        animate={{ y: [0, -10, 0], x: [0, 4, 0] }}
+                        animate={{ y: [0, -8, 0] }}
                         transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
                         style={{ willChange: "transform" }}
-                        className={`absolute z-20 top-12 ${isRtl ? '-left-8 sm:-left-16' : '-right-8 sm:-right-16'} p-3 rounded-2xl bg-slate-900/60 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] flex items-center gap-3 select-none backdrop-blur-md`}
+                        className={`absolute z-20 top-10 sm:top-12 ${isRtl ? '-left-2 sm:-left-10 md:-left-16' : '-right-2 sm:-right-10 md:-right-16'} p-2.5 sm:p-3 rounded-2xl bg-slate-900/75 border border-white/15 shadow-xl flex items-center gap-2.5 sm:gap-3 select-none backdrop-blur-md scale-90 sm:scale-100`}
                     >
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-pink-500 to-rose-400 flex items-center justify-center text-sm shadow-md">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-pink-500 to-rose-400 flex items-center justify-center text-xs sm:text-sm shadow-md">
                             🎉
                         </div>
                         <div className="flex flex-col text-start">
-                            <span className={`text-[9px] font-semibold text-white/40 uppercase tracking-widest ${isRtl ? 'font-mikhak-regular' : 'font-outfit'}`}>
+                            <span className={`text-[8px] sm:text-[9px] font-semibold text-white/50 uppercase tracking-widest ${isRtl ? 'font-mikhak-regular' : 'font-outfit'}`}>
                                 {isRtl ? 'الطلب القادم' : 'Upcoming Event'}
                             </span>
                             <span className={`text-xs font-bold text-white ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}>
@@ -308,18 +289,18 @@ const Hero = ({ lang }) => {
                         </div>
                     </motion.div>
 
-                    {/* Floating Card 2: Bottom/Side Cake Ordered */}
+                    {/* Floating Card 2: Event Booked */}
                     <motion.div
-                        animate={{ y: [0, 8, 0], x: [0, -3, 0] }}
+                        animate={{ y: [0, 8, 0] }}
                         transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }}
                         style={{ willChange: "transform" }}
-                        className={`absolute z-20 bottom-16 ${isRtl ? '-right-10 sm:-right-20' : '-left-10 sm:-left-20'} p-3 rounded-2xl bg-slate-900/60 border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] flex items-center gap-3 select-none backdrop-blur-md`}
+                        className={`absolute z-20 bottom-14 sm:bottom-16 ${isRtl ? '-right-2 sm:-right-12 md:-right-20' : '-left-2 sm:-left-12 md:-left-20'} p-2.5 sm:p-3 rounded-2xl bg-slate-900/75 border border-white/15 shadow-xl flex items-center gap-2.5 sm:gap-3 select-none backdrop-blur-md scale-90 sm:scale-100`}
                     >
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-400 flex items-center justify-center text-sm shadow-md">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-tr from-purple-500 to-indigo-400 flex items-center justify-center text-xs sm:text-sm shadow-md">
                             🎂
                         </div>
                         <div className="flex flex-col text-start">
-                            <span className={`text-[9px] font-semibold text-white/40 uppercase tracking-widest ${isRtl ? 'font-mikhak-regular' : 'font-outfit'}`}>
+                            <span className={`text-[8px] sm:text-[9px] font-semibold text-white/50 uppercase tracking-widest ${isRtl ? 'font-mikhak-regular' : 'font-outfit'}`}>
                                 {isRtl ? 'تم الحجز' : 'Event Booked'}
                             </span>
                             <span className={`text-xs font-bold text-white ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}>
@@ -328,14 +309,14 @@ const Hero = ({ lang }) => {
                         </div>
                     </motion.div>
 
-                    {/* Floating Badge 3: Mini Themes indicator */}
+                    {/* Floating Badge 3: Live Themes */}
                     <motion.div
-                        animate={{ scale: [1, 1.05, 1], rotate: [0, 6, 0], y: [0, -6, 0] }}
+                        animate={{ y: [0, -6, 0] }}
                         transition={{ repeat: Infinity, duration: 4, ease: "easeInOut", delay: 0.5 }}
                         style={{ willChange: "transform" }}
-                        className={`absolute z-20 top-[40%] ${isRtl ? '-right-10 sm:-right-14' : '-left-10 sm:-left-14'} p-2 rounded-xl bg-slate-900/50 backdrop-blur-md border border-white/10 text-white text-xs flex items-center gap-1.5 shadow-md`}
+                        className={`absolute z-20 top-[42%] ${isRtl ? '-right-2 sm:-right-8 md:-right-14' : '-left-2 sm:-left-8 md:-left-14'} p-2 rounded-xl bg-slate-900/70 backdrop-blur-md border border-white/15 text-white text-xs flex items-center gap-1.5 shadow-lg scale-90 sm:scale-100`}
                     >
-                        <span className="text-sm">✨</span>
+                        <span className="text-xs sm:text-sm">✨</span>
                         <span className={`font-semibold ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}>{isRtl ? 'ثيمات تفاعلية' : 'Live Themes'}</span>
                     </motion.div>
 

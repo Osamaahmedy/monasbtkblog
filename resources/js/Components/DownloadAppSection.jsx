@@ -212,9 +212,9 @@ const DownloadAppSection = ({ lang }) => {
                 animate={{ y: [0, -8, 0] }}
                 transition={{ repeat: Infinity, duration: 4.2, ease: "easeInOut" }}
                 style={{ willChange: "transform" }}
-                className={`absolute top-16 ${isRtl ? 'right-0 sm:right-6' : 'left-0 sm:left-6'} px-4 py-2.5 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md shadow-lg flex items-center gap-2 z-20 cursor-pointer select-none`}
+                className={`absolute top-8 sm:top-16 ${isRtl ? 'right-2 sm:right-6' : 'left-2 sm:left-6'} px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl bg-white/10 border border-white/10 backdrop-blur-md shadow-lg flex items-center gap-2 z-20 cursor-pointer select-none scale-90 sm:scale-100`}
               >
-                <span className="text-lg">⭐</span>
+                <span className="text-base sm:text-lg">⭐</span>
                 <span className={`text-xs font-bold text-white ${isRtl ? 'font-mikhak-bold' : 'font-outfit'}`}>
                   {isRtl ? '٤.٩ تقييم مستخدمين' : '4.9 Rating'}
                 </span>
@@ -225,13 +225,10 @@ const DownloadAppSection = ({ lang }) => {
               <motion.div
                 className="relative"
                 style={{ willChange: "transform" }}
-                animate={{ y: [0, -12, 0], rotate: [-3, -6, -3] }}
-                transition={{
-                  y: { repeat: Infinity, duration: 4, ease: 'easeInOut' },
-                  rotate: { repeat: Infinity, duration: 6, ease: 'easeInOut' }
-                }}
+                animate={{ y: [0, -8, 0] }}
+                transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}
               >
-                <div className="scale-[0.8] xs:scale-[0.85] sm:scale-95 md:scale-100 origin-center">
+                <div className="scale-[0.68] xs:scale-[0.78] sm:scale-95 md:scale-100 origin-center">
                   <PhoneFrame imgSrc="/images/providers1.jpeg" />
                 </div>
               </motion.div>
@@ -240,13 +237,10 @@ const DownloadAppSection = ({ lang }) => {
               <motion.div
                 className="relative"
                 style={{ willChange: "transform" }}
-                animate={{ y: [0, 12, 0], rotate: [3, 6, 3] }}
-                transition={{
-                  y: { repeat: Infinity, duration: 5, ease: 'easeInOut' },
-                  rotate: { repeat: Infinity, duration: 7, ease: 'easeInOut' }
-                }}
+                animate={{ y: [0, 8, 0] }}
+                transition={{ repeat: Infinity, duration: 5, ease: 'easeInOut' }}
               >
-                <div className="scale-[0.8] xs:scale-[0.85] sm:scale-95 md:scale-100 origin-center">
+                <div className="scale-[0.68] xs:scale-[0.78] sm:scale-95 md:scale-100 origin-center">
                   <PhoneFrame imgSrc="/images/providers2.jpeg" />
                 </div>
               </motion.div>

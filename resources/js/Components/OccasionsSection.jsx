@@ -65,32 +65,8 @@ const OccasionsSection = ({ lang }) => {
             <div className="absolute inset-0 bg-[radial-gradient(rgba(121,75,199,0.03)_1.5px,transparent_1.5px)] [background-size:24px_24px] pointer-events-none" />
 
             <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-                <motion.div
-                    className="absolute top-1/4 left-1/4 w-80 h-80 bg-primary/5 rounded-full filter blur-3xl"
-                    style={{ willChange: "transform" }}
-                    animate={{
-                        x: [0, 40, 0],
-                        y: [0, 20, 0],
-                    }}
-                    transition={{
-                        repeat: Infinity,
-                        duration: 12,
-                        ease: "easeInOut"
-                    }}
-                />
-                <motion.div
-                    className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/5 rounded-full filter blur-3xl"
-                    style={{ willChange: "transform" }}
-                    animate={{
-                        x: [0, -40, 0],
-                        y: [0, -20, 0],
-                    }}
-                    transition={{
-                        repeat: Infinity,
-                        duration: 14,
-                        ease: "easeInOut"
-                    }}
-                />
+                <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-primary/5 rounded-full filter blur-3xl animate-slow-glow" />
+                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/5 rounded-full filter blur-3xl animate-slow-glow" style={{ animationDelay: '2s' }} />
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -247,6 +223,7 @@ const OccasionsSection = ({ lang }) => {
                                             className="h-10 w-10 sm:h-12 sm:w-12 object-contain transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3"
                                             src={occasion.icon}
                                             alt={t[occasion.key]}
+                                            loading="lazy"
                                         />
                                     </div>
                                     <h3 className={`text-sm sm:text-base font-bold text-slate-700 group-hover:text-primary transition-colors duration-300 ${isRtl ? 'font-mikhak-medium' : 'font-outfit'}`}>

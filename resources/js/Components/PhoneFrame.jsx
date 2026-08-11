@@ -14,19 +14,20 @@ export default function PhoneFrame({ imgSrc, alt = 'App Screen', className = '' 
             <div className="absolute -inset-4 rounded-[2.5rem] bg-[#9B59B6]/20 blur-2xl" />
 
             {/* Device body */}
-            <div className="relative border-[6px] md:border-[8px] border-gray-900 bg-gray-950 rounded-[2.4rem] md:rounded-[2.9rem] h-[430px] sm:h-[470px] md:h-[540px] lg:h-[600px] w-[200px] sm:w-[225px] md:w-[255px] lg:w-[285px] shadow-[0_20px_60px_rgba(0,0,0,0.35)] overflow-visible">
+            <div className="relative border-[5px] sm:border-[6px] md:border-[8px] border-gray-900 bg-gray-950 rounded-[2.2rem] sm:rounded-[2.4rem] md:rounded-[2.9rem] h-[380px] xs:h-[420px] sm:h-[470px] md:h-[540px] lg:h-[600px] w-[180px] xs:w-[200px] sm:w-[225px] md:w-[255px] lg:w-[285px] shadow-[0_20px_50px_rgba(0,0,0,0.3)] overflow-visible">
 
                 {/* Side buttons */}
-                <div className="absolute -right-[9px] md:-right-[11px] top-[118px] md:top-[132px] h-[44px] w-[3px] rounded-l-full bg-gray-800" />
-                <div className="absolute -left-[9px] md:-left-[11px] top-[72px] md:top-[82px] h-[26px] w-[3px] rounded-r-full bg-gray-800" />
-                <div className="absolute -left-[9px] md:-left-[11px] top-[108px] md:top-[118px] h-[26px] w-[3px] rounded-r-full bg-gray-800" />
+                <div className="absolute -right-[7px] md:-right-[11px] top-[100px] md:top-[132px] h-[38px] md:h-[44px] w-[3px] rounded-l-full bg-gray-800" />
+                <div className="absolute -left-[7px] md:-left-[11px] top-[60px] md:top-[82px] h-[22px] md:h-[26px] w-[3px] rounded-r-full bg-gray-800" />
+                <div className="absolute -left-[7px] md:-left-[11px] top-[90px] md:top-[118px] h-[22px] md:h-[26px] w-[3px] rounded-r-full bg-gray-800" />
 
                 {/* Screen */}
-                <div className="relative z-10 h-full w-full overflow-hidden rounded-[2rem] md:rounded-[2.5rem] bg-black">
+                <div className="relative z-10 h-full w-full overflow-hidden rounded-[1.8rem] sm:rounded-[2rem] md:rounded-[2.5rem] bg-black">
                     {imgSrc ? (
                         <img
                             src={imgSrc}
                             alt={alt}
+                            loading="lazy"
                             className="h-full w-full object-cover object-top"
                         />
                     ) : (
