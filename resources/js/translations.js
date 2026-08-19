@@ -15,7 +15,7 @@ export const translations = {
         },
         about: {
             title: 'About Us',
-            description: 'Monasbtk is a Saudi startup that leverages technology to provide smart solutions for organizing events and occasions.\n We believe that planning a special occasion shouldn’t be complicated. That’s why we designed the “Monasbtk” app to be an easy and efficient tool that helps users save time and effort, while seamlessly connecting them with the best service providers.\n Founded in early 2024, our company aims to revolutionize the event planning sector by offering innovative and comprehensive solutions tailored to the needs of the local market, while also supporting entrepreneurs in this field.',
+            description: 'Monasbtk is a Saudi event tech startup aiming to make organizing your occasion easier, faster, and more beautiful.\nThrough our platform, we help you discover the best event service providers, compare options, and access everything you need in one place.\nWe believe event planning shouldn’t be complicated; that’s why we designed Monasbtk to save time and effort, helping you choose the right services with confidence.\nLaunched in 2024, our company strives to deliver an innovative experience tailored to the Saudi market, elevate the event sector, and support service providers and entrepreneurs in this field.\nMonasbtk… Make Your Occasion Shine ✨',
         },
         occasions: {
             title: 'Explore Our Occasions',
@@ -419,7 +419,7 @@ export const translations = {
         },
         about: {
             title: 'من نحن',
-            description: '"مناسبتك" هي شركة سعودية ناشئة تعتمد على التكنولوجيا، متخصصة في تقديم حلول ذكية لتنظيم المناسبات والفعاليات.\nنؤمن بأن التخطيط لمناسبة مميزة لا يجب أن يكون معقدًا، ولهذا صممنا تطبيق "مناسبتك" ليكون أداة سهلة وفعالة تساعد العملاء على توفير الوقت والجهد، والوصول إلى أفضل مزودي الخدمات بكل سلاسة.\nتأسست الشركة بداية عام 2024، ونسعى لإحداث نقلة نوعية في قطاع تنظيم المناسبات من خلال حلول مبتكرة وشاملة تواكب احتياجات السوق المحلي وتدعم رواد الأعمال في هذا المجال.',
+            description: 'مناسبتك شركة سعودية ناشئة في مجال تقنيات المناسبات، نهدف إلى جعل تنظيم مناسبتك أسهل، أسرع، وأجمل.\nمن خلال منصتنا، نساعدك على اكتشاف أفضل مزودي خدمات المناسبات، مقارنة الخيارات، والوصول إلى كل ما تحتاجه في مكان واحد.\nنؤمن أن تنظيم المناسبة ما يحتاج يكون معقّد؛ لذلك صممنا مناسبتك لتوفير الوقت والجهد، ومساعدتك على اختيار الخدمات المناسبة بثقة.\nانطلقت الشركة في عام 2024، ونسعى إلى تقديم تجربة مبتكرة تواكب احتياجات السوق السعودي، وترتقي بقطاع المناسبات، وتدعم مزودي الخدمات ورواد الأعمال في هذا المجال.\nمناسبتك… تبيّض وجهك ✨',
         },
         occasions: {
             title: 'اكتشف مناسباتنا',

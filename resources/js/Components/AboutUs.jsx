@@ -19,7 +19,13 @@ const AboutUs = ({ lang }) => {
                 >
                     <img src={monasbtkLogo} alt="Monasbtk Logo" className="h-32 w-32 mx-auto mb-8" />
                     <h2 className="text-4xl font-bold text-white mb-6 font-mikhak-bold">{t.title}</h2>
-                    <p className="text-lg text-gray-300 leading-relaxed font-mikhak-regular">{t.description}</p>
+                    <div className="space-y-4 text-lg text-gray-300 leading-relaxed font-mikhak-regular text-center">
+                        {t.description.split('\n').map((paragraph, index) => (
+                            <p key={index} className={index === t.description.split('\n').length - 1 ? "font-bold text-white text-xl pt-2" : ""}>
+                                {paragraph}
+                            </p>
+                        ))}
+                    </div>
                 </motion.div>
             </div>
         </section>

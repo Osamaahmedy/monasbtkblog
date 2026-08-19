@@ -175,11 +175,11 @@ const Hero = ({ lang }) => {
                     {isRtl ? (
                         <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-[1.15] font-mikhak-bold">
                             <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-300 bg-clip-text text-transparent">مناسبتك</span>
-                            <span className="text-white block sm:inline">… حنا نخلدها لك</span>
+                            <span className="text-white block sm:inline">… تبيّض وجهك</span>
                         </h1>
                     ) : (
                         <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-[1.15] font-outfit tracking-tight">
-                            <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-300 bg-clip-text text-transparent">Beautiful memories</span> <br className="hidden lg:block" /> at your fingertips
+                            <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-300 bg-clip-text text-transparent">Make Your Occasion</span> <br className="hidden lg:block" /> Shine
                         </h1>
                     )}
                 </motion.div>
