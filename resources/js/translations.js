@@ -9,7 +9,7 @@ export const translations = {
             blog: 'Blog',
         },
         hero: {
-            title: 'Beautiful memories at your fingertips',
+            title: 'Make Your Occasion Shine',
             subtitle: 'Your one-stop destination for every occasion.',
             download: 'Download our App',
         },
@@ -413,7 +413,7 @@ export const translations = {
             blog: 'المدونة',
         },
         hero: {
-            title: 'مناسبتك… حنا نخلدها لك',
+            title: 'مناسبتك… تبيّض وجهك',
             subtitle: 'وجهتك الوحيدة لكل مناسبة.',
             download: 'حمل تطبيقنا',
         },
