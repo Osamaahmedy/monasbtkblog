@@ -9,6 +9,7 @@ const Header = ({ lang, toggleLanguage }) => {
     const t = translations[lang];
 
     const navLinks = [
+        { name: t.nav.customerApp, href: '/start' },
         { name: t.nav.categories, href: '/#occasions-section' },
         { name: t.nav.shops, href: '/#occasion-offers-section' },
         { name: t.nav.features, href: '/#features-section' },

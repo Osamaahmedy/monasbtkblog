@@ -20,4 +20,9 @@ class PageController extends Controller
     {
         return Inertia::render('Static/ContactUs');
     }
+
+    public function start()
+    {
+        return Inertia::render('CustomerApp');
+    }
 }

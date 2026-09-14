@@ -197,20 +197,26 @@ const Hero = ({ lang }) => {
                     <p className={`text-xs font-semibold text-white/75 uppercase tracking-widest ${isRtl ? 'font-mikhak-medium' : 'font-outfit'}`}>
                         {t.hero.download}
                     </p>
-                    <div className="flex flex-wrap justify-center md:justify-start gap-4">
+                    <div className="flex flex-wrap items-center justify-center md:justify-start gap-3.5">
                         <StoreButton
-                            href="https://apps.apple.com/sa/app/monasbtk/id6755626634"
+                            href="https://apps.apple.com/sa/app/monasbtk-%D9%85%D9%86%D8%A7%D8%B3%D8%A8%D8%AA%D9%83/id6755626634"
                             icon={<AppleIcon />}
                             topLabel={isRtl ? 'تحميل من' : 'Download on the'}
                             bottomLabel="App Store"
                         />
-                        <StoreButton
-                            href="#"
-                            icon={<GooglePlayIcon />}
-                            topLabel={isRtl ? 'قريباً على' : 'Coming soon on'}
-                            bottomLabel="Google Play"
-                            isComingSoon={true}
-                        />
+                        <motion.a
+                            href="/start"
+                            whileHover={{ scale: 1.04, y: -2 }}
+                            whileTap={{ scale: 0.96 }}
+                            className="relative flex items-center justify-center gap-2 px-5 py-3.5 rounded-2xl bg-white/[0.08] hover:bg-white/[0.14] border border-white/20 text-white text-sm font-semibold backdrop-blur-md shadow-lg transition-all select-none"
+                        >
+                            <span className={isRtl ? 'font-mikhak-medium' : 'font-outfit'}>
+                                {t.hero.exploreApp || (isRtl ? 'تطبيق مناسبتك' : 'Explore Customer App')}
+                            </span>
+                            <svg className={`w-4 h-4 transition-transform ${isRtl ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                            </svg>
+                        </motion.a>
                     </div>
                 </motion.div>
 
