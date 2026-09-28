@@ -39,6 +39,7 @@ Route::post('/blog/{article}/comments', [CommentController::class, 'store'])->na
 Route::get('/start', [PageController::class, 'start'])->name('pages.start');
 Route::get('/privacy-policy', [\App\Http\Controllers\PageController::class, 'privacyPolicy'])->name('pages.privacy');
 Route::get('/about-us', [\App\Http\Controllers\PageController::class, 'aboutUs'])->name('pages.about');
+Route::get('/delete-account', [\App\Http\Controllers\PageController::class, 'deleteAccount'])->name('pages.delete-account');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard', [
@@ -84,7 +85,7 @@ Route::get('/sitemap.xml', function () {
     $content .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 
     // Static pages
-    $staticPages = ['/', '/start', '/blog', '/privacy-policy', '/about-us', '/contact-us'];
+    $staticPages = ['/', '/start', '/blog', '/privacy-policy', '/about-us', '/contact-us', '/delete-account'];
     foreach ($staticPages as $page) {
         $content .= '<url>';
         $content .= '<loc>' . url($page) . '</loc>';

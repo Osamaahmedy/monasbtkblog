@@ -25,4 +25,9 @@ class PageController extends Controller
     {
         return Inertia::render('CustomerApp');
     }
+
+    public function deleteAccount()
+    {
+        return Inertia::render('Static/DeleteAccount');
+    }
 }

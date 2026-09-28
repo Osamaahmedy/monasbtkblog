@@ -186,6 +186,7 @@ export const translations = {
             copyright: "All rights reserved Monasbtk",
             bottomLinks: [
                 { text: "Privacy Policy", url: "/privacy-policy" },
+                { text: "Delete Account", url: "/delete-account" },
                 { text: "About Us", url: "/about-us" },
                 { text: "Contact Us", url: "/contact-us" }
             ]
@@ -800,6 +801,7 @@ export const translations = {
             copyright: "جميع الحقوق محفوظة لمناسبتك",
             bottomLinks: [
                 { text: "سياسة الخصوصية", url: "/privacy-policy" },
+                { text: "حذف الحساب", url: "/delete-account" },
                 { text: "من نحن", url: "/about-us" },
                 { text: "اتصل بنا", url: "/contact-us" }
             ]
