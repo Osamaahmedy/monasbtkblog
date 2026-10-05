@@ -193,11 +193,10 @@ const Footer = ({ lang }) => {
                   bottomLabel="App Store"
                 />
                 <StoreButton
-                  href="#"
+                  href="https://play.google.com/store/apps/details?id=com.monasbtk.app&hl=en"
                   icon={<GooglePlayIcon />}
-                  topLabel={isRTL ? 'قريباً على' : 'Coming soon on'}
+                  topLabel={isRTL ? 'تحميل من' : 'Get it on'}
                   bottomLabel="Google Play"
-                  isComingSoon
                 />
               </div>
             </div>

@@ -127,7 +127,7 @@ const DownloadAppSection = ({ lang }) => {
               <span className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/95 text-xs font-semibold backdrop-blur-md shadow-inner select-none">
                 <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
                 <span className={isRtl ? 'font-mikhak-medium' : 'font-outfit'}>
-                  {isRtl ? 'متاح الآن على متجر التطبيقات' : 'Now Live on App Store'}
+                  {isRtl ? 'متاح الآن على App Store و Google Play' : 'Now Live on App Store & Google Play'}
                 </span>
               </span>
             </motion.div>
@@ -162,11 +162,11 @@ const DownloadAppSection = ({ lang }) => {
                   isRtl={isRtl}
                 />
                 <StoreButton
-                  href="#"
+                  href="https://play.google.com/store/apps/details?id=com.monasbtk.app&hl=en"
                   icon={<GooglePlayIcon />}
-                  topLabel={isRtl ? 'قريباً على' : 'Coming soon on'}
+                  topLabel={isRtl ? 'تحميل من' : 'Get it on'}
                   bottomLabel="Google Play"
-                  isComingSoon={true}
+                  isComingSoon={false}
                   isRtl={isRtl}
                 />
               </div>

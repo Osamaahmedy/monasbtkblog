@@ -197,6 +197,7 @@ export default function CustomerApp() {
     };
 
     const APP_STORE_URL = "https://apps.apple.com/sa/app/monasbtk-%D9%85%D9%86%D8%A7%D8%B3%D8%A8%D8%AA%D9%83/id6755626634";
+    const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.monasbtk.app&hl=en";
     const PROVIDER_REGISTER_URL = "https://monasbatech.os-sphere.com/providers/register";
 
     // Occasions list with official vector SVGs
@@ -304,11 +305,10 @@ export default function CustomerApp() {
                                         bottomLabel="App Store"
                                     />
                                     <StoreButton
-                                        href="#"
+                                        href={PLAY_STORE_URL}
                                         icon={<GooglePlayIcon />}
-                                        topLabel={isRtl ? 'قريباً على' : 'Coming soon on'}
+                                        topLabel={isRtl ? 'تحميل من' : 'Get it on'}
                                         bottomLabel="Google Play"
-                                        isComingSoon={true}
                                     />
                                 </div>
 
@@ -814,11 +814,10 @@ export default function CustomerApp() {
                                         bottomLabel="App Store"
                                     />
                                     <StoreButton
-                                        href="#"
+                                        href={PLAY_STORE_URL}
                                         icon={<GooglePlayIcon />}
-                                        topLabel={isRtl ? 'قريباً على' : 'Coming soon on'}
+                                        topLabel={isRtl ? 'تحميل من' : 'Get it on'}
                                         bottomLabel="Google Play"
-                                        isComingSoon={true}
                                     />
                                 </div>
                             </div>

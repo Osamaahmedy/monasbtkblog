@@ -165,7 +165,7 @@ const Hero = ({ lang }) => {
                         </span>
 
                         <span className="tracking-wide text-white/90">
-                            {isRtl ? 'متاح الآن على App Store' : 'Now live on the App Store'}
+                            {isRtl ? 'متاح الآن على App Store و Google Play' : 'Now live on App Store & Google Play'}
                         </span>
                     </span>
                 </motion.div>
@@ -203,6 +203,12 @@ const Hero = ({ lang }) => {
                             icon={<AppleIcon />}
                             topLabel={isRtl ? 'تحميل من' : 'Download on the'}
                             bottomLabel="App Store"
+                        />
+                        <StoreButton
+                            href="https://play.google.com/store/apps/details?id=com.monasbtk.app&hl=en"
+                            icon={<GooglePlayIcon />}
+                            topLabel={isRtl ? 'تحميل من' : 'Get it on'}
+                            bottomLabel="Google Play"
                         />
                         <motion.a
                             href="/start"
