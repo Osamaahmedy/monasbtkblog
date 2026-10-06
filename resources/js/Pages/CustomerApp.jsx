@@ -262,7 +262,7 @@ export default function CustomerApp() {
                     {/* Customer App Hero Presentation */}
                     <div className="pt-12 pb-20 lg:pt-16 lg:pb-28">
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-                            
+
                             {/* Text Column (7 cols) */}
                             <div className="lg:col-span-7 text-center lg:text-start space-y-6">
                                 {/* Live Status Badge */}
@@ -329,8 +329,7 @@ export default function CustomerApp() {
                                         <div className="text-[11px] text-white/80">{isRtl ? 'مزود خدمة معتمد' : 'Verified Vendors'}</div>
                                     </div>
                                     <div className="p-3 rounded-2xl bg-white/[0.05] border border-white/10 backdrop-blur-sm text-center">
-                                        <div className="text-white text-base font-bold mb-1 font-mikhak-bold">+20</div>
-                                        <div className="text-[11px] text-white/80">{isRtl ? 'مدينة بالمملكة' : 'Saudi Cities'}</div>
+                                        <div className="text-white text-base font-bold mb-1 font-mikhak-bold">{isRtl ? 'جدة الغربية' : 'Western Jeddah'}</div>
                                     </div>
                                 </div>
                             </div>
